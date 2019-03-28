@@ -115,7 +115,7 @@ public class Controller implements Initializable {
         mediaPlayer.setVolume(0.1);
     }
 
-    //TODO do zmiany
+    //TODO do zmiany wraz z poprzednim TODO /\
     ObservableList<RankTablePlayers> observableList = FXCollections.observableArrayList(
             new RankTablePlayers(1, "MatekBezGatek69", 69),
             new RankTablePlayers(2, "Bou_Morderca", 35),
