@@ -239,7 +239,7 @@
                <center>
                   <StackPane minHeight="150.0" minWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="banerPaneImage" prefHeight="500.0" prefWidth="800.0">
+                        <AnchorPane fx:id="banerPaneImage" prefHeight="500.0" prefWidth="800.0" visible="false">
                            <children>
                               <ImageView fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -251,7 +251,7 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="statsInvPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" visible="false">
+                        <AnchorPane fx:id="statsInvPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
                            <children>
                               <Label cacheShape="false" centerShape="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" scaleShape="false">
                                  <graphic>
@@ -623,7 +623,7 @@
                                     <Tooltip text="Hełm" />
                                  </tooltip>
                               </Button>
-                              <Label cacheShape="false" centerShape="false" focusTraversable="false" layoutX="147.0" layoutY="64.0" scaleShape="false">
+                              <Label cacheShape="false" centerShape="false" focusTraversable="false" layoutX="147.0" layoutY="64.0" scaleShape="false" scaleY="0.85">
                                  <graphic>
                                     <ImageView fx:id="headShowImage" fitHeight="152.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -647,7 +647,7 @@
                                     <Tooltip text="Klata" />
                                  </tooltip>
                               </Button>
-                              <Label cacheShape="false" centerShape="false" focusTraversable="false" layoutX="150.0" layoutY="257.0" scaleShape="false">
+                              <Label cacheShape="false" centerShape="false" focusTraversable="false" layoutX="149.0" layoutY="257.0" scaleShape="false" scaleX="1.1">
                                  <graphic>
                                     <ImageView fx:id="shoesShowImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -739,6 +739,15 @@
                                     <ImageView fx:id="weaponOneShowImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/weapons/Miecz1_Pusty_Gif.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <Label layoutX="173.0" layoutY="259.0">
+                                 <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/characters/Palce_Gif3.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
