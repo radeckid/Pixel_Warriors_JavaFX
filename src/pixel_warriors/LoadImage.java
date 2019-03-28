@@ -9,7 +9,11 @@ public class LoadImage {
     private int id;
 
     public LoadImage(String path, String name, int id) {
-        image = new Image(this.getClass().getResource("images/" + path).toString());
+        if (path.equals("NULL")) {
+            image = new Image(this.getClass().getResource("images\\etc\\empty_slot.gif").toString());
+        } else {
+            image = new Image(this.getClass().getResource("images\\" + path).toString());
+        }
         this.name = name;
         this.id = id;
     }
@@ -19,7 +23,7 @@ public class LoadImage {
     }
 
     public void setImage(String path) {
-        image = new Image(this.getClass().getResource("images/" + path).toString());
+        image = new Image(this.getClass().getResource("images\\" + path).toString());
     }
 
     public String getName() {
