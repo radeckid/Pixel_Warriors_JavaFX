@@ -204,8 +204,6 @@ public class Controller implements Initializable {
             authorsPane.setVisible(false);
             banerPaneImage.setVisible(false);
             statsInvPane.setVisible(false);
-
-
             rankPane.setVisible(true);
         }
     }
@@ -216,15 +214,15 @@ public class Controller implements Initializable {
 
             loginDialog.pStage.close();
             userNameLabel.setText("Zalogowano: NULL");
+            lvl_Indicator.setText("NULL");
             loginDialog.makeLoginDialog();
         }
 
         if (event.getSource().equals(authorsBtn)) {
-            invPane.setVisible(false);
+            statsInvPane.setVisible(false);
             tavernPane.setVisible(false);
             rankPane.setVisible(false);
             banerPaneImage.setVisible(false);
-            statsPane.setVisible(false);
             authorsPane.setVisible(true);
         }
 
