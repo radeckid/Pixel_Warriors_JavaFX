@@ -187,7 +187,6 @@ public class Controller implements Initializable {
             tavernImage.setImage(image_non_quest);
             imageFlag = true;
 
-
             tavernPane.setVisible(false);
             rankPane.setVisible(false);
             authorsPane.setVisible(false);
@@ -254,8 +253,6 @@ public class Controller implements Initializable {
         }
 
         if (event.getSource().equals(jaweleryBtn)) {
-            slotJeweleryImg.setImage(invBackpackMap.get(1).getImage());
-            slot_1_img.setImage(charWearedStuff.get(5).getImage());
         }
 
         if (event.getSource().equals(weaponOneBtn)) {
@@ -264,13 +261,10 @@ public class Controller implements Initializable {
         if (event.getSource().equals(weaponTwoBtn)) {
         }
 
-
         if (event.getSource().equals(glovesBtn)) {
         }
 
         if (event.getSource().equals(slot_1)) {
-            slot_1_img.setImage(invBackpackMap.get(1).getImage());
-            slotJeweleryImg.setImage(charWearedStuff.get(5).getImage());
         }
 
         if (event.getSource().equals(slot_2)) {
