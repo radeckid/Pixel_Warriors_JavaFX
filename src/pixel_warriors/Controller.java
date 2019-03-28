@@ -29,7 +29,9 @@ public class Controller implements Initializable {
 
     private EventHandler<MouseEvent> eventHandler;
     private LoginDialog loginDialog = new LoginDialog();
-    private Map<Integer, BackpackSlot> invBackpackMap = new HashMap<Integer, BackpackSlot>();
+    private Map<Integer, LoadImage> invBackpackMap = new HashMap<Integer, LoadImage>();
+    private Map<Integer, LoadImage> charWearedStuff = new HashMap<Integer, LoadImage>();
+    private BackpackSlot backpackSlot = new BackpackSlot();
 
     //top bar
     @FXML
@@ -60,10 +62,16 @@ public class Controller implements Initializable {
     private Button weaponOneBtn, weaponTwoBtn, jaweleryBtn, glovesBtn, headBtn, chestBtn, legsBtn, shoesBtn;
     @FXML
     private Button slot_1, slot_2, slot_3, slot_4, slot_5, slot_6, slot_7, slot_8, slot_9, slot_10, slot_11, slot_12;
+    @FXML
+    private ImageView slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img;
 
     //stats and inv character visual
     @FXML
     private ImageView weaponOneShowImage, weaponTwoShowImage, headShowImage, chestShowImage, legsShowImage, shoesShowImage;
+
+    //weared stuff images
+    @FXML
+    private ImageView slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg;
 
     //tavern panel
     @FXML
@@ -98,7 +106,8 @@ public class Controller implements Initializable {
         image_non_quest = new LoadImage("background/tavern.gif", "quest_no", 2).getImage();
         image_speak = new LoadImage("background/tavern_speak.gif", "quest_speak", 3).getImage();
 
-
+        invBackpackMap = backpackSlot.getInvBackpackMap();
+        charWearedStuff = backpackSlot.getWearedStuff();
 
         //for rank table //TODO potrzebna zmiana by wczytytywały się dane z bazy
         colNr.setCellValueFactory(new PropertyValueFactory<>("PlayerId"));
@@ -234,18 +243,6 @@ public class Controller implements Initializable {
     @FXML
     void inventoryStatsButtons(ActionEvent event) {
 
-        if (event.getSource().equals(weaponOneBtn)) {
-        }
-
-        if (event.getSource().equals(weaponTwoBtn)) {
-        }
-
-        if (event.getSource().equals(jaweleryBtn)) {
-        }
-
-        if (event.getSource().equals(glovesBtn)) {
-        }
-
         if (event.getSource().equals(headBtn)) {
         }
 
@@ -258,7 +255,24 @@ public class Controller implements Initializable {
         if (event.getSource().equals(shoesBtn)) {
         }
 
+        if (event.getSource().equals(jaweleryBtn)) {
+            slotJeweleryImg.setImage(invBackpackMap.get(1).getImage());
+            slot_1_img.setImage(charWearedStuff.get(5).getImage());
+        }
+
+        if (event.getSource().equals(weaponOneBtn)) {
+        }
+
+        if (event.getSource().equals(weaponTwoBtn)) {
+        }
+
+
+        if (event.getSource().equals(glovesBtn)) {
+        }
+
         if (event.getSource().equals(slot_1)) {
+            slot_1_img.setImage(invBackpackMap.get(1).getImage());
+            slotJeweleryImg.setImage(charWearedStuff.get(5).getImage());
         }
 
         if (event.getSource().equals(slot_2)) {

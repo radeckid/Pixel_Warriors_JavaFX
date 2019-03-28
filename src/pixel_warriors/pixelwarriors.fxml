@@ -239,7 +239,7 @@
                <center>
                   <StackPane minHeight="150.0" minWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="banerPaneImage" prefHeight="500.0" prefWidth="800.0" visible="false">
+                        <AnchorPane fx:id="banerPaneImage" prefHeight="500.0" prefWidth="800.0">
                            <children>
                               <ImageView fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -271,7 +271,7 @@
                                     </Label>
                                     <Button fx:id="slot_1" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="68.0" layoutY="70.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_1">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_1_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -286,7 +286,7 @@
                                     </Button>
                                     <Button fx:id="slot_2" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="157.0" layoutY="70.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_2">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_2_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -301,7 +301,7 @@
                                     </Button>
                                     <Button fx:id="slot_3" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="246.0" layoutY="70.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_3">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_3_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -316,7 +316,7 @@
                                     </Button>
                                     <Button fx:id="slot_4" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="68.0" layoutY="159.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_4">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_4_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -331,7 +331,7 @@
                                     </Button>
                                     <Button fx:id="slot_5" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="157.0" layoutY="159.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_5">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_5_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -346,7 +346,7 @@
                                     </Button>
                                     <Button fx:id="slot_6" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="246.0" layoutY="159.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_6">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_6_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -361,7 +361,7 @@
                                     </Button>
                                     <Button fx:id="slot_7" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="68.0" layoutY="248.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_7">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_7_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -376,7 +376,7 @@
                                     </Button>
                                     <Button fx:id="slot_8" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="157.0" layoutY="248.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_8">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_8_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -391,7 +391,7 @@
                                     </Button>
                                     <Button fx:id="slot_9" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="246.0" layoutY="248.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_9">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_9_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -406,7 +406,7 @@
                                     </Button>
                                     <Button fx:id="slot_10" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="68.0" layoutY="337.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_10">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_10_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -421,7 +421,7 @@
                                     </Button>
                                     <Button fx:id="slot_11" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="157.0" layoutY="337.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_11">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_11_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -436,7 +436,7 @@
                                     </Button>
                                     <Button fx:id="slot_12" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="246.0" layoutY="337.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="89.0" prefWidth="89.0" scaleShape="false" text="slot_12">
                                        <graphic>
-                                          <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="slot_12_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
                                                 <Image url="@images/etc/empty_slot.gif" />
                                              </image>
@@ -610,7 +610,7 @@
                               </Button>
                               <Button fx:id="headBtn" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="14.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="99.0" prefWidth="99.0" scaleShape="false" text="head">
                                  <graphic>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                    <ImageView fx:id="slotHeadImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
                                           <Image url="@images/armors/Helm2_Gif.gif" />
                                        </image>
@@ -634,7 +634,7 @@
                               </Label>
                               <Button fx:id="chestBtn" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="14.0" layoutY="120.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="99.0" prefWidth="99.0" scaleShape="false" text="chest">
                                  <graphic>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                    <ImageView fx:id="slotChestImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
                                           <Image url="@images/armors/Zbroja2_Gif.gif" />
                                        </image>
@@ -647,20 +647,20 @@
                                     <Tooltip text="Klata" />
                                  </tooltip>
                               </Button>
-                              <Label cacheShape="false" centerShape="false" focusTraversable="false" layoutX="138.0" layoutY="255.0" scaleShape="false">
+                              <Label cacheShape="false" centerShape="false" focusTraversable="false" layoutX="150.0" layoutY="257.0" scaleShape="false">
                                  <graphic>
                                     <ImageView fx:id="shoesShowImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/armors/Buty2_Pusty_Gif.gif" />
+                                          <Image url="@images/armors/Buty1_Pusty_Gif.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Label>
-                              <Label cacheShape="false" centerShape="false" focusTraversable="false" layoutX="139.0" layoutY="202.0" scaleShape="false">
+                              <Label cacheShape="false" centerShape="false" focusTraversable="false" layoutX="141.0" layoutY="208.0" scaleShape="false">
                                  <graphic>
-                                    <ImageView fx:id="legsShowImage" fitHeight="170.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="legsShowImage" fitHeight="165.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/armors/Spodnie2_Pusty_Gif.gif" />
+                                          <Image url="@images/armors/Spodnie1_Pusty_Gif.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -676,9 +676,9 @@
                               </Label>
                               <Button fx:id="legsBtn" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="14.0" layoutY="226.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="99.0" prefWidth="99.0" scaleShape="false" text="legs">
                                  <graphic>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                    <ImageView fx:id="slotLegsImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/armors/Spodnie2_Gif.gif" />
+                                          <Image url="@images/armors/Spodnie1_Gif.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -691,9 +691,9 @@
                               </Button>
                               <Button fx:id="shoesBtn" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="14.0" layoutY="332.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="99.0" prefWidth="99.0" scaleShape="false" text="shoes">
                                  <graphic>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                    <ImageView fx:id="slotShoesImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/armors/Buty2_Gif.gif" />
+                                          <Image url="@images/armors/Buty1_Gif.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -706,7 +706,7 @@
                               </Button>
                               <Button fx:id="jaweleryBtn" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="321.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="99.0" prefWidth="99.0" scaleShape="false" text="jewelery">
                                  <graphic>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                    <ImageView fx:id="slotJeweleryImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
                                           <Image url="@images/jewelerys/Naszyjnik1_Gif.gif" />
                                        </image>
@@ -721,7 +721,7 @@
                               </Button>
                               <Button fx:id="weaponOneBtn" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="321.0" layoutY="120.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="99.0" prefWidth="99.0" scaleShape="false" text="weapon_One">
                                  <graphic>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                    <ImageView fx:id="slotWeaponOneImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
                                           <Image url="@images/weapons/Miecz1_Gif.gif" />
                                        </image>
@@ -745,7 +745,7 @@
                               </Label>
                               <Button fx:id="weaponTwoBtn" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="321.0" layoutY="226.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="99.0" prefWidth="99.0" scaleShape="false" text="weapon_Two">
                                  <graphic>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                    <ImageView fx:id="slotWeaponTwoImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
                                           <Image url="@images/weapons/Tarcza2_Gif.gif" />
                                        </image>
@@ -769,7 +769,7 @@
                               </Label>
                               <Button fx:id="glovesBtn" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" layoutX="321.0" layoutY="332.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#inventoryStatsButtons" prefHeight="99.0" prefWidth="99.0" scaleShape="false" text="gloves">
                                  <graphic>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                    <ImageView fx:id="slotGlovesImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
                                           <Image url="@images/armors/Rekawice2_Gif.gif" />
                                        </image>
@@ -834,7 +834,7 @@
                                  </effect>
                               </Button>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="rankPane" prefHeight="500.0" prefWidth="800.0">
+                        <AnchorPane fx:id="rankPane" prefHeight="500.0" prefWidth="800.0" visible="false">
                            <children>
                               <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
                                  <graphic>
