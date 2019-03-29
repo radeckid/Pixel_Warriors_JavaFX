@@ -33,7 +33,7 @@ public class BackpackSlot {
         wearedStuff.put(2, new LoadImage("etc\\empty_slot.gif", "chest", 2));
         wearedStuff.put(3, new LoadImage("etc\\empty_slot.gif", "legs", 3));
         wearedStuff.put(4, new LoadImage("etc\\empty_slot.gif", "shoes", 4));
-        wearedStuff.put(5, new LoadImage("jewelerys\\Naszyjnik1_Gif.gif", "jewelery", 5));
+        wearedStuff.put(5, new LoadImage("etc\\empty_slot.gif", "jewelery", 5));
         wearedStuff.put(6, new LoadImage("etc\\empty_slot.gif", "weapon_one", 6));
         wearedStuff.put(7, new LoadImage("etc\\empty_slot.gif", "weapon_two", 7));
         wearedStuff.put(8, new LoadImage("etc\\empty_slot.gif", "gloves", 8));
