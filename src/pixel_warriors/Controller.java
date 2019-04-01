@@ -243,63 +243,25 @@ public class Controller implements Initializable {
     void inventoryStatsButtons(ActionEvent event) {
 
         if (event.getSource().equals(headBtn)) {
-        }
-
-        if (event.getSource().equals(chestBtn)) {
-        }
-
-        if (event.getSource().equals(legsBtn)) {
-        }
-
-        if (event.getSource().equals(shoesBtn)) {
-        }
-
-        if (event.getSource().equals(jaweleryBtn)) {
-        }
-
-        if (event.getSource().equals(weaponOneBtn)) {
-        }
-
-        if (event.getSource().equals(weaponTwoBtn)) {
-        }
-
-        if (event.getSource().equals(glovesBtn)) {
-        }
-
-        if (event.getSource().equals(slot_1)) {
-        }
-
-        if (event.getSource().equals(slot_2)) {
-        }
-
-        if (event.getSource().equals(slot_3)) {
-        }
-
-        if (event.getSource().equals(slot_4)) {
-        }
-
-        if (event.getSource().equals(slot_5)) {
-        }
-
-        if (event.getSource().equals(slot_6)) {
-        }
-
-        if (event.getSource().equals(slot_7)) {
-        }
-
-        if (event.getSource().equals(slot_8)) {
-        }
-
-        if (event.getSource().equals(slot_9)) {
-        }
-
-        if (event.getSource().equals(slot_10)) {
-        }
-
-        if (event.getSource().equals(slot_11)) {
-        }
-
-        if (event.getSource().equals(slot_12)) {
+        } else if (event.getSource().equals(chestBtn)) {
+        } else if (event.getSource().equals(legsBtn)) {
+        } else if (event.getSource().equals(shoesBtn)) {
+        } else if (event.getSource().equals(jaweleryBtn)) {
+        } else if (event.getSource().equals(weaponOneBtn)) {
+        } else if (event.getSource().equals(weaponTwoBtn)) {
+        } else if (event.getSource().equals(glovesBtn)) {
+        } else if (event.getSource().equals(slot_1)) {
+        } else if (event.getSource().equals(slot_2)) {
+        } else if (event.getSource().equals(slot_3)) {
+        } else if (event.getSource().equals(slot_4)) {
+        } else if (event.getSource().equals(slot_5)) {
+        } else if (event.getSource().equals(slot_6)) {
+        } else if (event.getSource().equals(slot_7)) {
+        } else if (event.getSource().equals(slot_8)) {
+        } else if (event.getSource().equals(slot_9)) {
+        } else if (event.getSource().equals(slot_10)) {
+        } else if (event.getSource().equals(slot_11)) {
+        } else if (event.getSource().equals(slot_12)) {
         }
     }
 
@@ -323,7 +285,7 @@ public class Controller implements Initializable {
         }
     }
 
-    private void animTavernBoy(){
+    private void animTavernBoy() {
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
