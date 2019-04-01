@@ -28,9 +28,6 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     private LoginDialog loginDialog = new LoginDialog();
-    private Map<Integer, LoadImage> invBackpackMap = new HashMap<Integer, LoadImage>();
-    private Map<Integer, LoadImage> charWearedStuff = new HashMap<Integer, LoadImage>();
-    private BackpackSlot backpackSlot = new BackpackSlot();
 
     //top bar
     @FXML
@@ -50,7 +47,7 @@ public class Controller implements Initializable {
     private MediaPlayer mediaPlayer;
 
 
-    //stats  and inv panel
+    //stats and inv panel
     @FXML
     private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel,
             manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
@@ -107,9 +104,6 @@ public class Controller implements Initializable {
 
         //Animacja ruszania ustami taverna
         animTavernBoy();
-
-        invBackpackMap = backpackSlot.getInvBackpackMap();
-        charWearedStuff = backpackSlot.getWearedStuff();
 
         //for rank table //TODO potrzebna zmiana by wczytytywały się dane z bazy
         colNr.setCellValueFactory(new PropertyValueFactory<>("PlayerId"));
