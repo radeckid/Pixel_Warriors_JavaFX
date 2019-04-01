@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    private EventHandler<MouseEvent> eventHandler;
+    private EventHandler<MouseEvent> eventHandler, eventHandler2;
     private LoginDialog loginDialog = new LoginDialog();
     private Map<Integer, LoadImage> invBackpackMap = new HashMap<Integer, LoadImage>();
     private Map<Integer, LoadImage> charWearedStuff = new HashMap<Integer, LoadImage>();
@@ -106,6 +106,9 @@ public class Controller implements Initializable {
         image_non_quest = new LoadImage("background/tavern.gif", "quest_no", 2).getImage();
         image_speak = new LoadImage("background/tavern_speak.gif", "quest_speak", 3).getImage();
 
+        //Animacja ruszania ustami taverna
+        animTavernBoy();
+
         invBackpackMap = backpackSlot.getInvBackpackMap();
         charWearedStuff = backpackSlot.getWearedStuff();
 
@@ -126,7 +129,7 @@ public class Controller implements Initializable {
 
     //TODO do zmiany wraz z poprzednim TODO /\
     ObservableList<RankTablePlayers> observableList = FXCollections.observableArrayList(
-            new RankTablePlayers(1, "MatekBezGatek69", 69),
+            new RankTablePlayers(1, "Mateo_Kovacic", 83),
             new RankTablePlayers(2, "Bou_Morderca", 35),
             new RankTablePlayers(3, "DamyRade", 12),
             new RankTablePlayers(4, "Kogut97", 2)
@@ -321,8 +324,16 @@ public class Controller implements Initializable {
         }
     }
 
-    @FXML
-    void tavernPanelSpeak() {
+    private void animTavernBoy(){
+        eventHandler2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                if (imageFlag) {
+                    tavernImage.setImage(image_non_quest);
+                }
+            }
+        };
+        innkeeperBtn.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler2);
         eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -331,18 +342,7 @@ public class Controller implements Initializable {
                 }
             }
         };
-
         innkeeperBtn.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler);
-
-        eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                if (imageFlag) {
-                    tavernImage.setImage(image_non_quest);
-                }
-            }
-        };
-        innkeeperBtn.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler);
     }
 
     @FXML
