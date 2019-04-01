@@ -15,7 +15,6 @@
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.Glow?>
-<?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.effect.SepiaTone?>
@@ -920,31 +919,11 @@
                                  <font>
                                     <Font size="53.0" />
                                  </font>
-                                 <effect>
-                                    <Lighting>
-                                       <bumpInput>
-                                          <Reflection />
-                                       </bumpInput>
-                                       <light>
-                                          <Light.Distant />
-                                       </light>
-                                    </Lighting>
-                                 </effect>
                               </Label>
                               <Label alignment="CENTER" ellipsisString="" focusTraversable="false" layoutX="14.0" layoutY="452.0" text="Grupa 25INF-SP / B" textAlignment="CENTER">
                                  <font>
                                     <Font size="23.0" />
                                  </font>
-                                 <effect>
-                                    <Lighting>
-                                       <light>
-                                          <Light.Distant />
-                                       </light>
-                                       <bumpInput>
-                                          <Reflection />
-                                       </bumpInput>
-                                    </Lighting>
-                                 </effect>
                               </Label>
                            </children>
                         </AnchorPane>
