@@ -27,7 +27,6 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    private EventHandler<MouseEvent> eventHandler, eventHandler2;
     private LoginDialog loginDialog = new LoginDialog();
     private Map<Integer, LoadImage> invBackpackMap = new HashMap<Integer, LoadImage>();
     private Map<Integer, LoadImage> charWearedStuff = new HashMap<Integer, LoadImage>();
@@ -325,7 +324,7 @@ public class Controller implements Initializable {
     }
 
     private void animTavernBoy(){
-        eventHandler2 = new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 if (imageFlag) {
@@ -333,7 +332,7 @@ public class Controller implements Initializable {
                 }
             }
         };
-        innkeeperBtn.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler2);
+        innkeeperBtn.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler);
         eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
