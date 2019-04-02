@@ -236,7 +236,7 @@
                <center>
                   <StackPane minHeight="150.0" minWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="banerPaneImage" prefHeight="500.0" prefWidth="800.0" visible="false">
+                        <AnchorPane fx:id="banerPaneImage" prefHeight="500.0" prefWidth="800.0">
                            <children>
                               <ImageView fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -840,7 +840,7 @@
                                  </effect>
                               </Button>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="rankPane" prefHeight="500.0" prefWidth="800.0">
+                        <AnchorPane fx:id="rankPane" prefHeight="500.0" prefWidth="800.0" visible="false">
                            <children>
                               <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
                                  <graphic>
