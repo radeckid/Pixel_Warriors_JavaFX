@@ -744,7 +744,7 @@
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/armors/Palce_Gif3.gif" />
+                                          <Image url="@images/armors/PalceZelazo.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -851,7 +851,7 @@
                                     </ImageView>
                                  </graphic>
                               </Label>
-                              <TableView fx:id="tableRank" layoutX="25.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#rankingTableEnterKey" onMousePressed="#rankingTableMouse" opacity="0.9" prefHeight="460.0" prefWidth="337.0">
+                              <TableView fx:id="tableRank" layoutX="25.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#rankingTableEnterKey" onMousePressed="#rankingTableMouse" opacity="0.9" prefHeight="460.0" prefWidth="337.0" stylesheets="@css/rankTableScrollHorizontalOff.css">
                                 <columns>
                                     <TableColumn fx:id="colNr" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" style="-fx-font-size: 15;" text="Nr." />
                                   <TableColumn fx:id="colNick" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" sortable="false" style="-fx-font-size: 15;" text="Nick" />

@@ -114,7 +114,6 @@ public class Controller implements Initializable {
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setAutoPlay(true);
         mediaPlayer.setVolume(0.1);
     }
 
@@ -205,7 +204,7 @@ public class Controller implements Initializable {
     @FXML
     void bottomButtons(ActionEvent event) {
         if (event.getSource().equals(logoutBtn)) {
-
+            musicPlay(false);
             loginDialog.pStage.close();
             userNameLabel.setText("Zalogowano: NULL");
             lvl_Indicator.setText("NULL");
@@ -381,6 +380,12 @@ public class Controller implements Initializable {
         return true;
     }
 
+    public void musicPlay(boolean play) {
+        if (!play) {
+            mediaPlayer.stop();
+        }
+        mediaPlayer.setAutoPlay(play);
+    }
 
 }
 

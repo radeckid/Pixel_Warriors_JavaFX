@@ -92,6 +92,7 @@ public class LoginDialog {
             String characterLvl = resultSet.getString(4);
             primaryController.setUserNameLabel("Zalogowano: " + characterName);
             primaryController.setLvl_Indicator((characterLvl));
+            primaryController.musicPlay(true);
             pStage.show();
             connection.close();
         } else if (resultSet.next() == false) {
