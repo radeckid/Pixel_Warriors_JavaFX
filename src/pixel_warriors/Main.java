@@ -21,11 +21,11 @@ public class Main extends Application {
         primaryStage.setTitle("Pixel Warriors");
         Controller controller = loader.getController();
 
-//        LoginDialog loginDialog = new LoginDialog();
-//        loginDialog.primaryController = controller;
-//        loginDialog.pStage = primaryStage;
-//        loginDialog.makeLoginDialog();
-        primaryStage.show();  //TODO do wyrzucenia jak logowanie włączymy
+        LoginDialog loginDialog = new LoginDialog();
+        loginDialog.primaryController = controller;
+        loginDialog.pStage = primaryStage;
+        loginDialog.makeLoginDialog();
+//        primaryStage.show();  //TODO do wyrzucenia jak logowanie włączymy
     }
 
     public static void main(String[] args) {
