@@ -3,13 +3,13 @@ package pixel_warriors;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class RankTablePlayers {
+public class rankPlayers {
 
     private SimpleIntegerProperty playerId;
     private SimpleStringProperty nick;
     private SimpleIntegerProperty lvl;
 
-    public RankTablePlayers(int playerId, String nick, int lvl) {
+    public rankPlayers(int playerId, String nick, int lvl) {
         this.playerId = new SimpleIntegerProperty(playerId);
         this.nick = new SimpleStringProperty(nick);
         this.lvl = new SimpleIntegerProperty(lvl);

@@ -21,13 +21,14 @@ import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
     private LoginDialog loginDialog = new LoginDialog();
+    private ObservableList<rankPlayers> observableList;
+    private RankPlayerTable rankPlayerTable = new RankPlayerTable();
 
     //top bar
     @FXML
@@ -83,13 +84,11 @@ public class Controller implements Initializable {
     @FXML
     private TextField searchRankLabel;
     @FXML
-    private TableView<RankTablePlayers> tableRank;
+    private TableView<rankPlayers> tableRank;
     @FXML
-    private TableColumn<RankTablePlayers, Integer> colNr;
+    private TableColumn<rankPlayers, Integer> colNr, colLvl;
     @FXML
-    private TableColumn<RankTablePlayers, String> colNick;
-    @FXML
-    private TableColumn<RankTablePlayers, Integer> colLvl;
+    private TableColumn<rankPlayers, String> colNick;
 
     //panels
     @FXML
@@ -105,11 +104,10 @@ public class Controller implements Initializable {
         //Animacja ruszania ustami taverna
         animTavernBoy();
 
-        //for rank table //TODO potrzebna zmiana by wczytytywały się dane z bazy
+        //for rank table
         colNr.setCellValueFactory(new PropertyValueFactory<>("PlayerId"));
         colNick.setCellValueFactory(new PropertyValueFactory<>("Nick"));
         colLvl.setCellValueFactory(new PropertyValueFactory<>("Lvl"));
-        tableRank.setItems(observableList);
 
         //load music and play
         String path = "src/pixel_warriors/audio/backgroud/PixelWarriorsMain.mp3";
@@ -119,15 +117,6 @@ public class Controller implements Initializable {
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setVolume(0.1);
     }
-
-    //TODO do zmiany wraz z poprzednim TODO /\
-    ObservableList<RankTablePlayers> observableList = FXCollections.observableArrayList(
-            new RankTablePlayers(1, "Mateo_Kovacic", 83),
-            new RankTablePlayers(2, "Bou_Morderca", 35),
-            new RankTablePlayers(3, "DamyRade", 12),
-            new RankTablePlayers(4, "Kogut97", 2)
-    );
-
 
     public void setUserNameLabel(String userNameLabel) {
         this.userNameLabel.setText(userNameLabel);
@@ -192,6 +181,16 @@ public class Controller implements Initializable {
         }
 
         if (event.getSource().equals(rankingBtn)) {
+            tableRank.getItems().clear();
+
+            try {
+                rankPlayerTable.getDataFromDB();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            observableList = FXCollections.observableArrayList();
+            observableList.addAll(rankPlayerTable.getRankPlayersArrayList());
 
             tableRank.setItems(observableList);
             searchRankLabel.setText("");
@@ -333,7 +332,7 @@ public class Controller implements Initializable {
             try {
                 int selected = tableRank.getSelectionModel().getSelectedIndex();
                 searchRankLabel.setText(String.valueOf(observableList.get(selected).getNick()));
-            } catch (IndexOutOfBoundsException e) {
+            } catch (Exception e) {
             }
         }
     }
