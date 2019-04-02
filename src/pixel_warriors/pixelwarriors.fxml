@@ -15,8 +15,6 @@
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.Glow?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -250,7 +248,7 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="statsInvPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
+                        <AnchorPane fx:id="statsInvPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" visible="false">
                            <children>
                               <Label cacheShape="false" centerShape="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" scaleShape="false">
                                  <graphic>
@@ -746,7 +744,7 @@
                                  <graphic>
                                     <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/characters/Palce_Gif3.gif" />
+                                          <Image url="@images/armors/Palce_Gif3.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -842,7 +840,7 @@
                                  </effect>
                               </Button>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="rankPane" prefHeight="500.0" prefWidth="800.0" visible="false">
+                        <AnchorPane fx:id="rankPane" prefHeight="500.0" prefWidth="800.0">
                            <children>
                               <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
                                  <graphic>
@@ -856,8 +854,8 @@
                               <TableView fx:id="tableRank" layoutX="25.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#rankingTableEnterKey" onMousePressed="#rankingTableMouse" opacity="0.9" prefHeight="460.0" prefWidth="337.0">
                                 <columns>
                                     <TableColumn fx:id="colNr" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" style="-fx-font-size: 15;" text="Nr." />
-                                  <TableColumn fx:id="colNick" editable="false" maxWidth="260.0" minWidth="260.0" prefWidth="260.0" resizable="false" sortable="false" style="-fx-font-size: 15;" text="Nick" />
-                                  <TableColumn fx:id="colLvl" editable="false" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" sortable="false" style="-fx-font-size: 15;" text="Lvl." />
+                                  <TableColumn fx:id="colNick" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" sortable="false" style="-fx-font-size: 15;" text="Nick" />
+                                  <TableColumn fx:id="colLvl" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" sortable="false" style="-fx-font-size: 15;" text="Lvl." />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
