@@ -31,6 +31,8 @@ public class Controller implements Initializable {
     private LoginDialog loginDialog = new LoginDialog();
     private ObservableList<rankPlayers> observableList;
     private RankPlayerTable rankPlayerTable = new RankPlayerTable();
+    Inventory inventory;
+    Backpack backpack;
 
     //top bar
     @FXML
@@ -49,11 +51,9 @@ public class Controller implements Initializable {
     private ImageView musicImage;
     private MediaPlayer mediaPlayer;
 
-
     //stats and inv panel
     @FXML
-    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel,
-            manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
+    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
     @FXML
     private ProgressBar expProgress;
 
@@ -80,8 +80,6 @@ public class Controller implements Initializable {
     private boolean imageFlag = true;
     private Image image_quest, image_non_quest, image_speak;
 
-    //rank panel
-    @FXML
     private Button attackRank, searchButton;
     @FXML
     private TextField searchRankLabel;
@@ -100,9 +98,10 @@ public class Controller implements Initializable {
     Backpack backpack;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke").getImage();
-        image_non_quest = new LoadImage("background/tavern.gif", "quest_no").getImage();
-        image_speak = new LoadImage("background/tavern_speak.gif", "quest_speak").getImage();
+
+        image_quest = new Image(this.getClass().getResource("images/background/tavern_quest.gif").toString());
+        image_non_quest = new Image(this.getClass().getResource("images/background/tavern.gif").toString());
+        image_speak = new Image(this.getClass().getResource("images/background/tavern_speak.gif").toString());
 
         //Animacja ruszania ustami taverna
         animTavernBoy();
@@ -119,18 +118,20 @@ public class Controller implements Initializable {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.1);
 
-        ImageView[] viewsBackpack = new ImageView[] {slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
-        ImageView[] viewInventory = new ImageView[] {slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
+        ImageView[] viewsBackpack = new ImageView[]{slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
+        ImageView[] viewInventory = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
         inventory = new Inventory(viewInventory);
-        inventory.Find(ItemType.Armor).SetItem(new Item(1, "zbroje", "armors/Zbroja1_Gif.gif", ItemType.Armor));
+        inventory.Find(ItemType.Armor).SetItem(new Item(1, "zbroje", "armors/Zbroja2_Gif.gif", ItemType.Armor));
+        inventory.Find(ItemType.Helmets).SetItem(new Item(1, "zbroje", "armors/Helm2_Gif.gif", ItemType.Helmets));
         inventory.Find(ItemType.Trousers).SetItem(new Item(1, "spodnie", "armors/Spodnie1_Gif.gif", ItemType.Trousers));
         inventory.Find(ItemType.Shoes).SetItem(new Item(1, "buty", "armors/shoes_1.gif", ItemType.Shoes));
         inventory.Find(ItemType.Necklaces).SetItem(new Item(1, "naszyjnik", "jewelerys/Naszyjnik1_Gif.gif", ItemType.Necklaces));
         inventory.Find(ItemType.Gloves).SetItem(new Item(1, "rekawice", "armors/Rekawice1_Gif.gif", ItemType.Gloves));
-        inventory.Find(ItemType.MainWeapons).SetItem(new Item(1, "bron1", "weapons/Miecz1_Pusty_Gif.gif", ItemType.MainWeapons));
-        inventory.Find(ItemType.AdditionalWeapons).SetItem(new Item(1, "bron2", "weapons/Tarcza1_Gif.gif", ItemType.AdditionalWeapons));
+        inventory.Find(ItemType.MainWeapons).SetItem(new Item(1, "bron1", "weapons/Miecz1_Gif.gif", ItemType.MainWeapons));
+        inventory.Find(ItemType.AdditionalWeapons).SetItem(new Item(1, "bron2", "weapons/Tarcza2_Gif.gif", ItemType.AdditionalWeapons));
         backpack = new Backpack(viewsBackpack);
-        MoveItem.Update(inventory,backpack);
+        MoveItem.Update(inventory, backpack);
+
     }
 
     public void setUserNameLabel(String userNameLabel) {
@@ -250,7 +251,13 @@ public class Controller implements Initializable {
     @FXML
     void inventoryStatsButtons(ActionEvent event) {
 
+        if (statsPane.isVisible()) {
+            statsPane.setVisible(false);
+            invPane.setVisible(true);
+        }
+
         if (event.getSource().equals(headBtn)) {
+            backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.Helmets), inventory));
         } else if (event.getSource().equals(chestBtn)) {
             backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.Armor), inventory));
         } else if (event.getSource().equals(legsBtn)) {
@@ -290,7 +297,8 @@ public class Controller implements Initializable {
         } else if (event.getSource().equals(slot_12)) {
             MoveItem.PutOnItem(backpack.Find(12), inventory, backpack);
         }
-        MoveItem.Update(inventory,backpack);
+
+        MoveItem.Update(inventory, backpack);
     }
 
     @FXML
