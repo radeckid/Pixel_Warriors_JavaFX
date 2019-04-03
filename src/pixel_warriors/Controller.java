@@ -53,8 +53,7 @@ public class Controller implements Initializable {
 
     //stats and inv panel
     @FXML
-    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel,
-            manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
+    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
     @FXML
     private ProgressBar expProgress;
 
@@ -121,7 +120,7 @@ public class Controller implements Initializable {
         ImageView[] viewInventory = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
         inventory = new Inventory(viewInventory);
         inventory.Find(ItemType.Armor).SetItem(new Item(1, "zbroje", "armors/Zbroja2_Gif.gif", ItemType.Armor));
-        inventory.Find(ItemType.Armor).SetItem(new Item(1, "zbroje", "armors/Helm2_Gif.gif", ItemType.Helmets));
+        inventory.Find(ItemType.Helmets).SetItem(new Item(1, "zbroje", "armors/Helm2_Gif.gif", ItemType.Helmets));
         inventory.Find(ItemType.Trousers).SetItem(new Item(1, "spodnie", "armors/Spodnie1_Gif.gif", ItemType.Trousers));
         inventory.Find(ItemType.Shoes).SetItem(new Item(1, "buty", "armors/shoes_1.gif", ItemType.Shoes));
         inventory.Find(ItemType.Necklaces).SetItem(new Item(1, "naszyjnik", "jewelerys/Naszyjnik1_Gif.gif", ItemType.Necklaces));
@@ -248,6 +247,11 @@ public class Controller implements Initializable {
 
     @FXML
     void inventoryStatsButtons(ActionEvent event) {
+
+        if (statsPane.isVisible()) {
+            statsPane.setVisible(false);
+            invPane.setVisible(true);
+        }
 
         if (event.getSource().equals(headBtn)) {
             backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.Helmets), inventory));
