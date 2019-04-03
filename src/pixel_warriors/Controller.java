@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableColumn;
@@ -236,6 +237,9 @@ public class Controller implements Initializable {
 
         if (event.getSource().equals(headBtn)) {
         } else if (event.getSource().equals(chestBtn)) {
+             slotChestImg.setImage(new Image(this.getClass().getResource("images/etc/empty_slot.gif").toString()));
+             slot_1_img.setImage(new Image(this.getClass().getResource("images/armors/Zbroja2_Gif.gif").toString()));
+             chestShowImage.setVisible(false);
         } else if (event.getSource().equals(legsBtn)) {
         } else if (event.getSource().equals(shoesBtn)) {
         } else if (event.getSource().equals(jaweleryBtn)) {
@@ -243,6 +247,9 @@ public class Controller implements Initializable {
         } else if (event.getSource().equals(weaponTwoBtn)) {
         } else if (event.getSource().equals(glovesBtn)) {
         } else if (event.getSource().equals(slot_1)) {
+            slot_1_img.setImage(new Image(this.getClass().getResource("images/etc/empty_slot.gif").toString()));
+            slotChestImg.setImage(new Image(this.getClass().getResource("images/armors/Zbroja2_Gif.gif").toString()));
+            chestShowImage.setVisible(true);
         } else if (event.getSource().equals(slot_2)) {
         } else if (event.getSource().equals(slot_3)) {
         } else if (event.getSource().equals(slot_4)) {
