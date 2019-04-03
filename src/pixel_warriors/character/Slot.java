@@ -4,10 +4,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public abstract class Slot {
+
     protected Item item;
     String path;
     LoadImage loadImage;
     ImageView view;
+
 
     public Slot() {
         this.item = null;

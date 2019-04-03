@@ -1,10 +1,13 @@
 package pixel_warriors.character;
 
+
 public class Item {
+
     int idItem;
     String name;
     String path;
     ItemType itemType;
+
 
     public Item(int idItem, String name, String path, ItemType itemType) {
         this.idItem = idItem;
@@ -24,4 +27,5 @@ public class Item {
     public ItemType GetItemType() {
         return itemType;
     }
+
 }

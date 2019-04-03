@@ -94,9 +94,11 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane;
 
-
+    Inventory inventory;
+    Backpack backpack;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         image_quest = new Image(this.getClass().getResource("images/background/tavern_quest.gif").toString());
         image_non_quest = new Image(this.getClass().getResource("images/background/tavern.gif").toString());
         image_speak = new Image(this.getClass().getResource("images/background/tavern_speak.gif").toString());
@@ -129,6 +131,7 @@ public class Controller implements Initializable {
         inventory.Find(ItemType.AdditionalWeapons).SetItem(new Item(1, "bron2", "weapons/Tarcza2_Gif.gif", ItemType.AdditionalWeapons));
         backpack = new Backpack(viewsBackpack);
         MoveItem.Update(inventory, backpack);
+
     }
 
     public void setUserNameLabel(String userNameLabel) {
@@ -294,6 +297,7 @@ public class Controller implements Initializable {
         } else if (event.getSource().equals(slot_12)) {
             MoveItem.PutOnItem(backpack.Find(12), inventory, backpack);
         }
+
         MoveItem.Update(inventory, backpack);
     }
 

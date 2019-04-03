@@ -20,13 +20,12 @@ public class MoveItem {
 
     public static void Update(Inventory inventory, Backpack backpack)
     {
-        for(int i=0; i < inventory.GetList().size(); i++)
-        {
+
+        for(int i=0; i < inventory.GetList().size(); i++) {
             inventory.GetElementById(i).UpdateSlot();
         }
 
-        for(int i=0; i < backpack.GetList().size(); i++)
-        {
+        for(int i=0; i < backpack.GetList().size(); i++) {
             backpack.GetElementById(i).UpdateSlot();
         }
     }

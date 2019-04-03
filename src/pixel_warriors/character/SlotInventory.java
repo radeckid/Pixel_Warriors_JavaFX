@@ -11,6 +11,7 @@ public class SlotInventory extends Slot {
         this.itemType = itemType;
     }
 
+
     public SlotInventory(Item item, String nameImage, ItemType itemType, ImageView view) {
         super(item, nameImage, view);
         this.itemType = itemType;
