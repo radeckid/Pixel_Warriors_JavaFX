@@ -8,5 +8,6 @@ public enum ItemType
     Gloves,
     MainWeapons,
     AdditionalWeapons,
-    Necklaces
+    Necklaces,
+    empty
 }

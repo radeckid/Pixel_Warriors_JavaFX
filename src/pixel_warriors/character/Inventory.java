@@ -1,25 +1,35 @@
 package pixel_warriors.character;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory extends Staff<SlotInventory>
 {
-    private List<SlotInventory> wearedStuff = new ArrayList<SlotInventory>();
-
     public Inventory() {
+        super();
+        slots = new ArrayList<SlotInventory>();
+        BuildWearedStuff();
+    }
+
+    public Inventory(ImageView[] views)
+    {
+        super(views);
+        slots = new ArrayList<SlotInventory>();
         BuildWearedStuff();
     }
 
     private void BuildWearedStuff() {
-        wearedStuff.add(new SlotInventory(ItemType.Armor));
-        wearedStuff.add(new SlotInventory(ItemType.Trousers));
-        wearedStuff.add(new SlotInventory(ItemType.Helmets));
-        wearedStuff.add(new SlotInventory(ItemType.Gloves));
-        wearedStuff.add(new SlotInventory(ItemType.Shoes));
-        wearedStuff.add(new SlotInventory(ItemType.MainWeapons));
-        wearedStuff.add(new SlotInventory(ItemType.AdditionalWeapons));
-        wearedStuff.add(new SlotInventory(ItemType.Necklaces));
+        slots.add(new SlotInventory(ItemType.Armor, views[1]));
+        slots.add(new SlotInventory(ItemType.Trousers, views[2]));
+        slots.add(new SlotInventory(ItemType.Helmets, views[0]));
+        slots.add(new SlotInventory(ItemType.Gloves, views[7]));
+        slots.add(new SlotInventory(ItemType.Shoes, views[3]));
+        slots.add(new SlotInventory(ItemType.MainWeapons, views[5]));
+        slots.add(new SlotInventory(ItemType.AdditionalWeapons, views[6]));
+        slots.add(new SlotInventory(ItemType.Necklaces, views[4]));
     }
 
     @Override

@@ -24,6 +24,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import pixel_warriors.character.*;
+
 public class Controller implements Initializable {
 
     private LoginDialog loginDialog = new LoginDialog();
@@ -94,12 +96,13 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane;
 
-
+    Inventory inventory;
+    Backpack backpack;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke", 1).getImage();
-        image_non_quest = new LoadImage("background/tavern.gif", "quest_no", 2).getImage();
-        image_speak = new LoadImage("background/tavern_speak.gif", "quest_speak", 3).getImage();
+        image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke").getImage();
+        image_non_quest = new LoadImage("background/tavern.gif", "quest_no").getImage();
+        image_speak = new LoadImage("background/tavern_speak.gif", "quest_speak").getImage();
 
         //Animacja ruszania ustami taverna
         animTavernBoy();
@@ -115,6 +118,19 @@ public class Controller implements Initializable {
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.1);
+
+        ImageView[] viewsBackpack = new ImageView[] {slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
+        ImageView[] viewInventory = new ImageView[] {slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
+        inventory = new Inventory(viewInventory);
+        inventory.Find(ItemType.Armor).SetItem(new Item(1, "zbroje", "armors/Zbroja1_Gif.gif", ItemType.Armor));
+        inventory.Find(ItemType.Trousers).SetItem(new Item(1, "spodnie", "armors/Spodnie1_Gif.gif", ItemType.Trousers));
+        inventory.Find(ItemType.Shoes).SetItem(new Item(1, "buty", "armors/shoes_1.gif", ItemType.Shoes));
+        inventory.Find(ItemType.Necklaces).SetItem(new Item(1, "naszyjnik", "jewelerys/Naszyjnik1_Gif.gif", ItemType.Necklaces));
+        inventory.Find(ItemType.Gloves).SetItem(new Item(1, "rekawice", "armors/Rekawice1_Gif.gif", ItemType.Gloves));
+        inventory.Find(ItemType.MainWeapons).SetItem(new Item(1, "bron1", "weapons/Miecz1_Pusty_Gif.gif", ItemType.MainWeapons));
+        inventory.Find(ItemType.AdditionalWeapons).SetItem(new Item(1, "bron2", "weapons/Tarcza1_Gif.gif", ItemType.AdditionalWeapons));
+        backpack = new Backpack(viewsBackpack);
+        MoveItem.Update(inventory,backpack);
     }
 
     public void setUserNameLabel(String userNameLabel) {
@@ -236,25 +252,45 @@ public class Controller implements Initializable {
 
         if (event.getSource().equals(headBtn)) {
         } else if (event.getSource().equals(chestBtn)) {
+            backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.Armor), inventory));
         } else if (event.getSource().equals(legsBtn)) {
+            backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.Trousers), inventory));
         } else if (event.getSource().equals(shoesBtn)) {
+            backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.Shoes), inventory));
         } else if (event.getSource().equals(jaweleryBtn)) {
+            backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.Necklaces), inventory));
         } else if (event.getSource().equals(weaponOneBtn)) {
+            backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.MainWeapons), inventory));
         } else if (event.getSource().equals(weaponTwoBtn)) {
+            backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.AdditionalWeapons), inventory));
         } else if (event.getSource().equals(glovesBtn)) {
+            backpack.FindFirstEmpty().SetItem(MoveItem.TakeOffItem(inventory.Find(ItemType.Gloves), inventory));
         } else if (event.getSource().equals(slot_1)) {
+            MoveItem.PutOnItem(backpack.Find(1), inventory, backpack);
         } else if (event.getSource().equals(slot_2)) {
+            MoveItem.PutOnItem(backpack.Find(2), inventory, backpack);
         } else if (event.getSource().equals(slot_3)) {
+            MoveItem.PutOnItem(backpack.Find(3), inventory, backpack);
         } else if (event.getSource().equals(slot_4)) {
+            MoveItem.PutOnItem(backpack.Find(4), inventory, backpack);
         } else if (event.getSource().equals(slot_5)) {
+            MoveItem.PutOnItem(backpack.Find(5), inventory, backpack);
         } else if (event.getSource().equals(slot_6)) {
+            MoveItem.PutOnItem(backpack.Find(6), inventory, backpack);
         } else if (event.getSource().equals(slot_7)) {
+            MoveItem.PutOnItem(backpack.Find(7), inventory, backpack);
         } else if (event.getSource().equals(slot_8)) {
+            MoveItem.PutOnItem(backpack.Find(8), inventory, backpack);
         } else if (event.getSource().equals(slot_9)) {
+            MoveItem.PutOnItem(backpack.Find(9), inventory, backpack);
         } else if (event.getSource().equals(slot_10)) {
+            MoveItem.PutOnItem(backpack.Find(10), inventory, backpack);
         } else if (event.getSource().equals(slot_11)) {
+            MoveItem.PutOnItem(backpack.Find(11), inventory, backpack);
         } else if (event.getSource().equals(slot_12)) {
+            MoveItem.PutOnItem(backpack.Find(12), inventory, backpack);
         }
+        MoveItem.Update(inventory,backpack);
     }
 
     @FXML
@@ -386,6 +422,5 @@ public class Controller implements Initializable {
         }
         mediaPlayer.setAutoPlay(play);
     }
-
 }
 

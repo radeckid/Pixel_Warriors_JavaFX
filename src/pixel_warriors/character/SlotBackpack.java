@@ -1,8 +1,11 @@
 package pixel_warriors.character;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class SlotBackpack extends Slot
 {
-    static int idSlot = 1;
+    static int idSlot = 0;
     int id;
 
     public SlotBackpack()
@@ -11,15 +14,21 @@ public class SlotBackpack extends Slot
         id = SetidSlot();
     }
 
-    public SlotBackpack(Item item, String nameImage)
+    public SlotBackpack(ImageView view)
     {
-        super(item, nameImage);
+        super(view);
+        id = SetidSlot();
+    }
+
+    public SlotBackpack(Item item, String nameImage, ImageView view)
+    {
+        super(item, nameImage, view);
         id = SetidSlot();
     }
 
     int SetidSlot()
     {
-        if((idSlot++) < 12 )
+        if((idSlot+1) < 12 )
             idSlot++;
         return idSlot;
     }
