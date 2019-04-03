@@ -1,4 +1,4 @@
-package pixel_warriors.Character;
+package pixel_warriors.character;
 
 public class MoveItem {
 
@@ -17,5 +17,4 @@ public class MoveItem {
         backpack.Find(id).item = temp.item;
     }
 
-    public static void
 }

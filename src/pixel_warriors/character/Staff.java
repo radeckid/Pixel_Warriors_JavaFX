@@ -1,4 +1,4 @@
-package pixel_warriors.Character;
+package pixel_warriors.character;
 
 import java.util.List;
 
