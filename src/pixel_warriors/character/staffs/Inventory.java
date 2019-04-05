@@ -1,27 +1,25 @@
-package pixel_warriors.character;
+package pixel_warriors.character.staffs;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import pixel_warriors.character.staffs.items.ItemType;
+import pixel_warriors.character.staffs.slots.SlotInventory;
 
-public class Inventory extends Staff<SlotInventory>
-{
+import java.util.ArrayList;
+
+public class Inventory extends Staff<SlotInventory> {
     public Inventory() {
         super();
         slots = new ArrayList<SlotInventory>();
-        BuildWearedStuff();
+        buildWearedStuff();
     }
 
-    public Inventory(ImageView[] views)
-    {
+    public Inventory(ImageView[] views) {
         super(views);
         slots = new ArrayList<SlotInventory>();
-        BuildWearedStuff();
+        buildWearedStuff();
     }
 
-    private void BuildWearedStuff() {
+    private void buildWearedStuff() {
         slots.add(new SlotInventory(ItemType.Armor, views[1]));
         slots.add(new SlotInventory(ItemType.Trousers, views[2]));
         slots.add(new SlotInventory(ItemType.Helmets, views[0]));
@@ -33,13 +31,11 @@ public class Inventory extends Staff<SlotInventory>
     }
 
     @Override
-    public <ItemType> SlotInventory Find(ItemType goal) {
+    public <ItemType> SlotInventory find(ItemType goal) {
         SlotInventory temp = null;
 
-        for (SlotInventory slot : slots)
-        {
-            if(slot.itemType == goal)
-            {
+        for (SlotInventory slot : slots) {
+            if (slot.getSlotItemType() == goal) {
                 temp = slot;
                 break;
             }

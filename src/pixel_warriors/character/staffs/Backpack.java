@@ -1,8 +1,9 @@
-package pixel_warriors.character;
+package pixel_warriors.character.staffs;
 
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import pixel_warriors.character.staffs.slots.SlotBackpack;
+
 import java.util.ArrayList;
 
 public class Backpack extends Staff<SlotBackpack>
@@ -10,25 +11,25 @@ public class Backpack extends Staff<SlotBackpack>
     public Backpack() {
         super();
         slots = new ArrayList<SlotBackpack>();
-        BuildItemMap();
+        buildItemMap();
     }
 
     public Backpack(ImageView[] view) {
         super(view);
         slots = new ArrayList<SlotBackpack>();
-        BuildItemMap();
+        buildItemMap();
     }
 
-    private void BuildItemMap() {
+    private void buildItemMap() {
         for (int i = 1; i <= 12; i++) {
             slots.add(new SlotBackpack(super.views[i-1]));
         }
     }
 
-    public <Integer> SlotBackpack Find(Integer goal) {
+    public <Integer> SlotBackpack find(Integer goal) {
         for (SlotBackpack slot : slots)
         {
-            if(slot.id == (int)goal)
+            if(slot.getIdSlot() == (int)goal)
             {
                 return slot;
             }
@@ -36,11 +37,11 @@ public class Backpack extends Staff<SlotBackpack>
         return null;
     }
 
-    public SlotBackpack FindFirstEmpty()
+    public SlotBackpack findFirstEmpty()
     {
         for (SlotBackpack slot : slots)
         {
-            if(slot.item == null)
+            if(slot.getItem() == null)
             {
                 return slot;
             }

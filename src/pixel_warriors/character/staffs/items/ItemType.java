@@ -1,6 +1,6 @@
-package pixel_warriors.character;
-
-public enum ItemType {
+package pixel_warriors.character.staffs.items;
+public enum ItemType
+{
     Helmets,
     Armor,
     Trousers,

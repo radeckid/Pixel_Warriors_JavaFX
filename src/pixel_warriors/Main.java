@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class Main extends Application {
         primaryStage.setMinHeight(765);
         primaryStage.setMinWidth(816);
         primaryStage.setTitle("Pixel Warriors");
+        primaryStage.getIcons().add(new Image(this.getClass().getResource("images/etc/iconPW.gif").toString()));
         Controller controller = loader.getController();
 
 //        LoginDialog loginDialog = new LoginDialog();
