@@ -6,8 +6,7 @@ import pixel_warriors.character.Staffs.Slots.SlotBackpack;
 
 import java.util.ArrayList;
 
-public class Backpack extends Staff<SlotBackpack>
-{
+public class Backpack extends Staff<SlotBackpack> {
     public Backpack() {
         super();
         slots = new ArrayList<SlotBackpack>();
@@ -22,37 +21,30 @@ public class Backpack extends Staff<SlotBackpack>
 
     private void buildItemMap() {
         for (int i = 1; i <= 12; i++) {
-            slots.add(new SlotBackpack(super.views[i-1]));
+            slots.add(new SlotBackpack(super.views[i - 1]));
         }
     }
 
     public <Integer> SlotBackpack find(Integer goal) {
-        for (SlotBackpack slot : slots)
-        {
-            if(slot.getIdSlot() == (int)goal)
-            {
+        for (SlotBackpack slot : slots) {
+            if (slot.getIdSlot() == (int) goal) {
                 return slot;
             }
         }
         return null;
     }
 
-    public SlotBackpack findFirstEmpty()
-    {
-        for (SlotBackpack slot : slots)
-        {
-            if(slot.getItem() == null)
-            {
+    public SlotBackpack findFirstEmpty() {
+        for (SlotBackpack slot : slots) {
+            if (slot.getItem() == null) {
                 return slot;
             }
         }
         return null;
     }
 
-    public void update()
-    {
-        for(int i=0; i < slots.size(); i++)
-        {
+    public void update() {
+        for (int i = 0; i < slots.size(); i++) {
             slots.get(i).updateSlot();
         }
     }

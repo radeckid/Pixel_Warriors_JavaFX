@@ -11,22 +11,19 @@ import pixel_warriors.character.Staffs.Slots.SlotInventory;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Inventory extends Staff<SlotInventory>
-{
+public class Inventory extends Staff<SlotInventory> {
     public Inventory() {
         super();
         slots = new ArrayList<SlotInventory>();
     }
 
-    public Inventory(ImageView[] views)
-    {
+    public Inventory(ImageView[] views) {
         super(views);
         slots = new ArrayList<SlotInventory>();
         BuildWearedStuff(views);
     }
 
-    public Inventory(Map<ItemType, Item> items, ImageView[] views)
-    {
+    public Inventory(Map<ItemType, Item> items, ImageView[] views) {
         this();
         slots.add(new SlotInventory(items.get(ItemType.Armor), views[1], ItemType.Armor));
         slots.add(new SlotInventory(items.get(ItemType.Trousers), views[2], ItemType.Trousers));
@@ -38,8 +35,7 @@ public class Inventory extends Staff<SlotInventory>
         slots.add(new SlotInventory(items.get(ItemType.Necklaces), views[4], ItemType.Necklaces));
     }
 
-    public void setInventory(Item[] items)
-    {
+    public void setInventory(Item[] items) {
         this.find(ItemType.Armor).setItem(items[0]);
         this.find(ItemType.Trousers).setItem(items[2]);
         this.find(ItemType.Helmets).setItem(items[4]);
@@ -65,10 +61,8 @@ public class Inventory extends Staff<SlotInventory>
     public <ItemType> SlotInventory find(ItemType goal) {
         SlotInventory temp = null;
 
-        for (SlotInventory slot : slots)
-        {
-            if(slot.getSlotItemType() == goal)
-            {
+        for (SlotInventory slot : slots) {
+            if (slot.getSlotItemType() == goal) {
                 temp = slot;
                 break;
             }
@@ -76,10 +70,8 @@ public class Inventory extends Staff<SlotInventory>
         return temp;
     }
 
-    public void update()
-    {
-        for(int i=0; i < slots.size(); i++)
-        {
+    public void update() {
+        for (int i = 0; i < slots.size(); i++) {
             slots.get(i).updateSlot();
         }
     }

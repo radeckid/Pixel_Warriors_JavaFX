@@ -3,8 +3,7 @@ package pixel_warriors.character.Staffs.Items;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum WeaponType
-{
+public enum WeaponType {
     OneHanded(1),
     TwoHanded(2);
 
@@ -20,8 +19,7 @@ public enum WeaponType
     }
 
     public static WeaponType valueOf(int pageType) {
-        switch (pageType)
-        {
+        switch (pageType) {
             case 1:
                 return WeaponType.OneHanded;
             case 2:

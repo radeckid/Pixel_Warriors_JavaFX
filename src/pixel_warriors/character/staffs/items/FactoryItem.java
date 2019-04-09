@@ -3,17 +3,13 @@ package pixel_warriors.character.Staffs.Items;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class FactoryItem
-{
-    public static Item getItem(Item item)
-    {
-        if(item == null)
-        {
+public class FactoryItem {
+    public static Item getItem(Item item) {
+        if (item == null) {
             return null;
         }
         ItemType itemType = item.getItemType();
-        switch (itemType)
-        {
+        switch (itemType) {
             case Helmets:
                 return new Helmets((Helmets) item);
             case Armor:
@@ -37,18 +33,14 @@ public class FactoryItem
         }
     }
 
-    public static Item getItem(ItemType itemType, ResultSet rs)
-    {
-        if(itemType == null)
-        {
+    public static Item getItem(ItemType itemType, ResultSet rs) {
+        if (itemType == null) {
             return null;
         }
 
-        try
-        {
+        try {
             rs.next();
-            switch (itemType)
-            {
+            switch (itemType) {
                 case Helmets:
                     return new Helmets(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
                 case Armor:
@@ -66,23 +58,19 @@ public class FactoryItem
                 case Necklaces:
                     TypeFirstBonus ch1 = TypeFirstBonus.valueOf(rs.getString(5).charAt(0));
                     FourthBonusType ch2 = FourthBonusType.valueOf(rs.getString(9).charAt(0));
-                    return new Necklace(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), TypeFirstBonus.valueOf(rs.getString(5).charAt(0)),  rs.getInt(6),  rs.getInt(7),  rs.getInt(8),  FourthBonusType.valueOf(rs.getString(9).charAt(0)));
+                    return new Necklace(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), TypeFirstBonus.valueOf(rs.getString(5).charAt(0)), rs.getInt(6), rs.getInt(7), rs.getInt(8), FourthBonusType.valueOf(rs.getString(9).charAt(0)));
                 case empty:
                     return null;
                 default:
                     return null;
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             return null;
         }
     }
 
-    public static String getAttributesItem(ItemType itemType)
-    {
-        switch (itemType)
-        {
+    public static String getAttributesItem(ItemType itemType) {
+        switch (itemType) {
             case Helmets:
                 return " idHelmet, Name, Path, PhysicalDefense, MagicalDefense ";
             case Armor:
@@ -107,10 +95,8 @@ public class FactoryItem
         return null;
     }
 
-    public static String getStringToConnection(ItemType itemType)
-    {
-        switch (itemType)
-        {
+    public static String getStringToConnection(ItemType itemType) {
+        switch (itemType) {
             case Helmets:
                 return " Helmets on IDInventory_Helmet=IDHelmet;";
             case Armor:
