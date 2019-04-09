@@ -24,18 +24,20 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import pixel_warriors.character.staffs.items.*;
-import pixel_warriors.character.characterLogics.*;
-import pixel_warriors.character.staffs.Backpack;
-import pixel_warriors.character.staffs.Inventory;
+import pixel_warriors.character.CharacterLogics.ItemFromDatabase;
+import pixel_warriors.character.CharacterLogics.LoadImage;
+import pixel_warriors.character.CharacterLogics.MoveItem;
+import pixel_warriors.character.Staffs.Backpack;
+import pixel_warriors.character.Staffs.Inventory;
+import pixel_warriors.character.Staffs.Items.ItemType;
+import pixel_warriors.ranking.RankPlayerTable;
+import pixel_warriors.ranking.RankPlayers;
 
 public class Controller implements Initializable {
 
     private LoginDialog loginDialog = new LoginDialog();
-    private ObservableList<rankPlayers> observableList;
+    private ObservableList<RankPlayers> observableList;
     private RankPlayerTable rankPlayerTable = new RankPlayerTable();
-    Inventory inventory;
-    Backpack backpack;
 
     //top bar
     @FXML
@@ -54,9 +56,11 @@ public class Controller implements Initializable {
     private ImageView musicImage;
     private MediaPlayer mediaPlayer;
 
+
     //stats and inv panel
     @FXML
-    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
+    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel,
+            manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
     @FXML
     private ProgressBar expProgress;
 
@@ -83,15 +87,17 @@ public class Controller implements Initializable {
     private boolean imageFlag = true;
     private Image image_quest, image_non_quest, image_speak;
 
+    //rank panel
+    @FXML
     private Button attackRank, searchButton;
     @FXML
     private TextField searchRankLabel;
     @FXML
-    private TableView<rankPlayers> tableRank;
+    private TableView<RankPlayers> tableRank;
     @FXML
-    private TableColumn<rankPlayers, Integer> colNr, colLvl;
+    private TableColumn<RankPlayers, Integer> colNr, colLvl;
     @FXML
-    private TableColumn<rankPlayers, String> colNick;
+    private TableColumn<RankPlayers, String> colNick;
 
     //Figth panel
     @FXML
@@ -100,17 +106,20 @@ public class Controller implements Initializable {
     private Label playerHP, enemyHP, playerStamina;
     @FXML
     private ProgressBar staminaProgressBar, playerHpProgress, enemyHpProgress;
+    @FXML
+    private ImageView enemyImgView, playerImgView;
 
     //panels
     @FXML
-    private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane, fightPane;
+    private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane;
 
-
+    Inventory inventory;
+    Backpack backpack;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        image_quest = new Image(this.getClass().getResource("images/background/tavern_quest.gif").toString());
-        image_non_quest = new Image(this.getClass().getResource("images/background/tavern.gif").toString());
-        image_speak = new Image(this.getClass().getResource("images/background/tavern_speak.gif").toString());
+        image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke").getImage();
+        image_non_quest = new LoadImage("background/tavern.gif", "quest_no").getImage();
+        image_speak = new LoadImage("background/tavern_speak.gif", "quest_speak").getImage();
 
         //Animacja ruszania ustami taverna
         animTavernBoy();
@@ -127,13 +136,16 @@ public class Controller implements Initializable {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.1);
 
-        ImageView[] viewsBackpack = new ImageView[]{slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
-        ImageView[] viewInventory = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
-        inventory = new Inventory(viewInventory);
-        Armor armor = (Armor) new ItemFromDatabase().getItem(ItemType.Armor, 1, "ADMIN12345");
-        inventory.find(ItemType.Armor).setItem(new Armor(armor));
+        //fill inventory (test)
+        ItemFromDatabase itemFromDatabase = new ItemFromDatabase();
+        ImageView[] viewsBackpack = new ImageView[] {slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
+        ImageView[] viewInventory = new ImageView[] {slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
+
+        inventory = new Inventory(itemFromDatabase.getInventory(), viewInventory);
+
         backpack = new Backpack(viewsBackpack);
-        MoveItem.update(inventory, backpack);
+        inventory.update();
+        backpack.update();
     }
 
     public void setUserNameLabel(String userNameLabel) {
@@ -253,11 +265,6 @@ public class Controller implements Initializable {
     @FXML
     void inventoryStatsButtons(ActionEvent event) {
 
-        if (statsPane.isVisible()) {
-            statsPane.setVisible(false);
-            invPane.setVisible(true);
-        }
-
         if (event.getSource().equals(headBtn)) {
             backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.Helmets), inventory));
         } else if (event.getSource().equals(chestBtn)) {
@@ -299,7 +306,8 @@ public class Controller implements Initializable {
         } else if (event.getSource().equals(slot_12)) {
             MoveItem.putOnItem(backpack.find(12), inventory, backpack);
         }
-        MoveItem.update(inventory, backpack);
+        inventory.update();
+        backpack.update();
     }
 
     @FXML
@@ -319,24 +327,7 @@ public class Controller implements Initializable {
                 tavernImage.setImage(image_speak);
                 imageFlag = true;
             }
-        } else if (event.getSource().equals(missionOneBtn)) {
-            statsInvPane.setVisible(false);
-            tavernPane.setVisible(false);
-            rankPane.setVisible(false);
-            authorsPane.setVisible(false);
-            banerPaneImage.setVisible(false);
-            fightPane.setVisible(true);
-        } else if (event.getSource().equals(missionTwoBtn)) {
-        } else if (event.getSource().equals(missionThreeBtn)) {
-        } else if (event.getSource().equals(surrBtn)) { //TODO chwilowo w celu wizualizacji
-            statsInvPane.setVisible(false);
-            rankPane.setVisible(false);
-            authorsPane.setVisible(false);
-            banerPaneImage.setVisible(false);
-            fightPane.setVisible(false);
-            tavernPane.setVisible(true);
         }
-
     }
 
     private void animTavernBoy() {

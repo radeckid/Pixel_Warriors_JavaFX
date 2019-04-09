@@ -1,10 +1,9 @@
-package pixel_warriors.character.Staffs.Slots;
+package pixel_warriors.character.staffs.slots;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import pixel_warriors.character.Staffs.Items.FactoryItem;
-import pixel_warriors.character.Staffs.Items.Item;
-import pixel_warriors.character.CharacterLogics.LoadImage;
+import pixel_warriors.character.staffs.items.Item;
+import pixel_warriors.character.characterLogics.LoadImage;
 
 public abstract class Slot
 {
@@ -27,21 +26,11 @@ public abstract class Slot
         view.setImage(loadImage.getImage());
     }
 
-    public Slot(Item item, ImageView view)
+    public Slot(Item item, String nameImgae, ImageView view)
     {
-        this.item = FactoryItem.getItem(item);
-        String nameImage;
-        if(item==null)
-        {
-            nameImage="empty";
-            path = "etc\\empty_slot.gif";
-        }
-        else
-        {
-            nameImage=item.getName();
-            path = item.getPath();
-        }
-        loadImage = new LoadImage(path,nameImage);
+        this.item = item;
+        path = item.getPath();
+        loadImage = new LoadImage(path, nameImgae);
         this.view = view;
         view.setImage(loadImage.getImage());
     }
@@ -75,6 +64,4 @@ public abstract class Slot
     {
         return loadImage.getImage();
     }
-
-    public ImageView getImageView() {return  view;}
 }

@@ -1,4 +1,4 @@
-package pixel_warriors.character.CharacterLogics;
+package pixel_warriors.character.characterLogics;
 
 import javafx.scene.image.Image;
 
@@ -17,15 +17,7 @@ public class LoadImage {
     public LoadImage(String path, String name)
     {
         path = "../../images/"+path;
-        try
-        {
-            image = new Image(this.getClass().getResource(path).toString());
-        }
-        catch (NullPointerException ex)
-        {
-            path = "../../images/etc/empty_slot.gif";
-            image = new Image(this.getClass().getResource(path).toString());
-        }
+        image = new Image(this.getClass().getResource(path).toString());
         this.name = name;
     }
 

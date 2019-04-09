@@ -1,4 +1,4 @@
-package pixel_warriors;
+package pixel_warriors.ranking;
 
 import Connection.ConnectionDB;
 
@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public class RankPlayerTable {
 
-    private ArrayList<rankPlayers> rankPlayersArrayList = new ArrayList<rankPlayers>();
+    private ArrayList<RankPlayers> rankPlayersArrayList = new ArrayList<RankPlayers>();
     private Connection connection;
     private ConnectionDB connectionDB;
     private ArrayList<String> playersData = new ArrayList<String>();
 
-    RankPlayerTable() {
+    public RankPlayerTable() {
         connectionDB = new ConnectionDB("lab_test", "lab", "lab");
         connection = connectionDB.getConnection();
     }
@@ -37,11 +37,11 @@ public class RankPlayerTable {
         }
 
         for (int i = 0, tmp = 1; i < playersData.size(); i += 2, tmp++) {
-            rankPlayersArrayList.add(new rankPlayers(tmp, playersData.get(i), Integer.parseInt(playersData.get(i + 1))));
+            rankPlayersArrayList.add(new RankPlayers(tmp, playersData.get(i), Integer.parseInt(playersData.get(i + 1))));
         }
     }
 
-    public ArrayList<rankPlayers> getRankPlayersArrayList() {
+    public ArrayList<RankPlayers> getRankPlayersArrayList() {
         return rankPlayersArrayList;
     }
 }

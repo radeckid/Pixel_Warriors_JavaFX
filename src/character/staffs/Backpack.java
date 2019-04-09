@@ -1,8 +1,8 @@
-package pixel_warriors.character.Staffs;
+package pixel_warriors.character.staffs;
 
 
 import javafx.scene.image.ImageView;
-import pixel_warriors.character.Staffs.Slots.SlotBackpack;
+import pixel_warriors.character.staffs.slots.SlotBackpack;
 
 import java.util.ArrayList;
 
@@ -47,13 +47,5 @@ public class Backpack extends Staff<SlotBackpack>
             }
         }
         return null;
-    }
-
-    public void update()
-    {
-        for(int i=0; i < slots.size(); i++)
-        {
-            slots.get(i).updateSlot();
-        }
     }
 }

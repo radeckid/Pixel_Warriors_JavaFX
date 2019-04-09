@@ -1,4 +1,4 @@
-package pixel_warriors.character.Staffs.Items;
+package pixel_warriors.character.staffs.items;
 public enum ItemType
 {
     Helmets,
