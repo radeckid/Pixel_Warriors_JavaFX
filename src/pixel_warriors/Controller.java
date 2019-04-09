@@ -99,7 +99,7 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<RankPlayers, String> colNick;
 
-    //Figth panel
+    //figth panel
     @FXML
     private Button firstAtkBtn, secondAtkBtn, surrBtn;
     @FXML
@@ -115,6 +115,7 @@ public class Controller implements Initializable {
 
     Inventory inventory;
     Backpack backpack;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke").getImage();
@@ -138,8 +139,8 @@ public class Controller implements Initializable {
 
         //fill inventory (test)
         ItemFromDatabase itemFromDatabase = new ItemFromDatabase();
-        ImageView[] viewsBackpack = new ImageView[] {slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
-        ImageView[] viewInventory = new ImageView[] {slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
+        ImageView[] viewsBackpack = new ImageView[]{slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
+        ImageView[] viewInventory = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
 
         inventory = new Inventory(itemFromDatabase.getInventory(), viewInventory);
 
@@ -229,6 +230,14 @@ public class Controller implements Initializable {
             banerPaneImage.setVisible(false);
             statsInvPane.setVisible(false);
             rankPane.setVisible(true);
+        }
+
+        if (event.getSource().equals(surrBtn)) { //TODO przykładowe poddanie sie
+            authorsPane.setVisible(false);
+            banerPaneImage.setVisible(false);
+            statsInvPane.setVisible(false);
+            rankPane.setVisible(false);
+            tavernPane.setVisible(true);
         }
     }
 
