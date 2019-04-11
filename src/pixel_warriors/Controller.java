@@ -31,16 +31,13 @@ import pixel_warriors.character.Staffs.Backpack;
 import pixel_warriors.character.Staffs.Inventory;
 import pixel_warriors.character.Staffs.Items.ItemType;
 import pixel_warriors.ranking.RankPlayerTable;
-import pixel_warriors.ranking.RankPlayers;
+import pixel_warriors.ranking.rankPlayers;
 
 public class Controller implements Initializable {
 
     private LoginDialog loginDialog = new LoginDialog();
-    private ObservableList<RankPlayers> observableList;
+    private ObservableList<rankPlayers> observableList;
     private RankPlayerTable rankPlayerTable = new RankPlayerTable();
-    private Inventory inventory;
-    private Backpack backpack;
-
 
     //top bar
     @FXML
@@ -63,7 +60,7 @@ public class Controller implements Initializable {
     //stats and inv panel
     @FXML
     private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel,
-            manaLabel, energyLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
+            manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
     @FXML
     private ProgressBar expProgress;
 
@@ -77,7 +74,6 @@ public class Controller implements Initializable {
     //stats and inv character visual
     @FXML
     private ImageView weaponOneShowImage, weaponTwoShowImage, headShowImage, chestShowImage, legsShowImage, shoesShowImage;
-    private boolean statsInvFlag;
 
     //weared stuff images
     @FXML
@@ -88,10 +84,6 @@ public class Controller implements Initializable {
     private Button innkeeperBtn, missionOneBtn, missionTwoBtn, missionThreeBtn;
     @FXML
     private ImageView tavernImage;
-    @FXML
-    private ProgressBar staminaBar;
-    @FXML
-    private Label staminaLabel;
     private boolean imageFlag = true;
     private Image image_quest, image_non_quest, image_speak;
 
@@ -101,27 +93,18 @@ public class Controller implements Initializable {
     @FXML
     private TextField searchRankLabel;
     @FXML
-    private TableView<RankPlayers> tableRank;
+    private TableView<rankPlayers> tableRank;
     @FXML
-    private TableColumn<RankPlayers, Integer> colNr, colLvl;
+    private TableColumn<rankPlayers, Integer> colNr, colLvl;
     @FXML
-    private TableColumn<RankPlayers, String> colNick;
-
-    //figth panel
-    @FXML
-    private Button firstAtkBtn, secondAtkBtn, surrBtn;
-    @FXML
-    private Label playerHP, enemyHP, playerEnergy;
-    @FXML
-    private ProgressBar energyPlayerProgress, playerHpProgress, enemyHpProgress;
-    @FXML
-    private ImageView enemyImgView, playerImgView;
+    private TableColumn<rankPlayers, String> colNick;
 
     //panels
     @FXML
     private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane;
 
-
+    Inventory inventory;
+    Backpack backpack;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke").getImage();
@@ -142,16 +125,12 @@ public class Controller implements Initializable {
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.1);
-
-        //fill inventory (test)
         ItemFromDatabase itemFromDatabase = new ItemFromDatabase();
-        ImageView[] viewInventory = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
-        ImageView[] viewsBackpack = new ImageView[]{slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
+        ImageView[] viewsBackpack = new ImageView[] {slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
+        ImageView[] viewInventory = new ImageView[] {slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
 
         inventory = new Inventory(itemFromDatabase.getInventory(), viewInventory);
-
         backpack = new Backpack(itemFromDatabase.getEquipment(), viewsBackpack);
-
         inventory.update();
         backpack.update();
     }
@@ -185,7 +164,7 @@ public class Controller implements Initializable {
             if (!statsInvPane.isVisible()) {
                 statsInvPane.setVisible(true);
             }
-            statsInvFlag = false;
+
             statsPane.setVisible(true);
         }
 
@@ -199,7 +178,7 @@ public class Controller implements Initializable {
             if (!statsInvPane.isVisible()) {
                 statsInvPane.setVisible(true);
             }
-            statsInvFlag = true;
+
             invPane.setVisible(true);
         }
 
@@ -272,11 +251,6 @@ public class Controller implements Initializable {
 
     @FXML
     void inventoryStatsButtons(ActionEvent event) {
-
-        if (!statsInvFlag && statsInvPane.isVisible()) {
-            statsPane.setVisible(false);
-            invPane.setVisible(true);
-        }
 
         if (event.getSource().equals(headBtn)) {
             backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.Helmets), inventory));

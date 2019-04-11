@@ -3,7 +3,8 @@ package pixel_warriors.character.Staffs.Items;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum FourthBonusType {
+public enum FourthBonusType
+{
     Critical('C'),
     DefenseChance('D');
     private final char value;
@@ -19,7 +20,8 @@ public enum FourthBonusType {
 
     public static FourthBonusType valueOf(char pageType) {
 
-        switch (pageType) {
+        switch (pageType)
+        {
             case 'C':
                 return FourthBonusType.Critical;
             case 'D':

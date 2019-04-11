@@ -25,7 +25,7 @@ public class LoginDialog {
     private ConnectionDB connectionDB;
 
     LoginDialog() {
-        connectionDB = new ConnectionDB("pixelwarriors", "lab", "lab");
+        connectionDB = new ConnectionDB("lab_test", "lab", "lab");
         connection = connectionDB.getConnection();
     }
 
@@ -83,13 +83,15 @@ public class LoginDialog {
 
     private void dbConntect(String user, String pass) throws SQLException {
 
-        String sql = "SELECT Nick, Password, IDPlayer FROM players WHERE Nick = '" + user + "' AND Password = '" + pass + "'";
+        String sql = "SELECT Login, Password, Nick, Lvl FROM loginid  WHERE login = '" + user + "' AND password = '" + pass + "'";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
 
         if (resultSet.next()) {
             String characterName = resultSet.getString(3);
+            String characterLvl = resultSet.getString(4);
             primaryController.setUserNameLabel("Zalogowano: " + characterName);
+            primaryController.setLvl_Indicator((characterLvl));
             primaryController.musicPlay(true);
             pStage.show();
             connection.close();

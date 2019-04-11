@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class RankPlayerTable {
 
-    private ArrayList<RankPlayers> rankPlayersArrayList = new ArrayList<RankPlayers>();
+    private ArrayList<rankPlayers> rankPlayersArrayList = new ArrayList<rankPlayers>();
     private Connection connection;
     private ConnectionDB connectionDB;
     private ArrayList<String> playersData = new ArrayList<String>();
@@ -37,11 +37,11 @@ public class RankPlayerTable {
         }
 
         for (int i = 0, tmp = 1; i < playersData.size(); i += 2, tmp++) {
-            rankPlayersArrayList.add(new RankPlayers(tmp, playersData.get(i), Integer.parseInt(playersData.get(i + 1))));
+            rankPlayersArrayList.add(new rankPlayers(tmp, playersData.get(i), Integer.parseInt(playersData.get(i + 1))));
         }
     }
 
-    public ArrayList<RankPlayers> getRankPlayersArrayList() {
+    public ArrayList<rankPlayers> getRankPlayersArrayList() {
         return rankPlayersArrayList;
     }
 }

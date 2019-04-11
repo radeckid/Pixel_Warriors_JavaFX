@@ -1,9 +1,12 @@
 package pixel_warriors.character.Staffs.Items;
 
+import javafx.application.Preloader;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public enum TypeFirstBonus {
+public enum TypeFirstBonus
+{
     Strenght('S'),
     Agility('A');
     private final char value;
@@ -19,7 +22,8 @@ public enum TypeFirstBonus {
 
     public static TypeFirstBonus valueOf(char pageType) {
 
-        switch (pageType) {
+        switch (pageType)
+        {
             case 'S':
                 return TypeFirstBonus.Strenght;
             case 'A':
