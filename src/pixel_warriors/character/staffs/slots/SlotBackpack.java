@@ -2,10 +2,14 @@ package pixel_warriors.character.Staffs.Slots;
 
 import javafx.scene.image.ImageView;
 import pixel_warriors.character.Staffs.Items.Item;
+import pixel_warriors.character.Staffs.Items.ItemType;
+
+import java.util.ArrayList;
 
 public class SlotBackpack extends Slot {
     static int idSlot = 0;
     int id;
+    private ItemType slotItemType;
 
     public SlotBackpack() {
         super();

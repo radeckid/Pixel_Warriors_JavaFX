@@ -7,10 +7,12 @@ import pixel_warriors.character.Staffs.Items.Item;
 import pixel_warriors.character.CharacterLogics.LoadImage;
 
 public abstract class Slot {
+
     protected Item item;
     String path;
     LoadImage loadImage;
     ImageView view;
+
 
     public Slot() {
         this.item = null;

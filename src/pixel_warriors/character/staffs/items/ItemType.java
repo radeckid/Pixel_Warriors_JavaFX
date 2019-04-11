@@ -1,6 +1,7 @@
 package pixel_warriors.character.Staffs.Items;
 
 public enum ItemType {
+
     Helmets,
     Armor,
     Trousers,
