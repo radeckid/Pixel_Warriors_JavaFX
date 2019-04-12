@@ -30,6 +30,7 @@ import pixel_warriors.character.CharacterLogics.MoveItem;
 import pixel_warriors.character.Staffs.Backpack;
 import pixel_warriors.character.Staffs.Inventory;
 import pixel_warriors.character.Staffs.Items.ItemType;
+import pixel_warriors.missions.Missions;
 import pixel_warriors.ranking.RankPlayerTable;
 import pixel_warriors.ranking.rankPlayers;
 
@@ -38,6 +39,9 @@ public class Controller implements Initializable {
     private LoginDialog loginDialog = new LoginDialog();
     private ObservableList<rankPlayers> observableList;
     private RankPlayerTable rankPlayerTable = new RankPlayerTable();
+    private Inventory inventory;
+    private Backpack backpack;
+    private Missions missions = new Missions();
 
     //top bar
     @FXML
@@ -103,8 +107,6 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane;
 
-    Inventory inventory;
-    Backpack backpack;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke").getImage();
@@ -125,14 +127,22 @@ public class Controller implements Initializable {
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.1);
+
+        //Items form database (lokalizacja do zmiany \|/ )
         ItemFromDatabase itemFromDatabase = new ItemFromDatabase();
-        ImageView[] viewsBackpack = new ImageView[] {slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
-        ImageView[] viewInventory = new ImageView[] {slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
+        ImageView[] viewsBackpack = new ImageView[]{slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
+        ImageView[] viewInventory = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
+        ImageView[] viewWeared = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
 
         inventory = new Inventory(itemFromDatabase.getInventory(), viewInventory);
         backpack = new Backpack(itemFromDatabase.getEquipment(), viewsBackpack);
         inventory.update();
         backpack.update();
+
+        //Missions buttons
+        Button[] missionBtn = new Button[]{missionOneBtn, missionTwoBtn, missionThreeBtn};
+        missions.getMissionsDB(missionBtn);
+
     }
 
     public void setUserNameLabel(String userNameLabel) {
@@ -251,6 +261,11 @@ public class Controller implements Initializable {
 
     @FXML
     void inventoryStatsButtons(ActionEvent event) {
+
+        if (!invPane.isVisible()) {
+            statsPane.setVisible(false);
+            invPane.setVisible(true);
+        }
 
         if (event.getSource().equals(headBtn)) {
             backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.Helmets), inventory));
