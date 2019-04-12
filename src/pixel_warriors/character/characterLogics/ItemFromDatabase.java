@@ -56,21 +56,15 @@ public class ItemFromDatabase {
 
     public static Item getItem(ItemType item, int idItem, String idPlayer, Statement stmt, String where) {
         try {
-            if(item == ItemType.empty)
+            String query = null;
+            if (item == ItemType.empty)
                 return null;
-            String joinFrom = null, whatID = null;
-            String whatCompare = null;
             if (where.equals("inv")) {
-                joinFrom = "Inventory";
-                whatID = "IDPLayer_Inventory";
-                whatCompare =  FactoryItem.getTable(item) + FactoryItem.getStringToConnection(item);
+                query = "SELECT" + FactoryItem.getAttributesItem(item) + "FROM Players JOIN Inventory ON IDPLayer_Inventory=IDPlayer JOIN" + FactoryItem.getTable(item) + FactoryItem.getStringToConnection(item);
             } else if (where.equals("eq")) {
-                joinFrom = "Equipment";
-                whatID = "IDPlayer_Equipment";
-                whatCompare = FactoryItem.getTable(item) + " Item" + idItem + "=" + FactoryItem.getStringItem(item);
+                query = "SELECT" + FactoryItem.getAttributesItem(item) + "FROM Players JOIN Equipment ON IDPlayer_Equipment=IDPlayer JOIN" + FactoryItem.getTable(item) + " Item" + idItem + "=" + FactoryItem.getStringItem(item);
             }
 
-            String query = "SELECT" + FactoryItem.getAttributesItem(item) + "FROM Players JOIN " + joinFrom + " ON " + whatID + "=IDPlayer JOIN" + whatCompare;
             ResultSet rs = stmt.executeQuery(query);
             Item temp = FactoryItem.getItem(item, rs);
             temp.validation();

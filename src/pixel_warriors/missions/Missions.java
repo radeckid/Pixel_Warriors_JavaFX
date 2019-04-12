@@ -10,12 +10,11 @@ import java.sql.Statement;
 
 public class Missions {
 
-    private ConnectionDB connectionDB;
     private Connection connection;
 
     public Missions() {
-        connectionDB = new ConnectionDB("pixelwarriors", "lab", "lab");
-        connection = connectionDB.getConnection();
+        ConnectionDB connDB = new ConnectionDB("pixelwarriors", "lab", "lab");
+        connection = connDB.getConnection();
     }
 
     public void getMissionsDB(Button[] missionBtn) {
@@ -38,22 +37,21 @@ public class Missions {
         }
     }
 
-    public Quest getMission(Statement stmt, int idMission) {
-
+    private Quest getMission(Statement stmt, int idMission) {
+        Quest quest = new Quest();
         try {
             String query = "SELECT Title, Description, Gold, Experience FROM missions WHERE IDMission=" + idMission + ";";
             ResultSet rs = stmt.executeQuery(query);
 
-            Quest quest = null;
             if (rs.next()) {
                 quest = new Quest(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
                 return quest;
             }
 
-            return null;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        quest.setAll("null", 0);
+        return quest;
     }
 }
