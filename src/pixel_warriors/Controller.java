@@ -30,6 +30,9 @@ import pixel_warriors.character.CharacterLogics.MoveItem;
 import pixel_warriors.character.Staffs.Backpack;
 import pixel_warriors.character.Staffs.Inventory;
 import pixel_warriors.character.Staffs.Items.ItemType;
+import pixel_warriors.character.Staffs.Items.MainWeapon;
+import pixel_warriors.character.Staffs.Items.WeaponType;
+import pixel_warriors.character.Staffs.Slots.EmptySlotType;
 import pixel_warriors.missions.Missions;
 import pixel_warriors.ranking.RankPlayerTable;
 import pixel_warriors.ranking.rankPlayers;
@@ -63,8 +66,7 @@ public class Controller implements Initializable {
 
     //stats and inv panel
     @FXML
-    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel,
-            manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
+    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
     @FXML
     private ProgressBar expProgress;
 
@@ -77,7 +79,7 @@ public class Controller implements Initializable {
 
     //stats and inv character visual
     @FXML
-    private ImageView weaponOneShowImage, weaponTwoShowImage, headShowImage, chestShowImage, legsShowImage, shoesShowImage;
+    private ImageView weaponOneShowImage, weaponTwoShowImage, headShowImage, chestShowImage, legsShowImage, shoesShowImage, glovesShowImageL, glovesShowImageR;
 
     //weared stuff images
     @FXML
@@ -109,9 +111,9 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke").getImage();
-        image_non_quest = new LoadImage("background/tavern.gif", "quest_no").getImage();
-        image_speak = new LoadImage("background/tavern_speak.gif", "quest_speak").getImage();
+        image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke", EmptySlotType.Body).getImage();
+        image_non_quest = new LoadImage("background/tavern.gif", "quest_no", EmptySlotType.Body).getImage();
+        image_speak = new LoadImage("background/tavern_speak.gif", "quest_speak", EmptySlotType.Body).getImage();
 
         //Animacja ruszania ustami taverna
         animTavernBoy();
@@ -132,11 +134,12 @@ public class Controller implements Initializable {
         ItemFromDatabase itemFromDatabase = new ItemFromDatabase();
         ImageView[] viewsBackpack = new ImageView[]{slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
         ImageView[] viewInventory = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
-        ImageView[] viewWeared = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
+        ImageView[] viewBody = new ImageView[]{headShowImage, chestShowImage, legsShowImage, shoesShowImage, weaponOneShowImage, weaponTwoShowImage, glovesShowImageR, glovesShowImageL};
 
-        inventory = new Inventory(itemFromDatabase.getInventory(), viewInventory);
+
+        inventory = new Inventory(itemFromDatabase.getInventory(), viewInventory, viewBody);
         backpack = new Backpack(itemFromDatabase.getEquipment(), viewsBackpack);
-        inventory.update();
+        inventory.update(backpack);
         backpack.update();
 
         //Missions buttons
@@ -308,7 +311,12 @@ public class Controller implements Initializable {
         } else if (event.getSource().equals(slot_12)) {
             MoveItem.putOnItem(backpack.find(12), inventory, backpack);
         }
-        inventory.update();
+
+        if (((MainWeapon) inventory.find(ItemType.MainWeapons).getItem()).getWeaponType() == WeaponType.TwoHanded) {
+            backpack.findFirstEmpty().setItem((MoveItem.takeOffItem(inventory.find(ItemType.AdditionalWeapons), inventory)));
+        }
+
+        inventory.update(backpack);
         backpack.update();
     }
 

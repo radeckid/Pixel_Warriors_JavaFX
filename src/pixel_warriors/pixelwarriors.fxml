@@ -250,7 +250,7 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="statsInvPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" visible="false">
+                        <AnchorPane fx:id="statsInvPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
                            <children>
                               <Label cacheShape="false" centerShape="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" scaleShape="false">
                                  <graphic>
@@ -611,7 +611,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotHeadImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/armors/Helm2_Gif.gif" />
+                                          <Image url="@images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -626,7 +626,7 @@
                                  <graphic>
                                     <ImageView fx:id="headShowImage" fitHeight="152.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/armors/Helm2_Pusty_Gif.gif" />
+                                          <Image url="@images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -635,7 +635,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotChestImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/armors/Zbroja2_Gif.gif" />
+                                          <Image url="@images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -650,7 +650,7 @@
                                  <graphic>
                                     <ImageView fx:id="shoesShowImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/armors/Buty1_Pusty_Gif.gif" />
+                                          <Image url="@images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -659,7 +659,7 @@
                                  <graphic>
                                     <ImageView fx:id="legsShowImage" fitHeight="165.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/armors/Spodnie1_Pusty_Gif.gif" />
+                                          <Image url="@images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -668,7 +668,7 @@
                                  <graphic>
                                     <ImageView fx:id="chestShowImage" fitHeight="175.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/armors/Zbroja2_Pusty_Gif.gif" />
+                                          <Image url="@images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -677,7 +677,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotLegsImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/armors/Spodnie1_Gif.gif" />
+                                          <Image url="@images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -692,7 +692,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotShoesImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/armors/Buty1_Gif.gif" />
+                                          <Image url="@images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -707,7 +707,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotJeweleryImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/jewelerys/Naszyjnik1_Gif.gif" />
+                                          <Image url="@images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -722,7 +722,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotWeaponOneImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/weapons/Miecz1_Gif.gif" />
+                                          <Image url="@images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -737,16 +737,16 @@
                                  <graphic>
                                     <ImageView fx:id="weaponOneShowImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/weapons/Miecz1_Pusty_Gif.gif" />
+                                          <Image url="@images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Label>
                               <Label layoutX="173.0" layoutY="259.0">
                                  <graphic>
-                                    <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="glovesShowImageR" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/armors/PalceZelazo.gif" />
+                                          <Image url="@images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -755,7 +755,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotWeaponTwoImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/weapons/Tarcza2_Gif.gif" />
+                                          <Image url="@images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -766,11 +766,20 @@
                                     <Tooltip text="Broń/Tarcza" />
                                  </tooltip>
                               </Button>
+                              <Label layoutX="256.5" layoutY="258.0" rotate="90.0" scaleY="-1.0">
+                                 <graphic>
+                                    <ImageView fx:id="glovesShowImageL" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0" scaleX="1.1" scaleY="1.1">
+                                       <image>
+                                          <Image url="@images/etc/empty_wear.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
                               <Label cacheShape="false" centerShape="false" focusTraversable="false" layoutX="185.0" layoutY="174.0" scaleShape="false">
                                  <graphic>
                                     <ImageView fx:id="weaponTwoShowImage" fitHeight="175.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/weapons/Tarcza2_Pusty_Gif.gif" />
+                                          <Image url="@images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -779,7 +788,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotGlovesImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/armors/Rekawice2_Gif.gif" />
+                                          <Image url="@images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -792,7 +801,7 @@
                               </Button>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="tavernPane" prefHeight="500.0" prefWidth="800.0">
+                        <AnchorPane fx:id="tavernPane" prefHeight="500.0" prefWidth="800.0" visible="false">
                            <children>
                               <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
                                  <graphic>
@@ -829,9 +838,9 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="missionOneBtn" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="2.0" layoutX="308.0" layoutY="170.0" mnemonicParsing="false" onAction="#tavernPanel" prefHeight="33.0" prefWidth="321.0" scaleShape="false" text="Misja_1" textAlignment="CENTER" visible="false">
+                              <Button fx:id="missionOneBtn" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="2.0" layoutX="300.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tavernPanel" prefHeight="32.0" prefWidth="300.0" scaleShape="false" text="Misja_1" textAlignment="CENTER">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="16.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -840,9 +849,14 @@
                                     <SepiaTone level="0.2" />
                                  </effect>
                               </Button>
-                              <Button fx:id="missionTwoBtn" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="2.0" layoutX="308.0" layoutY="212.0" mnemonicParsing="false" onAction="#tavernPanel" prefHeight="33.0" prefWidth="321.0" scaleShape="false" text="Misja_2" textAlignment="CENTER" visible="false">
+                              <Label layoutX="300.0" layoutY="90.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="300.0" text="Misja_opis_1" wrapText="true">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="missionTwoBtn" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="2.0" layoutX="300.0" layoutY="280.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tavernPanel" prefHeight="32.0" prefWidth="300.0" scaleShape="false" text="Misja_2" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="16.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -851,9 +865,14 @@
                                     <SepiaTone level="0.2" />
                                  </effect>
                               </Button>
-                              <Button fx:id="missionThreeBtn" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="2.0" layoutX="308.0" layoutY="254.0" mnemonicParsing="false" onAction="#tavernPanel" prefHeight="33.0" prefWidth="321.0" scaleShape="false" text="Misja_3" textAlignment="CENTER" visible="false">
+                              <Label layoutX="300.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="300.0" text="Misja_opis_2">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="missionThreeBtn" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="2.0" layoutX="300.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tavernPanel" prefHeight="32.0" prefWidth="300.0" scaleShape="false" text="Misja_3" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="16.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -862,6 +881,11 @@
                                     <SepiaTone level="0.2" />
                                  </effect>
                               </Button>
+                              <Label layoutX="300.0" layoutY="327.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="300.0" text="Misja_opis_3">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
                            </children>
                            <effect>
                               <DropShadow />

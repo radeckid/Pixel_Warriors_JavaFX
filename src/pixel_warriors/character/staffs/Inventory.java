@@ -1,11 +1,16 @@
 package pixel_warriors.character.Staffs;
 
+import javafx.application.Preloader;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import pixel_warriors.character.Staffs.Items.Item;
-import pixel_warriors.character.Staffs.Items.ItemType;
+import pixel_warriors.character.CharacterLogics.LoadImage;
+import pixel_warriors.character.CharacterLogics.MoveItem;
+import pixel_warriors.character.Staffs.Items.*;
 import pixel_warriors.character.Staffs.Slots.SlotInventory;
+import pixel_warriors.character.Staffs.Slots.SlotInventoryBody;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Inventory extends Staff<SlotInventory> {
@@ -14,22 +19,22 @@ public class Inventory extends Staff<SlotInventory> {
         slots = new ArrayList<SlotInventory>();
     }
 
-    public Inventory(ImageView[] views) {
+    public Inventory(ImageView[] views, ImageView[] viewsBody) {
         super(views);
         slots = new ArrayList<SlotInventory>();
-        buildWearedStuff(views);
+        BuildWearedStuff(views, viewsBody);
     }
 
-    public Inventory(Map<ItemType, Item> items, ImageView[] views) {
+    public Inventory(Map<ItemType, Item> items, ImageView[] views, ImageView[] viewsBody) {
         this();
-        slots.add(new SlotInventory(items.get(ItemType.Armor), views[1], ItemType.Armor));
-        slots.add(new SlotInventory(items.get(ItemType.Trousers), views[2], ItemType.Trousers));
-        slots.add(new SlotInventory(items.get(ItemType.Helmets), views[0], ItemType.Helmets));
-        slots.add(new SlotInventory(items.get(ItemType.Gloves), views[7], ItemType.Gloves));
-        slots.add(new SlotInventory(items.get(ItemType.Shoes), views[3], ItemType.Shoes));
-        slots.add(new SlotInventory(items.get(ItemType.MainWeapons), views[5], ItemType.MainWeapons));
-        slots.add(new SlotInventory(items.get(ItemType.AdditionalWeapons), views[6], ItemType.AdditionalWeapons));
+        slots.add(new SlotInventoryBody((ItemBody) items.get(ItemType.Helmets), views[0], ItemType.Helmets, new ImageView[]{viewsBody[0]}));
+        slots.add(new SlotInventoryBody((ItemBody) items.get(ItemType.Armor), views[1], ItemType.Armor, new ImageView[]{viewsBody[1]}));
+        slots.add(new SlotInventoryBody((ItemBody) items.get(ItemType.Trousers), views[2], ItemType.Trousers, new ImageView[]{viewsBody[2]}));
+        slots.add(new SlotInventoryBody((ItemBody) items.get(ItemType.Shoes), views[3], ItemType.Shoes, new ImageView[]{viewsBody[3]}));
         slots.add(new SlotInventory(items.get(ItemType.Necklaces), views[4], ItemType.Necklaces));
+        slots.add(new SlotInventoryBody((ItemBody) items.get(ItemType.MainWeapons), views[5], ItemType.MainWeapons, new ImageView[]{viewsBody[4]}));
+        slots.add(new SlotInventoryBody((ItemBody) items.get(ItemType.AdditionalWeapons), views[6], ItemType.AdditionalWeapons, new ImageView[]{viewsBody[5]}));
+        slots.add(new SlotInventoryBody((ItemBody) items.get(ItemType.Gloves), views[7], ItemType.Gloves, new ImageView[]{viewsBody[6], viewsBody[7]}));
     }
 
     public void setInventory(Item[] items) {
@@ -43,14 +48,14 @@ public class Inventory extends Staff<SlotInventory> {
         this.find(ItemType.Necklaces).setItem(items[7]);
     }
 
-    private void buildWearedStuff(ImageView[] views) {
-        slots.add(new SlotInventory(ItemType.Armor, views[1]));
-        slots.add(new SlotInventory(ItemType.Trousers, views[2]));
-        slots.add(new SlotInventory(ItemType.Helmets, views[0]));
-        slots.add(new SlotInventory(ItemType.Gloves, views[7]));
-        slots.add(new SlotInventory(ItemType.Shoes, views[3]));
-        slots.add(new SlotInventory(ItemType.MainWeapons, views[5]));
-        slots.add(new SlotInventory(ItemType.AdditionalWeapons, views[6]));
+    private void BuildWearedStuff(ImageView[] views, ImageView[] viewsBody) {
+        slots.add(new SlotInventoryBody(ItemType.Armor, views[1], new ImageView[]{viewsBody[3]}));
+        slots.add(new SlotInventoryBody(ItemType.Trousers, views[2], new ImageView[]{viewsBody[4]}));
+        slots.add(new SlotInventoryBody(ItemType.Helmets, views[0], new ImageView[]{viewsBody[2]}));
+        slots.add(new SlotInventoryBody(ItemType.Gloves, views[7], new ImageView[]{viewsBody[6], viewsBody[7]}));
+        slots.add(new SlotInventoryBody(ItemType.Shoes, views[3], new ImageView[]{viewsBody[5]}));
+        slots.add(new SlotInventoryBody(ItemType.MainWeapons, views[5], new ImageView[]{viewsBody[0]}));
+        slots.add(new SlotInventoryBody(ItemType.AdditionalWeapons, views[6], new ImageView[]{viewsBody[1]}));
         slots.add(new SlotInventory(ItemType.Necklaces, views[4]));
     }
 
@@ -67,7 +72,7 @@ public class Inventory extends Staff<SlotInventory> {
         return temp;
     }
 
-    public void update() {
+    public void update(Backpack backpack) {
         for (int i = 0; i < slots.size(); i++) {
             slots.get(i).updateSlot();
         }

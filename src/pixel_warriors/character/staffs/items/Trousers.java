@@ -2,7 +2,7 @@ package pixel_warriors.character.Staffs.Items;
 
 import java.sql.SQLException;
 
-public class Trousers extends Item <Trousers>
+public class Trousers extends ItemBody <Trousers>
 {
     private int physicalDefense;
     private int magicalDefense;
@@ -10,16 +10,17 @@ public class Trousers extends Item <Trousers>
     {
 
     }
-    public Trousers(int idItem, String name, String path, int physicalDefense, int magicalDefense)
+    public Trousers(int idItem, String name, String path, int physicalDefense, int magicalDefense, String pathBody)
     {
-        super(idItem, name, path, ItemType.Trousers);
+        super(idItem, name, path, ItemType.Trousers, pathBody);
         this.physicalDefense = physicalDefense;
         this.magicalDefense = magicalDefense;
+        this.pathBody= pathBody;
     }
 
     public Trousers(Trousers armor)
     {
-        super(armor.getIdItem(), armor.getName(), armor.getPath(), ItemType.Trousers);
+        super(armor.getIdItem(), armor.getName(), armor.getPath(), ItemType.Trousers, armor.getPathBody());
         this.physicalDefense = armor.getPhysicalDefense();
         this.magicalDefense = armor.getMagicalDefense();
     }

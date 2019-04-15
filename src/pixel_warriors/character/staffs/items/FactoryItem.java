@@ -19,7 +19,7 @@ public class FactoryItem
                 return ItemType.Shoes;
             case "Necklaces":
                 return ItemType.Necklaces;
-            case "MainWeapons":
+            case "MainWeapon":
                 return ItemType.MainWeapons;
             case "AdditionalWeapons":
                 return ItemType.AdditionalWeapons;
@@ -75,22 +75,20 @@ public class FactoryItem
             switch (itemType)
             {
                 case Helmets:
-                    return new Helmets(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+                    return new Helmets(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
                 case Armor:
-                    return new Armor(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+                    return new Armor(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
                 case Trousers:
-                    return new Trousers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+                    return new Trousers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
                 case Shoes:
-                    return new Shoes(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+                    return new Shoes(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
                 case Gloves:
-                    return new Gloves(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
+                    return new Gloves(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
                 case MainWeapons:
-                    return new MainWeapon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), WeaponType.valueOf(rs.getInt(5)));
+                    return new MainWeapon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), WeaponType.valueOf(rs.getInt(5)), rs.getString(6));
                 case AdditionalWeapons:
-                    return new AdditionalWeapon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                    return new AdditionalWeapon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
                 case Necklaces:
-                    TypeFirstBonus ch1 = TypeFirstBonus.valueOf(rs.getString(5).charAt(0));
-                    FourthBonusType ch2 = FourthBonusType.valueOf(rs.getString(9).charAt(0));
                     return new Necklace(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), TypeFirstBonus.valueOf(rs.getString(5).charAt(0)),  rs.getInt(6),  rs.getInt(7),  rs.getInt(8),  FourthBonusType.valueOf(rs.getString(9).charAt(0)));
                 case empty:
                     return null;
@@ -109,19 +107,19 @@ public class FactoryItem
         switch (itemType)
         {
             case Helmets:
-                return " idHelmet, Name, Path, PhysicalDefense, MagicalDefense ";
+                return " idHelmet, Name, Path, PhysicalDefense, MagicalDefense, PathBody ";
             case Armor:
-                return " idArmor, Name, Path, PhysicalDefense, MagicalDefense ";
+                return " idArmor, Name, Path, PhysicalDefense, MagicalDefense, PathBody ";
             case Trousers:
-                return " idTrousers, Name, Path, PhysicalDefense, MagicalDefense ";
+                return " idTrousers, Name, Path, PhysicalDefense, MagicalDefense, PathBody ";
             case Shoes:
-                return " idShoes, Name, Path, PhysicalDefense, MagicalDefense ";
+                return " idShoes, Name, Path, PhysicalDefense, MagicalDefense, PathBody ";
             case Gloves:
-                return " idGloves, Name, Path, PhysicalDefense, MagicalDefense ";
+                return " idGloves, Name, Path, PhysicalDefense, MagicalDefense, PathBody ";
             case MainWeapons:
-                return " IDMainWeapon, Name, Path, Attack, Type ";
+                return " IDMainWeapon, Name, Path, Attack, Type, PathBody ";
             case AdditionalWeapons:
-                return " IDAdditionalWeapon, Name, Path, Attack ";
+                return " IDAdditionalWeapon, Name, Path, Attack, PathBody ";
             case Necklaces:
                 return " IDNecklace, Name, Path, FirstBonus, TypeFirstBonus, SecondBonus, ThirdBonus, FourthBonus, FourthBonusType ";
             case empty:
@@ -137,7 +135,7 @@ public class FactoryItem
         switch (itemType)
         {
             case Helmets:
-                return " DInventory_Helmet=IDHelmet;";
+                return " IDInventory_Helmet=IDHelmet;";
             case Armor:
                 return " IDInventory_Armor=IDArmor;";
             case Trousers:

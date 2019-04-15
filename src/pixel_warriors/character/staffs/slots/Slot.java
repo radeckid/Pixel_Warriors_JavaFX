@@ -17,7 +17,7 @@ public abstract class Slot
     {
         this.item = null;
         path = "etc\\empty_slot.gif";
-        loadImage = new LoadImage(path, "empty");
+        loadImage = new LoadImage(path, "empty", EmptySlotType.Inv);
     }
 
     public Slot(ImageView view)
@@ -41,7 +41,7 @@ public abstract class Slot
             nameImage=item.getName();
             path = item.getPath();
         }
-        loadImage = new LoadImage(path,nameImage);
+        loadImage = new LoadImage(path,nameImage, EmptySlotType.Inv);
         this.view = view;
         view.setImage(loadImage.getImage());
     }
@@ -51,12 +51,12 @@ public abstract class Slot
         if(item == null)
         {
             path = "etc\\empty_slot.gif";
-            loadImage = new LoadImage();
+            loadImage = new LoadImage(EmptySlotType.Inv);
         }
         else
         {
             path = item.getPath();
-            loadImage = new LoadImage(path, "test");
+            loadImage = new LoadImage(path, "test", EmptySlotType.Inv);
         }
         view.setImage(loadImage.getImage());
     }
