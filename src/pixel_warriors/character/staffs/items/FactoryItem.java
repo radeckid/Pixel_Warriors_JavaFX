@@ -1,4 +1,4 @@
-package pixel_warriors.character.Staffs.Items;
+package pixel_warriors.character.staffs.items;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,14 +12,14 @@ public class FactoryItem
             case "Helmets":
                 return ItemType.Helmets;
             case "Armors":
-                return ItemType.Armor;
+                return ItemType.Armors;
             case "Trousers":
                 return ItemType.Trousers;
             case "Shoes":
                 return ItemType.Shoes;
             case "Necklaces":
                 return ItemType.Necklaces;
-            case "MainWeapon":
+            case "MainWeapons":
                 return ItemType.MainWeapons;
             case "AdditionalWeapons":
                 return ItemType.AdditionalWeapons;
@@ -41,8 +41,8 @@ public class FactoryItem
         {
             case Helmets:
                 return new Helmets((Helmets) item);
-            case Armor:
-                return new Armor((Armor) item);
+            case Armors:
+                return new Chest((Chest) item);
             case Trousers:
                 return new Trousers((Trousers) item);
             case Shoes:
@@ -76,8 +76,8 @@ public class FactoryItem
             {
                 case Helmets:
                     return new Helmets(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
-                case Armor:
-                    return new Armor(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
+                case Armors:
+                    return new Chest(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
                 case Trousers:
                     return new Trousers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
                 case Shoes:
@@ -87,7 +87,7 @@ public class FactoryItem
                 case MainWeapons:
                     return new MainWeapon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), WeaponType.valueOf(rs.getInt(5)), rs.getString(6));
                 case AdditionalWeapons:
-                    return new AdditionalWeapon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+                    return new AdditionalWeapon(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), TypeAttackAdditionalWeapons.valueOf(rs.getString(6).charAt(0)));
                 case Necklaces:
                     return new Necklace(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), TypeFirstBonus.valueOf(rs.getString(5).charAt(0)),  rs.getInt(6),  rs.getInt(7),  rs.getInt(8),  FourthBonusType.valueOf(rs.getString(9).charAt(0)));
                 case empty:
@@ -108,7 +108,7 @@ public class FactoryItem
         {
             case Helmets:
                 return " idHelmet, Name, Path, PhysicalDefense, MagicalDefense, PathBody ";
-            case Armor:
+            case Armors:
                 return " idArmor, Name, Path, PhysicalDefense, MagicalDefense, PathBody ";
             case Trousers:
                 return " idTrousers, Name, Path, PhysicalDefense, MagicalDefense, PathBody ";
@@ -119,7 +119,7 @@ public class FactoryItem
             case MainWeapons:
                 return " IDMainWeapon, Name, Path, Attack, Type, PathBody ";
             case AdditionalWeapons:
-                return " IDAdditionalWeapon, Name, Path, Attack, PathBody ";
+                return " IDAdditionalWeapon, Name, Path, Attack, PathBody,TypeAttack ";
             case Necklaces:
                 return " IDNecklace, Name, Path, FirstBonus, TypeFirstBonus, SecondBonus, ThirdBonus, FourthBonus, FourthBonusType ";
             case empty:
@@ -136,7 +136,7 @@ public class FactoryItem
         {
             case Helmets:
                 return " IDInventory_Helmet=IDHelmet;";
-            case Armor:
+            case Armors:
                 return " IDInventory_Armor=IDArmor;";
             case Trousers:
                 return " IDInventory_Trousers=IDTrousers;";
@@ -164,7 +164,7 @@ public class FactoryItem
         {
             case Helmets:
                 return " IDHelmet;";
-            case Armor:
+            case Armors:
                 return " IDArmor;";
             case Trousers:
                 return " IDTrousers;";
@@ -192,7 +192,7 @@ public class FactoryItem
         {
             case Helmets:
                 return " Helmets on ";
-            case Armor:
+            case Armors:
                 return " Armors on ";
             case Trousers:
                 return " Trousers on ";
@@ -206,6 +206,34 @@ public class FactoryItem
                 return " AdditionalWeapons on ";
             case Necklaces:
                 return " Necklaces on ";
+            case empty:
+                break;
+            default:
+                return null;
+        }
+        return null;
+    }
+
+    public static String getIdInventory(ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case Helmets:
+                return " IDInventory_Helmet";
+            case Armors:
+                return " IDInventory_Armor ";
+            case Trousers:
+                return " IDInventory_Trousers ";
+            case Shoes:
+                return " IDInventory_Shoes ";
+            case Gloves:
+                return " IDInventory_Gloves ";
+            case MainWeapons:
+                return " IDInventory_MainWeapon ";
+            case AdditionalWeapons:
+                return " IDInventory_AdditionalWeapon ";
+            case Necklaces:
+                return " IDInventory_Necklace ";
             case empty:
                 break;
             default:

@@ -1,8 +1,7 @@
-package pixel_warriors.character.Staffs;
+package pixel_warriors.character.staffs;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public abstract class Staff <T>
@@ -31,4 +30,6 @@ public abstract class Staff <T>
     {
         return slots.get(i);
     }
+
+    public abstract void update();
 }

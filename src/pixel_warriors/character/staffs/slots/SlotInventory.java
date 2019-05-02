@@ -1,9 +1,8 @@
-package pixel_warriors.character.Staffs.Slots;
+package pixel_warriors.character.staffs.slots;
 
 import javafx.scene.image.ImageView;
-import pixel_warriors.character.CharacterLogics.LoadImage;
-import pixel_warriors.character.Staffs.Items.Item;
-import pixel_warriors.character.Staffs.Items.ItemType;
+import pixel_warriors.character.staffs.items.Item;
+import pixel_warriors.character.staffs.items.ItemType;
 
 public class SlotInventory extends Slot
 {
@@ -27,15 +26,15 @@ public class SlotInventory extends Slot
     }
 
     public SlotInventory(ItemType itemType, SlotInventory slotInventory)
-{
-    super(slotInventory.getItem(), slotInventory.getImageView());
-    this.slotItemType = itemType;
-    if(super.getItem() != null && (slotInventory.getItem().getItemType()!=slotItemType))
     {
-        super.item = null;
-        super.item.setPath("etc\\empty_slot.gif");
+         super(slotInventory.getItem(), slotInventory.getImageView());
+         this.slotItemType = itemType;
+         if(super.getItem() != null && (slotInventory.getItem().getItemType()!=slotItemType))
+         {
+             super.item = null;
+             super.item.setPath("etc\\empty_slot.gif");
+         }
     }
-}
 
     public void setItem(Item item)
     {

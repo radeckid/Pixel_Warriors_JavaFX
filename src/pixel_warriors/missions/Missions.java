@@ -1,7 +1,7 @@
 package pixel_warriors.missions;
 
-import Connection.ConnectionDB;
 import javafx.scene.control.Button;
+import pixel_warriors.connectiondb.ConnectionDB;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,8 +13,7 @@ public class Missions {
     private Connection connection;
 
     public Missions() {
-        ConnectionDB connDB = new ConnectionDB("pixelwarriors", "lab", "lab");
-        connection = connDB.getConnection();
+        connection = ConnectionDB.getInstance().getConnection();
     }
 
     public void getMissionsDB(Button[] missionBtn) {

@@ -1,6 +1,7 @@
 package pixel_warriors.ranking;
 
-import Connection.ConnectionDB;
+
+import pixel_warriors.connectiondb.ConnectionDB;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,20 +11,19 @@ import java.util.ArrayList;
 
 public class RankPlayerTable {
 
-    private ArrayList<rankPlayers> rankPlayersArrayList = new ArrayList<rankPlayers>();
+    private ArrayList<RankPlayers> rankPlayersArrayList = new ArrayList<RankPlayers>();
     private Connection connection;
-    private ConnectionDB connectionDB;
     private ArrayList<String> playersData = new ArrayList<String>();
 
     public RankPlayerTable() {
-        connectionDB = new ConnectionDB("lab_test", "lab", "lab");
-        connection = connectionDB.getConnection();
+        ConnectionDB connectiondb = ConnectionDB.getInstance();
+        connection = connectiondb.getConnection();
     }
 
 
     public void getDataFromDB() throws SQLException {
 
-        String sql = "SELECT Nick, Lvl FROM rank_table ORDER BY Lvl DESC";
+        String sql = "SELECT IDPLayer_Statistic, Level FROM statistics ORDER BY RankingPoints DESC";
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -37,11 +37,11 @@ public class RankPlayerTable {
         }
 
         for (int i = 0, tmp = 1; i < playersData.size(); i += 2, tmp++) {
-            rankPlayersArrayList.add(new rankPlayers(tmp, playersData.get(i), Integer.parseInt(playersData.get(i + 1))));
+            rankPlayersArrayList.add(new RankPlayers(tmp, playersData.get(i), Integer.parseInt(playersData.get(i + 1))));
         }
     }
 
-    public ArrayList<rankPlayers> getRankPlayersArrayList() {
+    public ArrayList<RankPlayers> getRankPlayersArrayList() {
         return rankPlayersArrayList;
     }
 }

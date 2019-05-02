@@ -1,7 +1,7 @@
-package pixel_warriors.character.Staffs.Slots;
+package pixel_warriors.character.staffs.slots;
 
 import javafx.scene.image.ImageView;
-import pixel_warriors.character.Staffs.Items.Item;
+import pixel_warriors.character.staffs.items.Item;
 
 public class SlotBackpack extends Slot
 {

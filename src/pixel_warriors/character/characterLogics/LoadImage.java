@@ -1,7 +1,7 @@
-package pixel_warriors.character.CharacterLogics;
+package pixel_warriors.character.characterlogics;
 
 import javafx.scene.image.Image;
-import pixel_warriors.character.Staffs.Slots.EmptySlotType;
+import pixel_warriors.character.staffs.slots.EmptySlotType;
 
 public class LoadImage {
 

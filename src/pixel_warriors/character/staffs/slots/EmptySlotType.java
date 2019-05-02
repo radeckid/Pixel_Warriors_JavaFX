@@ -1,4 +1,4 @@
-package pixel_warriors.character.Staffs.Slots;
+package pixel_warriors.character.staffs.slots;
 
 public enum EmptySlotType
 {

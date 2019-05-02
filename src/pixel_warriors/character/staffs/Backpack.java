@@ -1,13 +1,11 @@
-package pixel_warriors.character.Staffs;
+package pixel_warriors.character.staffs;
 
 
 import javafx.scene.image.ImageView;
-import pixel_warriors.character.Staffs.Items.Item;
-import pixel_warriors.character.Staffs.Items.ItemType;
-import pixel_warriors.character.Staffs.Slots.SlotBackpack;
+import pixel_warriors.character.staffs.items.Item;
+import pixel_warriors.character.staffs.slots.SlotBackpack;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Backpack extends Staff<SlotBackpack> {
 

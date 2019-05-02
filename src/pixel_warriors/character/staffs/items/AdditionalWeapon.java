@@ -1,39 +1,63 @@
-package pixel_warriors.character.Staffs.Items;
+package pixel_warriors.character.staffs.items;
 
-import java.sql.SQLException;
+import pixel_warriors.character.Statistic;
 
-public class AdditionalWeapon extends ItemBody<AdditionalWeapon>
+public class AdditionalWeapon extends Weapon<AdditionalWeapon>
 {
-    int attack;
-    public AdditionalWeapon()
+    TypeAttackAdditionalWeapons typeAttackAdditionalWeapons;
+    public AdditionalWeapon(int idItem, String name, String path, int attack, String pathBody, TypeAttackAdditionalWeapons typeAttackAdditionalWeapons)
     {
-
-    }
-
-    public AdditionalWeapon(int idItem, String name, String path, int attack, String pathBody)
-    {
-        super(idItem, name, path, ItemType.AdditionalWeapons, pathBody);
-        this.attack = attack;
+        super(idItem, name, path,attack, pathBody, ItemType.AdditionalWeapons);
+        this.typeAttackAdditionalWeapons = typeAttackAdditionalWeapons;
     }
 
     public AdditionalWeapon(AdditionalWeapon armor)
     {
-        super(armor.getIdItem(), armor.getName(), armor.getPath(), ItemType.AdditionalWeapons, armor.getPathBody());
-        this.attack = armor.getAttack();
+        super(armor.getIdItem(), armor.getName(), armor.getPath(), armor.getAttack(),armor.getPathBody(), ItemType.AdditionalWeapons);
+        this.typeAttackAdditionalWeapons = armor.getTypeAttackAdditionalWeapons();
     }
 
-    public void setItem(AdditionalWeapon item)
+    public void addStatistic(Statistic statistic)
     {
-        super.setItem(item);
-        this.attack = item.getAttack();
+        try
+        {
+            switch (typeAttackAdditionalWeapons)
+            {
+                case Attack:
+                    statistic.setAttack(statistic.getAttack() + this.attack);
+                    break;
+                case Defense:
+                    statistic.setPhysicalDefense(statistic.getPhysicalDefense() + this.attack);
+                    statistic.setMagicalDefense(statistic.getMagicalDefense() + this.attack);
+                    break;
+            }
+        }
+        catch(InterruptedException ex){}
     }
 
-    public void validation() throws SQLException
+    public void substractStatistic(Statistic statistic)
     {
-        super.validation();
-        if(attack==0) throw  new SQLException();
+        try
+        {
+            switch (typeAttackAdditionalWeapons)
+            {
+                case Attack:
+                    statistic.setAttack(statistic.getAttack() - this.attack);
+                    break;
+                case Defense:
+                    statistic.setPhysicalDefense(statistic.getPhysicalDefense() - this.attack);
+                    statistic.setMagicalDefense(statistic.getMagicalDefense() - this.attack);
+                    break;
+            }
+        }
+        catch(InterruptedException ex){}
     }
 
-    public int getAttack() {return attack;}
-    public void setAttack(int attack){this.attack = attack;}
+    public TypeAttackAdditionalWeapons getTypeAttackAdditionalWeapons() {
+        return typeAttackAdditionalWeapons;
+    }
+
+    public void setTypeAttackAdditionalWeapons(TypeAttackAdditionalWeapons typeAttackAdditionalWeapons) {
+        this.typeAttackAdditionalWeapons = typeAttackAdditionalWeapons;
+    }
 }

@@ -1,34 +1,33 @@
-package pixel_warriors.character.Staffs.Items;
+package pixel_warriors.character.staffs.items;
+
+import pixel_warriors.character.Statistic;
 
 import java.sql.SQLException;
 
-public class Armor extends ItemBody <Armor>
+public abstract class Armor<T> extends ItemBody<T>
 {
     private int physicalDefense;
     private int magicalDefense;
-    public Armor()
-    {
 
-    }
-    public Armor(int idItem, String name, String path, int physicalDefense, int magicalDefense, String pathBody)
+    public Armor(int idItem, String name, String path, ItemType itemType, int physicalDefense, int magicalDefense, String body)
     {
-        super(idItem, name, path, ItemType.Armor, pathBody);
+        super(idItem, name, path, itemType, body);
         this.physicalDefense = physicalDefense;
         this.magicalDefense = magicalDefense;
     }
 
-    public Armor(Armor armor)
+    public Armor(Chest armor)
     {
-        super(armor.getIdItem(), armor.getName(), armor.getPath(), ItemType.Armor, armor.getPathBody());
+        super(armor.getIdItem(), armor.getName(), armor.getPath(), armor.getItemType(), armor.getPathBody());
         this.physicalDefense = armor.getPhysicalDefense();
         this.magicalDefense = armor.getMagicalDefense();
     }
 
-    public void setItem(Armor item)
+    public void setItem(T item)
     {
         super.setItem(item);
-        this.physicalDefense = item.getPhysicalDefense();
-        this.magicalDefense = item.getMagicalDefense();
+        this.physicalDefense = ((Armor)item).getPhysicalDefense();
+        this.magicalDefense = ((Armor)item).getMagicalDefense();
     }
 
     public String toString()
@@ -49,4 +48,26 @@ public class Armor extends ItemBody <Armor>
     public void setMagicalDefense(int magicalDefense) { this.magicalDefense = magicalDefense;}
 
     public int getMagicalDefense(){ return magicalDefense;}
+
+    public void addStatistic(Statistic statistic)
+    {
+        try
+        {
+            statistic.setMagicalDefense(statistic.getMagicalDefense() + this.magicalDefense);
+            statistic.setPhysicalDefense(statistic.getPhysicalDefense() + this.physicalDefense);
+        }
+        catch (InterruptedException ex)
+        {
+            System.out.println("Error");
+        }
+    }
+    public void substractStatistic(Statistic statistic)
+    {
+        try
+        {
+            statistic.setMagicalDefense(statistic.getMagicalDefense() - this.magicalDefense);
+            statistic.setPhysicalDefense(statistic.getPhysicalDefense() - this.physicalDefense);
+        }
+        catch (InterruptedException ex) {}
+    }
 }

@@ -1,4 +1,6 @@
-package pixel_warriors.character.Staffs.Items;
+package pixel_warriors.character.staffs.items;
+
+import pixel_warriors.character.Statistic;
 
 import java.sql.SQLException;
 
@@ -59,6 +61,62 @@ public class Necklace extends Item <Necklace>
     {
         super.validation();
         if(firstBonus==0 || typeFirstBonus==null || secondBonus==0 || thirdBonus==0 || fourthBonus==0 || fourthBonusType==null) throw new SQLException();
+    }
+
+    public void addStatistic(Statistic statistic)
+    {
+        try
+        {
+            switch (typeFirstBonus)
+            {
+                case Agility:
+                    statistic.setAgility(statistic.getAgility() + firstBonus);
+                    break;
+                case Strenght:
+                    statistic.setStrength(statistic.getStrength() + firstBonus);
+                    break;
+            }
+            statistic.setHp(statistic.getHp() + this.secondBonus);
+            statistic.setMana(statistic.getMana() + this.thirdBonus);
+            switch (fourthBonusType)
+            {
+                case Critical:
+                    statistic.setCritical(statistic.getCritical() + fourthBonus);
+                    break;
+                case DefenseChance:
+                    statistic.setDefenseChance(statistic.getDefenseChance() + fourthBonus);
+                    break;
+            }
+        }
+        catch (InterruptedException ex) {}
+    }
+
+    public void substractStatistic(Statistic statistic)
+    {
+        try
+        {
+            switch (typeFirstBonus)
+            {
+                case Agility:
+                    statistic.setAgility(statistic.getAgility() - firstBonus);
+                    break;
+                case Strenght:
+                    statistic.setStrength(statistic.getStrength() - firstBonus);
+                    break;
+            }
+            statistic.setHp(statistic.getHp() - this.secondBonus);
+            statistic.setMana(statistic.getMana() - this.thirdBonus);
+            switch (fourthBonusType)
+            {
+                case Critical:
+                    statistic.setCritical(statistic.getCritical() - fourthBonus);
+                    break;
+                case DefenseChance:
+                    statistic.setDefenseChance(statistic.getDefenseChance() - fourthBonus);
+                    break;
+            }
+        }
+        catch (InterruptedException ex) {}
     }
 
     public int getFirstBonus() {

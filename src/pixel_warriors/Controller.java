@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableColumn;
@@ -24,27 +25,30 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import pixel_warriors.character.CharacterLogics.ItemFromDatabase;
-import pixel_warriors.character.CharacterLogics.LoadImage;
-import pixel_warriors.character.CharacterLogics.MoveItem;
-import pixel_warriors.character.Staffs.Backpack;
-import pixel_warriors.character.Staffs.Inventory;
-import pixel_warriors.character.Staffs.Items.ItemType;
-import pixel_warriors.character.Staffs.Items.MainWeapon;
-import pixel_warriors.character.Staffs.Items.WeaponType;
-import pixel_warriors.character.Staffs.Slots.EmptySlotType;
+import pixel_warriors.character.characterlogics.ItemFromDatabase;
+import pixel_warriors.character.characterlogics.LoadImage;
+import pixel_warriors.character.characterlogics.MoveItem;
+import pixel_warriors.character.staffs.Backpack;
+import pixel_warriors.character.staffs.Inventory;
+import pixel_warriors.character.staffs.items.*;
+import pixel_warriors.character.staffs.itemsshowpanel.ItemsShow;
+import pixel_warriors.character.staffs.slots.EmptySlotType;
+import pixel_warriors.character.staffs.slots.SlotBackpack;
+import pixel_warriors.character.staffs.slots.SlotInventory;
+import pixel_warriors.character.Warrior;
 import pixel_warriors.missions.Missions;
 import pixel_warriors.ranking.RankPlayerTable;
-import pixel_warriors.ranking.rankPlayers;
+import pixel_warriors.ranking.RankPlayers;
+import pixel_warriors.innkeepercharacter.InnkeeperSpeak;
+import pixel_warriors.weaponanimation.WeaponAnimation;
 
 public class Controller implements Initializable {
 
     private LoginDialog loginDialog = new LoginDialog();
-    private ObservableList<rankPlayers> observableList;
+    private ObservableList<RankPlayers> observableList;
     private RankPlayerTable rankPlayerTable = new RankPlayerTable();
-    private Inventory inventory;
-    private Backpack backpack;
-    private Missions missions = new Missions();
+    private Warrior player;
+    private ItemsShow itemsShow;
 
     //top bar
     @FXML
@@ -63,12 +67,13 @@ public class Controller implements Initializable {
     private ImageView musicImage;
     private MediaPlayer mediaPlayer;
 
-
     //stats and inv panel
     @FXML
-    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, staminaLabel, physicalLabe, magicLabel, criticalLabel, defChanceLabel;
+    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, energyLabel, defPhysicLabel, defMagicLabel, criticalLabel, defChanceLabel;
     @FXML
     private ProgressBar expProgress;
+
+
 
     @FXML
     private Button weaponOneBtn, weaponTwoBtn, jaweleryBtn, glovesBtn, headBtn, chestBtn, legsBtn, shoesBtn;
@@ -79,19 +84,30 @@ public class Controller implements Initializable {
 
     //stats and inv character visual
     @FXML
-    private ImageView weaponOneShowImage, weaponTwoShowImage, headShowImage, chestShowImage, legsShowImage, shoesShowImage, glovesShowImageL, glovesShowImageR;
+    private ImageView weaponOneShowImage, weaponTwoShowImage, headShowImage, chestShowImage, legsShowImage, shoesShowImage, glovesShowImageR, glovesShowImageL;
 
     //weared stuff images
     @FXML
     private ImageView slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg;
 
+    //items Stats Panel
+    @FXML
+    private AnchorPane weaponStatsPane, necklesStatsPane, armorStatsPane;
+    @FXML
+    private Button weaponStatExitBtn, armorStatExitBtn, neclkesStatExitBtn, upgradeWeaponBtn, upgradeArmorBtn, upgradeNecklesBtn;
+    @FXML
+    private Label weaponNameLabel, armorNameLabel, necklesNameLabel, weaponLvlLabel, armorLvlLabel, necklesLvlLabel, upgradeWeaponCostLabel, upgradeArmorCostLabel, upgradeNecklesCostLabel, itemAtkLabel, itemDefLabel, itemAtrLabel_1, itemAtrLabel_2, itemAtrLabel_3, itemAtrLabel_4;
+
     //tavern panel
     @FXML
     private Button innkeeperBtn, missionOneBtn, missionTwoBtn, missionThreeBtn;
     @FXML
+    private Label missionOneLabel, missionTwoLabel, missionThreeLabel;
+    @FXML
     private ImageView tavernImage;
     private boolean imageFlag = true;
     private Image image_quest, image_non_quest, image_speak;
+    private InnkeeperSpeak innkeeperSpeak;
 
     //rank panel
     @FXML
@@ -99,15 +115,24 @@ public class Controller implements Initializable {
     @FXML
     private TextField searchRankLabel;
     @FXML
-    private TableView<rankPlayers> tableRank;
+    private TableView<RankPlayers> tableRank;
     @FXML
-    private TableColumn<rankPlayers, Integer> colNr, colLvl;
+    private TableColumn<RankPlayers, Integer> colNr, colLvl;
     @FXML
-    private TableColumn<rankPlayers, String> colNick;
+    private TableColumn<RankPlayers, String> colNick;
+
+    //fight panel
+    @FXML
+    private Button firstAtkBtn, secondAtkBtn, thirdAtkBtn, surrBtn;
+    @FXML
+    private Label weaponAnimLabel;
+    @FXML
+    private ImageView weaponAnimImg; //TODO ustawiamy img przy rozpoczeciu misji
+    private WeaponAnimation animation = new WeaponAnimation();
 
     //panels
     @FXML
-    private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane;
+    private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane, fightPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -117,6 +142,7 @@ public class Controller implements Initializable {
 
         //Animacja ruszania ustami taverna
         animTavernBoy();
+        innkeeperSpeak = new InnkeeperSpeak(tavernImage, image_speak, image_non_quest);
 
         //for rank table
         colNr.setCellValueFactory(new PropertyValueFactory<>("PlayerId"));
@@ -130,22 +156,27 @@ public class Controller implements Initializable {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.1);
 
-        //Items form database (lokalizacja do zmiany \|/ )
-        ItemFromDatabase itemFromDatabase = new ItemFromDatabase();
+        //items form database (lokalizacja do zmiany)
         ImageView[] viewsBackpack = new ImageView[]{slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
         ImageView[] viewInventory = new ImageView[]{slotHeadImg, slotChestImg, slotLegsImg, slotShoesImg, slotJeweleryImg, slotWeaponOneImg, slotWeaponTwoImg, slotGlovesImg};
         ImageView[] viewBody = new ImageView[]{headShowImage, chestShowImage, legsShowImage, shoesShowImage, weaponOneShowImage, weaponTwoShowImage, glovesShowImageR, glovesShowImageL};
 
 
-        inventory = new Inventory(itemFromDatabase.getInventory(), viewInventory, viewBody);
-        backpack = new Backpack(itemFromDatabase.getEquipment(), viewsBackpack);
-        inventory.update(backpack);
-        backpack.update();
+        Inventory inventory = new Inventory(ItemFromDatabase.getInstance().getInventory(), viewInventory, viewBody);
+        Backpack backpack = new Backpack(ItemFromDatabase.getInstance().getEquipment(), viewsBackpack);
+        player = new Warrior(inventory, backpack);
+
+        Label[] statisticsLabel = {strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, energyLabel, defPhysicLabel, defMagicLabel, criticalLabel, defChanceLabel, expLabel};
+        player.update(statisticsLabel, expProgress);
+
+        //ItemsStatsPanel
+        itemsShow = new ItemsShow(weaponNameLabel, armorNameLabel, necklesNameLabel, weaponLvlLabel, armorLvlLabel, necklesLvlLabel, upgradeWeaponCostLabel, upgradeArmorCostLabel, upgradeNecklesCostLabel, itemAtkLabel, itemDefLabel, itemAtrLabel_1, itemAtrLabel_2, itemAtrLabel_3, itemAtrLabel_4, weaponStatsPane, necklesStatsPane, armorStatsPane);
 
         //Missions buttons
-        Button[] missionBtn = new Button[]{missionOneBtn, missionTwoBtn, missionThreeBtn};
-        missions.getMissionsDB(missionBtn);
 
+        Button[] missionBtns = new Button[]{missionOneBtn, missionTwoBtn, missionThreeBtn};
+        Missions missions = new Missions();
+        missions.getMissionsDB(missionBtns);
     }
 
     public void setUserNameLabel(String userNameLabel) {
@@ -165,9 +196,7 @@ public class Controller implements Initializable {
             rankPane.setVisible(false);
             authorsPane.setVisible(false);
             banerPaneImage.setVisible(true);
-        }
-
-        if (event.getSource().equals(statsBtn)) {
+        } else if (event.getSource().equals(statsBtn)) {
             invPane.setVisible(false);
             tavernPane.setVisible(false);
             rankPane.setVisible(false);
@@ -179,9 +208,7 @@ public class Controller implements Initializable {
             }
 
             statsPane.setVisible(true);
-        }
-
-        if (event.getSource().equals(inventoryBtn)) {
+        } else if (event.getSource().equals(inventoryBtn)) {
             tavernPane.setVisible(false);
             rankPane.setVisible(false);
             authorsPane.setVisible(false);
@@ -193,12 +220,13 @@ public class Controller implements Initializable {
             }
 
             invPane.setVisible(true);
-        }
-
-        if (event.getSource().equals(tavernBtn)) {
+        } else if (event.getSource().equals(tavernBtn)) {
             missionOneBtn.setVisible(false);
             missionTwoBtn.setVisible(false);
             missionThreeBtn.setVisible(false);
+            missionOneLabel.setVisible(false);
+            missionTwoLabel.setVisible(false);
+            missionThreeLabel.setVisible(false);
             tavernImage.setImage(image_non_quest);
             imageFlag = true;
 
@@ -208,9 +236,9 @@ public class Controller implements Initializable {
             banerPaneImage.setVisible(false);
             statsInvPane.setVisible(false);
             tavernPane.setVisible(true);
-        }
 
-        if (event.getSource().equals(rankingBtn)) {
+            innkeeperSpeak.innkeeperSpeach();
+        } else if (event.getSource().equals(rankingBtn)) {
             tableRank.getItems().clear();
 
             try {
@@ -229,7 +257,12 @@ public class Controller implements Initializable {
             banerPaneImage.setVisible(false);
             statsInvPane.setVisible(false);
             rankPane.setVisible(true);
+        } else if (event.getSource().equals(weaponStatExitBtn) || event.getSource().equals(armorStatExitBtn) || event.getSource().equals(neclkesStatExitBtn)) {
+            weaponStatsPane.setVisible(false);
+            armorStatsPane.setVisible(false);
+            necklesStatsPane.setVisible(false);
         }
+
     }
 
     @FXML
@@ -270,54 +303,123 @@ public class Controller implements Initializable {
             invPane.setVisible(true);
         }
 
-        if (event.getSource().equals(headBtn)) {
-            backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.Helmets), inventory));
-        } else if (event.getSource().equals(chestBtn)) {
-            backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.Armor), inventory));
-        } else if (event.getSource().equals(legsBtn)) {
-            backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.Trousers), inventory));
-        } else if (event.getSource().equals(shoesBtn)) {
-            backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.Shoes), inventory));
-        } else if (event.getSource().equals(jaweleryBtn)) {
-            backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.Necklaces), inventory));
-        } else if (event.getSource().equals(weaponOneBtn)) {
-            backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.MainWeapons), inventory));
-        } else if (event.getSource().equals(weaponTwoBtn)) {
-            backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.AdditionalWeapons), inventory));
-        } else if (event.getSource().equals(glovesBtn)) {
-            backpack.findFirstEmpty().setItem(MoveItem.takeOffItem(inventory.find(ItemType.Gloves), inventory));
-        } else if (event.getSource().equals(slot_1)) {
-            MoveItem.putOnItem(backpack.find(1), inventory, backpack);
-        } else if (event.getSource().equals(slot_2)) {
-            MoveItem.putOnItem(backpack.find(2), inventory, backpack);
-        } else if (event.getSource().equals(slot_3)) {
-            MoveItem.putOnItem(backpack.find(3), inventory, backpack);
-        } else if (event.getSource().equals(slot_4)) {
-            MoveItem.putOnItem(backpack.find(4), inventory, backpack);
-        } else if (event.getSource().equals(slot_5)) {
-            MoveItem.putOnItem(backpack.find(5), inventory, backpack);
-        } else if (event.getSource().equals(slot_6)) {
-            MoveItem.putOnItem(backpack.find(6), inventory, backpack);
-        } else if (event.getSource().equals(slot_7)) {
-            MoveItem.putOnItem(backpack.find(7), inventory, backpack);
-        } else if (event.getSource().equals(slot_8)) {
-            MoveItem.putOnItem(backpack.find(8), inventory, backpack);
-        } else if (event.getSource().equals(slot_9)) {
-            MoveItem.putOnItem(backpack.find(9), inventory, backpack);
-        } else if (event.getSource().equals(slot_10)) {
-            MoveItem.putOnItem(backpack.find(10), inventory, backpack);
-        } else if (event.getSource().equals(slot_11)) {
-            MoveItem.putOnItem(backpack.find(11), inventory, backpack);
-        } else if (event.getSource().equals(slot_12)) {
-            MoveItem.putOnItem(backpack.find(12), inventory, backpack);
+        ItemType itemType = ItemType.empty;
+        SlotBackpack slotBackpack = null;
+        SlotInventory slotInventory = null;
+        Object source = event.getSource();
+        if (source.equals(headBtn) || source.equals(chestBtn) || source.equals(legsBtn) || source.equals(glovesBtn) || source.equals(shoesBtn) || source.equals(jaweleryBtn) || source.equals(weaponOneBtn) || source.equals(weaponTwoBtn)) {
+            if (source.equals(headBtn)) {
+                itemType = ItemType.Helmets;
+            } else if (source.equals(chestBtn)) {
+                itemType = ItemType.Armors;
+            } else if (source.equals(legsBtn)) {
+                itemType = ItemType.Trousers;
+            } else if (source.equals(shoesBtn)) {
+                itemType = ItemType.Shoes;
+            } else if (source.equals(jaweleryBtn)) {
+                itemType = ItemType.Necklaces;
+            } else if (source.equals(weaponOneBtn)) {
+                itemType = ItemType.MainWeapons;
+            } else if (source.equals(weaponTwoBtn)) {
+                itemType = ItemType.AdditionalWeapons;
+            } else if (source.equals(glovesBtn)) {
+                itemType = ItemType.Gloves;
+            }
+            slotBackpack = player.getBackpack().findFirstEmpty();
+            slotInventory = player.getInventory().find(itemType);
+            slotBackpack.setItem(MoveItem.takeOffItem(slotInventory, player.getInventory(), player.getStatistic()));
+        } else {
+            if (event.getSource().equals(slot_1)) {
+                slotBackpack = player.getBackpack().find(1);
+            } else if (event.getSource().equals(slot_2)) {
+                slotBackpack = player.getBackpack().find(2);
+            } else if (event.getSource().equals(slot_3)) {
+                slotBackpack = player.getBackpack().find(3);
+            } else if (event.getSource().equals(slot_4)) {
+                slotBackpack = player.getBackpack().find(4);
+            } else if (event.getSource().equals(slot_5)) {
+                slotBackpack = player.getBackpack().find(5);
+            } else if (event.getSource().equals(slot_6)) {
+                slotBackpack = player.getBackpack().find(6);
+            } else if (event.getSource().equals(slot_7)) {
+                slotBackpack = player.getBackpack().find(7);
+            } else if (event.getSource().equals(slot_8)) {
+                slotBackpack = player.getBackpack().find(8);
+            } else if (event.getSource().equals(slot_9)) {
+                slotBackpack = player.getBackpack().find(9);
+            } else if (event.getSource().equals(slot_10)) {
+                slotBackpack = player.getBackpack().find(10);
+            } else if (event.getSource().equals(slot_11)) {
+                slotBackpack = player.getBackpack().find(11);
+            } else if (event.getSource().equals(slot_12)) {
+                slotBackpack = player.getBackpack().find(12);
+            }
+            itemType = slotBackpack.getItemType();
+            slotInventory = player.getInventory().find(itemType);
+            MoveItem.putOnItem(slotBackpack, player);
         }
 
-        if (((MainWeapon) inventory.find(ItemType.MainWeapons).getItem()).getWeaponType() == WeaponType.TwoHanded) {
-            backpack.findFirstEmpty().setItem((MoveItem.takeOffItem(inventory.find(ItemType.AdditionalWeapons), inventory)));
+        slotBackpack.updateSlot();
+        slotInventory.updateSlot();
+
+        if ((player.getInventory().find(ItemType.MainWeapons).getItem()) != null && player.getInventory().find(ItemType.AdditionalWeapons).getItem() != null) {
+            if (((MainWeapon) player.getInventory().find(ItemType.MainWeapons).getItem()).getWeaponType() == WeaponType.TwoHanded) {
+                SlotBackpack slot = player.getBackpack().findFirstEmpty();
+                slot.setItem((MoveItem.takeOffItem(player.getInventory().find(ItemType.AdditionalWeapons), player.getInventory(), player.getStatistic())));
+                slot.updateSlot();
+                player.getInventory().find(ItemType.AdditionalWeapons).updateSlot();
+            }
         }
 
-        inventory.update(backpack);
-        backpack.update();
+        ItemFromDatabase.getInstance().updateStatistic(player.getStatistic());
+        System.out.println(player.getStatistic().toString());
+    }
+
+    @FXML
+    void itemStatsMouse(MouseEvent event) {
+        if (event.getButton() == MouseButton.SECONDARY) {
+            if (event.getSource().equals(slot_1)) {
+                itemsShow.showPane(player.getBackpack(), 0);
+            } else if (event.getSource().equals(slot_2)) {
+                itemsShow.showPane(player.getBackpack(), 1);
+            } else if (event.getSource().equals(slot_3)) {
+                itemsShow.showPane(player.getBackpack(), 2);
+            } else if (event.getSource().equals(slot_4)) {
+                itemsShow.showPane(player.getBackpack(), 3);
+            } else if (event.getSource().equals(slot_5)) {
+                itemsShow.showPane(player.getBackpack(), 4);
+            } else if (event.getSource().equals(slot_6)) {
+                itemsShow.showPane(player.getBackpack(), 5);
+            } else if (event.getSource().equals(slot_7)) {
+                itemsShow.showPane(player.getBackpack(), 6);
+            } else if (event.getSource().equals(slot_8)) {
+                itemsShow.showPane(player.getBackpack(), 7);
+            } else if (event.getSource().equals(slot_9)) {
+                itemsShow.showPane(player.getBackpack(), 8);
+            } else if (event.getSource().equals(slot_10)) {
+                itemsShow.showPane(player.getBackpack(), 9);
+            } else if (event.getSource().equals(slot_11)) {
+                itemsShow.showPane(player.getBackpack(), 10);
+            } else if (event.getSource().equals(slot_12)) {
+                itemsShow.showPane(player.getBackpack(), 11);
+            } else if (event.getSource().equals(headBtn)) {
+                itemsShow.showPane(player.getInventory(), 0);
+            } else if (event.getSource().equals(chestBtn)) {
+                itemsShow.showPane(player.getInventory(), 1);
+            } else if (event.getSource().equals(legsBtn)) {
+                itemsShow.showPane(player.getInventory(), 2);
+            } else if (event.getSource().equals(shoesBtn)) {
+                itemsShow.showPane(player.getInventory(), 3);
+            } else if (event.getSource().equals(jaweleryBtn)) {
+                itemsShow.showPane(player.getInventory(), 4);
+            } else if (event.getSource().equals(weaponOneBtn)) {
+                itemsShow.showPane(player.getInventory(), 5);
+            } else if (event.getSource().equals(weaponTwoBtn)) {
+                itemsShow.showPane(player.getInventory(), 6);
+            } else if (event.getSource().equals(glovesBtn)) {
+                itemsShow.showPane(player.getInventory(), 7);
+            }
+        }
     }
 
     @FXML
@@ -328,37 +430,37 @@ public class Controller implements Initializable {
                 missionOneBtn.setVisible(true);
                 missionTwoBtn.setVisible(true);
                 missionThreeBtn.setVisible(true);
+                missionOneLabel.setVisible(true);
+                missionTwoLabel.setVisible(true);
+                missionThreeLabel.setVisible(true);
                 tavernImage.setImage(image_quest);
                 imageFlag = false;
             } else if (!imageFlag) {
                 missionOneBtn.setVisible(false);
                 missionTwoBtn.setVisible(false);
                 missionThreeBtn.setVisible(false);
+                missionOneLabel.setVisible(false);
+                missionTwoLabel.setVisible(false);
+                missionThreeLabel.setVisible(false);
                 tavernImage.setImage(image_speak);
                 imageFlag = true;
             }
-        }
-    }
+        } else if (event.getSource().equals(missionOneBtn)) {
+            weaponAnimImg.setImage(weaponOneShowImage.getImage());
+            disableButtons(true, true, true, true, true, true, true);
+            setPanels(false, false, false, false, false, false, false, true);
 
-    private void animTavernBoy() {
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                if (imageFlag) {
-                    tavernImage.setImage(image_non_quest);
-                }
-            }
-        };
-        innkeeperBtn.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler);
-        eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                if (imageFlag) {
-                    tavernImage.setImage(image_speak);
-                }
-            }
-        };
-        innkeeperBtn.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler);
+        } else if (event.getSource().equals(missionTwoBtn)) {
+            weaponAnimImg.setImage(weaponOneShowImage.getImage());
+            disableButtons(true, true, true, true, true, true, true);
+            setPanels(false, false, false, false, false, false, false, true);
+
+        } else if (event.getSource().equals(missionThreeBtn)) {
+            weaponAnimImg.setImage(weaponOneShowImage.getImage());
+            disableButtons(true, true, true, true, true, true, true);
+            setPanels(false, false, false, false, false, false, false, true);
+
+        }
     }
 
     @FXML
@@ -433,6 +535,21 @@ public class Controller implements Initializable {
         }
     }
 
+    @FXML
+    void fightButtons(ActionEvent event) {
+
+        if (event.getSource().equals(firstAtkBtn)) {
+            if (!animation.isAnimated()) {
+                animation.atkAnim(weaponAnimLabel);
+            }
+        } else if (event.getSource().equals(secondAtkBtn)) {
+
+        } else if (event.getSource().equals(surrBtn)) {
+            disableButtons(false, false, false, false, false, false, false);
+            setPanels(false, false, false, false, true, false, false, false);
+        }
+    }
+
     private boolean isInt(String str) {
         try {
             Integer.parseInt(str);
@@ -443,6 +560,48 @@ public class Controller implements Initializable {
         return true;
     }
 
+    private void setPanels(boolean banerPaneImage, boolean statsPane, boolean invPane, boolean statsInvPane, boolean tavernPane, boolean rankPane, boolean authorsPane, boolean fightPane) {
+        this.statsInvPane.setVisible(statsInvPane);
+        this.statsPane.setVisible(statsPane);
+        this.invPane.setVisible(invPane);
+        this.tavernPane.setVisible(tavernPane);
+        this.rankPane.setVisible(rankPane);
+        this.authorsPane.setVisible(authorsPane);
+        this.banerPaneImage.setVisible(banerPaneImage);
+        this.fightPane.setVisible(fightPane);
+    }
+
+    private void disableButtons(boolean banerBtn, boolean statsBtn, boolean inventoryBtn, boolean tavernBtn, boolean rankingBtn, boolean logoutBtn, boolean authorsBtn) {
+        this.banerBtn.setDisable(banerBtn);
+        this.statsBtn.setDisable(statsBtn);
+        this.inventoryBtn.setDisable(inventoryBtn);
+        this.tavernBtn.setDisable(tavernBtn);
+        this.rankingBtn.setDisable(rankingBtn);
+        this.logoutBtn.setDisable(logoutBtn);
+        this.authorsBtn.setDisable(authorsBtn);
+    }
+
+    private void animTavernBoy() {
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                if (imageFlag) {
+                    tavernImage.setImage(image_non_quest);
+                }
+            }
+        };
+        innkeeperBtn.addEventFilter(MouseEvent.MOUSE_EXITED, eventHandler);
+        eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                if (imageFlag) {
+                    tavernImage.setImage(image_speak);
+                }
+            }
+        };
+        innkeeperBtn.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler);
+    }
+
     public void musicPlay(boolean play) {
         if (!play) {
             mediaPlayer.stop();
@@ -450,4 +609,3 @@ public class Controller implements Initializable {
         mediaPlayer.setAutoPlay(play);
     }
 }
-

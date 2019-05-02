@@ -1,6 +1,4 @@
-package pixel_warriors.character.Staffs.Items;
-
-import javafx.application.Preloader;
+package pixel_warriors.character.staffs.items;
 
 import java.util.HashMap;
 import java.util.Map;

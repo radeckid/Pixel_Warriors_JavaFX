@@ -1,4 +1,6 @@
-package pixel_warriors.character.Staffs.Items;
+package pixel_warriors.character.staffs.items;
+
+import pixel_warriors.character.Statistic;
 
 import java.sql.SQLException;
 
@@ -48,6 +50,9 @@ public abstract class Item<T>
         if(path.isEmpty() ==  true || name == "" || idItem == 0) throw new SQLException();
     }
 
+    public abstract void addStatistic(Statistic statistic);
+    public abstract void substractStatistic(Statistic statistic);
+
     public void setPath(String path) {this.path = path;}
 
     public String getName()
@@ -57,5 +62,8 @@ public abstract class Item<T>
 
     public int getIdItem(){return idItem;}
 
-    public ItemType getItemType() {return itemType;}
+    public ItemType getItemType()
+    {
+        return itemType;
+    }
 }

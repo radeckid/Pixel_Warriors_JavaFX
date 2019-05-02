@@ -1,10 +1,10 @@
-package pixel_warriors.character.Staffs.Slots;
+package pixel_warriors.character.staffs.slots;
 
 import javafx.scene.image.ImageView;
-import pixel_warriors.character.CharacterLogics.LoadImage;
-import pixel_warriors.character.Staffs.Items.Item;
-import pixel_warriors.character.Staffs.Items.ItemBody;
-import pixel_warriors.character.Staffs.Items.ItemType;
+import pixel_warriors.character.characterlogics.LoadImage;
+import pixel_warriors.character.staffs.items.Item;
+import pixel_warriors.character.staffs.items.ItemBody;
+import pixel_warriors.character.staffs.items.ItemType;
 
 public class SlotInventoryBody extends SlotInventory
 {

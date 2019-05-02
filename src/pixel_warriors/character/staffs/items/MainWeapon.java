@@ -1,8 +1,6 @@
-package pixel_warriors.character.Staffs.Items;
+package pixel_warriors.character.staffs.items;
 
-import java.sql.SQLException;
-
-public class MainWeapon extends ItemBody<MainWeapon>
+public class MainWeapon extends Weapon<MainWeapon>
 {
     int attack;
     WeaponType weaponType;
@@ -14,44 +12,17 @@ public class MainWeapon extends ItemBody<MainWeapon>
 
     public MainWeapon(int idItem, String name, String path, int attack, WeaponType weaponType, String pathBody)
     {
-        super(idItem, name, path, ItemType.MainWeapons, pathBody);
-        this.attack = attack;
+        super(idItem, name, path, attack, pathBody, ItemType.MainWeapons);
         this.weaponType = weaponType;
     }
 
     public MainWeapon(MainWeapon armor)
     {
-        super(armor.getIdItem(), armor.getName(), armor.getPath(), ItemType.MainWeapons, armor.getPathBody());
+        super(armor.getIdItem(), armor.getName(), armor.getPath(), armor.getAttack(), armor.getPathBody(), ItemType.MainWeapons);
         this.weaponType = armor.getWeaponType();
-        this.attack = armor.getAttack();
     }
-
-    public void setItem(MainWeapon item)
-    {
-        super.setItem(item);
-        this.weaponType = item.getWeaponType();
-        this.attack = item.getAttack();
-    }
-
-    public void validation() throws SQLException
-    {
-        super.validation();
-        if(attack==0 || weaponType == null) throw new SQLException();
-    }
-
-    public int getAttack() {return attack;}
-    public void setAttack(int attack){this.attack = attack;}
 
     public WeaponType getWeaponType(){return weaponType;}
     public void setWeaponType(WeaponType weaponType){this.weaponType = weaponType;}
 
-    @Override
-    public String getPathBody() {
-        return pathBody;
-    }
-
-    @Override
-    public void setPathBody(String pathBody) {
-        this.pathBody = pathBody;
-    }
 }

@@ -1,6 +1,11 @@
-package pixel_warriors.character.CharacterLogics;
+package pixel_warriors.character.characterlogics;
 
-import pixel_warriors.character.Staffs.Items.*;
+import pixel_warriors.character.staffs.items.*;
+import pixel_warriors.character.staffs.slots.Slot;
+import pixel_warriors.character.staffs.slots.SlotBackpack;
+import pixel_warriors.character.staffs.slots.SlotInventory;
+import pixel_warriors.character.Statistic;
+import pixel_warriors.connectiondb.ConnectionDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,20 +13,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ItemFromDatabase {
-    Connection con;
+    private Connection con;
     static int[] itemID = new int[12];
 
+    private volatile static ItemFromDatabase instance;
 
-    public ItemFromDatabase() {
-        String url = "jdbc:mysql://localhost:3306/";
-        String user = "lab";    //TODO if kurka baza then 'root'  //TODO
-        String password = "lab";  //TODO if kurka baza then 'test'
-        try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
+    private ItemFromDatabase() {
+        con = ConnectionDB.getInstance().getConnection();
+    }
 
+    public static ItemFromDatabase getInstance() {
+        if (instance == null) {
+            synchronized (ItemFromDatabase.class) {
+                if (instance == null) {
+                    instance = new ItemFromDatabase();
+                }
+            }
         }
+        return instance;
     }
 
     public Map<ItemType, Item> getInventory() {
@@ -30,7 +39,7 @@ public class ItemFromDatabase {
             Statement stmt = con.createStatement();
             stmt.executeQuery("Use Pixelwarriors;");
 
-            items.put(ItemType.Armor, (Armor) getItem(ItemType.Armor, 1, "ADMIN12345", stmt, "inv"));
+            items.put(ItemType.Armors, (Chest) getItem(ItemType.Armors, 1, "ADMIN12345", stmt, "inv"));
 
             items.put(ItemType.Gloves, (Gloves) getItem(ItemType.Gloves, 1, "ADMIN12345", stmt, "inv"));
 
@@ -54,7 +63,7 @@ public class ItemFromDatabase {
 
     }
 
-    public static Item getItem(ItemType item, int idItem, String idPlayer, Statement stmt, String where) {
+    public Item getItem(ItemType item, int idItem, String idPlayer, Statement stmt, String where) {
         try {
             if (item == ItemType.empty)
                 return null;
@@ -108,7 +117,7 @@ public class ItemFromDatabase {
         }
     }
 
-    public static ItemType getType(String idPlayer, int i, Statement stmt) {
+    public ItemType getType(String idPlayer, int i, Statement stmt) {
         try {
             String query = "SELECT Type" + i + " FROM Equipment WHERE IDPlayer_Equipment=\"" + idPlayer + "\";";
             ResultSet rs = stmt.executeQuery(query);
@@ -121,4 +130,53 @@ public class ItemFromDatabase {
         }
     }
 
+    public void update(Slot slot) {
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeQuery("Use Pixelwarriors;");
+            String query = null;
+            if (slot instanceof SlotInventory) {
+                if (slot.getItem() == null) {
+                    query = "Update Inventory set " + FactoryItem.getIdInventory(((SlotInventory) slot).getSlotItemType()) + " = " + "NULL where  IDPLayer_Inventory='ADMIN12345';";
+                } else {
+                    query = "Update Inventory set " + FactoryItem.getIdInventory(((SlotInventory) slot).getSlotItemType()) + " = " + slot.getItem().getIdItem() + " where  IDPLayer_Inventory='ADMIN12345';";
+                }
+            } else if (slot instanceof SlotBackpack) {
+
+                if (slot.getItem() == null) {
+                    query = "Update Equipment set Type" + ((SlotBackpack) slot).getIdSlot() + " = NULL , Item" + ((SlotBackpack) slot).getIdSlot() + " = NULL where  IDPLayer_Equipment='ADMIN12345';";
+                } else {
+                    query = "Update Equipment set Type" + ((SlotBackpack) slot).getIdSlot() + " = '" + slot.getItem().getItemType() + "' , Item" + ((SlotBackpack) slot).getIdSlot() + " = " + slot.getItem().getIdItem() + " where  IDPLayer_Equipment='ADMIN12345';";
+                }
+            }
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public Statistic getStatistic() {
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeQuery("Use Pixelwarriors;");
+            String query = "Select Level,Gold,Experience,Strength,Intelligence,Agility,HP,Mana,Stamina,Attack,PhysicalDefense,MagicalDefense,Critical,DefenseChance from Statistics where IDPLayer_Statistic='ADMIN12345';";
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            return new Statistic(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13), rs.getInt(14));
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+    public void updateStatistic(Statistic statistic) {
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeQuery("Use Pixelwarriors;");
+            String query = "Update Select set Level=" + statistic.getLevel() + ", Gold=" + statistic.getGold() + ", Experience=" + statistic.getExp() + ", Strength=" + statistic.getStrength() + ", Intelligence=" + statistic.getInteligence() + ", Agility=" + statistic.getAgility() + ", Hp=" + statistic.getHp() + ", Mana=" + statistic.getMana() + ", Stamina=" + statistic.getStamina() + ",PhysicalDefense=" + statistic.getPhysicalDefense() + ",MagicalDefense=" + statistic.getMagicalDefense() + ", Critical=" + statistic.getCritical() + ", DefenseChance=" + statistic.getDefenseChance() + " where IDPLayer_Statistic='ADMIN12345';";
+            stmt.executeUpdate(query);
+        } catch (SQLException ex) {
+
+        }
+    }
 }
