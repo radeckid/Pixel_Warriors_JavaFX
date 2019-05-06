@@ -1,7 +1,11 @@
 package pixel_warriors.character;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableView;
 import pixel_warriors.character.characterlogics.ItemFromDatabase;
 
 public class Statistic {
@@ -49,9 +53,11 @@ public class Statistic {
                 "Attack: " + this.attack + "\n";
     }
 
-    public void update(Label[] labels, ProgressBar progressBar) {
+    public void update() {
         ItemFromDatabase.getInstance().updateStatistic(this);
+    }
 
+    public void setStatisticLabels(Label[] labels, ProgressBar progressBar) {
         labels[0].setText(String.valueOf(getStrength()));
         labels[1].setText(String.valueOf(getAgility()));
         labels[2].setText(String.valueOf(getInteligence()));
@@ -62,11 +68,18 @@ public class Statistic {
         labels[7].setText(String.valueOf(getMagicalDefense()));
         labels[8].setText(String.valueOf(getCritical()));
         labels[9].setText(String.valueOf(getDefenseChance()));
+        labels[10].setText(String.valueOf(getAttack()));
 
-        float expToNextLvl = 100;
-        labels[10].setText(getExp() + " / " + (int) expToNextLvl); //TODO do zmiany! Zamiast 100 powinna byc zwiększana wartość względem LVL
+        float expToNextLvl = 75 + (getLevel() * 25);
+        labels[11].setText(getExp() + " / " + (int) expToNextLvl);
         progressBar.setProgress(getExp() / expToNextLvl);
     }
+
+    public void setStatisticTableView(ListView listView, ProgressBar progressBar) {
+        ObservableList<Integer> statisticList = FXCollections.<Integer>observableArrayList(getAttack(), getStrength(), getAgility(), getInteligence(), getHp(), getMana(), getStamina(), getPhysicalDefense(), getMagicalDefense(), getCritical(), getDefenseChance());
+        listView.setItems(statisticList);
+    }
+
 
     public int getLevel() {
         return level;

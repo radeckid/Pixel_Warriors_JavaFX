@@ -2,10 +2,12 @@ package pixel_warriors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -25,6 +27,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import org.w3c.dom.html.HTMLElement;
 import pixel_warriors.character.characterlogics.ItemFromDatabase;
 import pixel_warriors.character.characterlogics.LoadImage;
 import pixel_warriors.character.characterlogics.MoveItem;
@@ -41,6 +46,8 @@ import pixel_warriors.ranking.RankPlayerTable;
 import pixel_warriors.ranking.RankPlayers;
 import pixel_warriors.innkeepercharacter.InnkeeperSpeak;
 import pixel_warriors.weaponanimation.WeaponAnimation;
+
+import javax.imageio.IIOParam;
 
 public class Controller implements Initializable {
 
@@ -69,10 +76,12 @@ public class Controller implements Initializable {
 
     //stats and inv panel
     @FXML
-    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, energyLabel, defPhysicLabel, defMagicLabel, criticalLabel, defChanceLabel;
+    private Label expLabel, strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, energyLabel, defPhysicLabel, defMagicLabel, criticalLabel, defChanceLabel, atackLabel;
     @FXML
     private ProgressBar expProgress;
-
+    @FXML
+    private ListView statisticVarListView, statisticNamesListView;
+    private Label[] statisticsLabel;
 
 
     @FXML
@@ -104,9 +113,9 @@ public class Controller implements Initializable {
     @FXML
     private Label missionOneLabel, missionTwoLabel, missionThreeLabel;
     @FXML
-    private ImageView tavernImage;
-    private boolean imageFlag = true;
-    private Image image_quest, image_non_quest, image_speak;
+    private ImageView tavernImage, innkeeperMouth;
+    private static boolean imageFlag = true;
+    private Image image_quest, image_non_quest;
     private InnkeeperSpeak innkeeperSpeak;
 
     //rank panel
@@ -121,28 +130,22 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<RankPlayers, String> colNick;
 
-    //fight panel
-    @FXML
-    private Button firstAtkBtn, secondAtkBtn, thirdAtkBtn, surrBtn;
-    @FXML
-    private Label weaponAnimLabel;
-    @FXML
-    private ImageView weaponAnimImg; //TODO ustawiamy img przy rozpoczeciu misji
-    private WeaponAnimation animation = new WeaponAnimation();
 
     //panels
     @FXML
     private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane, fightPane;
 
+    @FXML
+    private Parent fightPaneInclude;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke", EmptySlotType.Body).getImage();
         image_non_quest = new LoadImage("background/tavern.gif", "quest_no", EmptySlotType.Body).getImage();
-        image_speak = new LoadImage("background/tavern_speak.gif", "quest_speak", EmptySlotType.Body).getImage();
 
         //Animacja ruszania ustami taverna
         animTavernBoy();
-        innkeeperSpeak = new InnkeeperSpeak(tavernImage, image_speak, image_non_quest);
+        innkeeperSpeak = new InnkeeperSpeak(innkeeperMouth);
 
         //for rank table
         colNr.setCellValueFactory(new PropertyValueFactory<>("PlayerId"));
@@ -166,8 +169,15 @@ public class Controller implements Initializable {
         Backpack backpack = new Backpack(ItemFromDatabase.getInstance().getEquipment(), viewsBackpack);
         player = new Warrior(inventory, backpack);
 
-        Label[] statisticsLabel = {strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, energyLabel, defPhysicLabel, defMagicLabel, criticalLabel, defChanceLabel, expLabel};
-        player.update(statisticsLabel, expProgress);
+        statisticsLabel = new Label[]{strengthLabel, agilityLabel, intligenceLabel, hpLabel, manaLabel, energyLabel, defPhysicLabel, defMagicLabel, criticalLabel, defChanceLabel, atackLabel, expLabel};
+        player.update();
+        player.getStatistic().setStatisticLabels(statisticsLabel, expProgress);
+        player.getStatistic().setStatisticTableView(statisticVarListView, expProgress);
+
+//TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+        ObservableList<String> statisticList = FXCollections.<String>observableArrayList("Atak:", "Siła:", "Zwinność:", "Inteligencja:", "Życie:", "Mana:", "Energia:", "Obr.Fizyczna:", "Obr.Magiczna:", "Krytyk:", "Szansa na obronę:");
+        statisticNamesListView.setItems(statisticList);
+//TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
         //ItemsStatsPanel
         itemsShow = new ItemsShow(weaponNameLabel, armorNameLabel, necklesNameLabel, weaponLvlLabel, armorLvlLabel, necklesLvlLabel, upgradeWeaponCostLabel, upgradeArmorCostLabel, upgradeNecklesCostLabel, itemAtkLabel, itemDefLabel, itemAtrLabel_1, itemAtrLabel_2, itemAtrLabel_3, itemAtrLabel_4, weaponStatsPane, necklesStatsPane, armorStatsPane);
@@ -179,8 +189,8 @@ public class Controller implements Initializable {
         missions.getMissionsDB(missionBtns);
     }
 
-    public void setUserNameLabel(String userNameLabel) {
-        this.userNameLabel.setText(userNameLabel);
+    public void setUserNameLabel(String loggedUser) {
+        userNameLabel.setText("Zalogowano: " + loggedUser);
     }
 
     public void setLvl_Indicator(String lvl_Indicator) {
@@ -228,6 +238,7 @@ public class Controller implements Initializable {
             missionTwoLabel.setVisible(false);
             missionThreeLabel.setVisible(false);
             tavernImage.setImage(image_non_quest);
+            innkeeperMouth.setVisible(false);
             imageFlag = true;
 
             tavernPane.setVisible(false);
@@ -287,9 +298,11 @@ public class Controller implements Initializable {
             if (musicBtn.isSelected()) {
                 musicImage.setImage(new Image(this.getClass().getResource("images/etc/music_off.gif").toString()));
                 mediaPlayer.setMute(true);
+                innkeeperSpeak.setMute(true);
             } else {
                 musicImage.setImage(new Image(this.getClass().getResource("images/etc/music_on.gif").toString()));
                 mediaPlayer.setMute(false);
+                innkeeperSpeak.setMute(false);
             }
         }
 
@@ -297,11 +310,6 @@ public class Controller implements Initializable {
 
     @FXML
     void inventoryStatsButtons(ActionEvent event) {
-
-        if (!invPane.isVisible()) {
-            statsPane.setVisible(false);
-            invPane.setVisible(true);
-        }
 
         ItemType itemType = ItemType.empty;
         SlotBackpack slotBackpack = null;
@@ -372,6 +380,8 @@ public class Controller implements Initializable {
         }
 
         ItemFromDatabase.getInstance().updateStatistic(player.getStatistic());
+        player.getStatistic().setStatisticLabels(statisticsLabel, expProgress);
+        player.getStatistic().setStatisticTableView(statisticVarListView, expProgress); //TODO usunąc to lub linie wyzej (jak wybierzemy panel stat)
         System.out.println(player.getStatistic().toString());
     }
 
@@ -442,23 +452,20 @@ public class Controller implements Initializable {
                 missionOneLabel.setVisible(false);
                 missionTwoLabel.setVisible(false);
                 missionThreeLabel.setVisible(false);
-                tavernImage.setImage(image_speak);
+                tavernImage.setImage(image_non_quest);
                 imageFlag = true;
             }
         } else if (event.getSource().equals(missionOneBtn)) {
-            weaponAnimImg.setImage(weaponOneShowImage.getImage());
             disableButtons(true, true, true, true, true, true, true);
-            setPanels(false, false, false, false, false, false, false, true);
+            setPanels(false, false, false, false, false, false, false, true, true);
 
         } else if (event.getSource().equals(missionTwoBtn)) {
-            weaponAnimImg.setImage(weaponOneShowImage.getImage());
             disableButtons(true, true, true, true, true, true, true);
-            setPanels(false, false, false, false, false, false, false, true);
+            setPanels(false, false, false, false, false, false, false, true, true);
 
         } else if (event.getSource().equals(missionThreeBtn)) {
-            weaponAnimImg.setImage(weaponOneShowImage.getImage());
             disableButtons(true, true, true, true, true, true, true);
-            setPanels(false, false, false, false, false, false, false, true);
+            setPanels(false, false, false, false, false, false, false, true, true);
 
         }
     }
@@ -535,21 +542,6 @@ public class Controller implements Initializable {
         }
     }
 
-    @FXML
-    void fightButtons(ActionEvent event) {
-
-        if (event.getSource().equals(firstAtkBtn)) {
-            if (!animation.isAnimated()) {
-                animation.atkAnim(weaponAnimLabel);
-            }
-        } else if (event.getSource().equals(secondAtkBtn)) {
-
-        } else if (event.getSource().equals(surrBtn)) {
-            disableButtons(false, false, false, false, false, false, false);
-            setPanels(false, false, false, false, true, false, false, false);
-        }
-    }
-
     private boolean isInt(String str) {
         try {
             Integer.parseInt(str);
@@ -560,7 +552,7 @@ public class Controller implements Initializable {
         return true;
     }
 
-    private void setPanels(boolean banerPaneImage, boolean statsPane, boolean invPane, boolean statsInvPane, boolean tavernPane, boolean rankPane, boolean authorsPane, boolean fightPane) {
+    public void setPanels(boolean banerPaneImage, boolean statsPane, boolean invPane, boolean statsInvPane, boolean tavernPane, boolean rankPane, boolean authorsPane, boolean fightPane, boolean fightPaneInclude) {
         this.statsInvPane.setVisible(statsInvPane);
         this.statsPane.setVisible(statsPane);
         this.invPane.setVisible(invPane);
@@ -569,9 +561,10 @@ public class Controller implements Initializable {
         this.authorsPane.setVisible(authorsPane);
         this.banerPaneImage.setVisible(banerPaneImage);
         this.fightPane.setVisible(fightPane);
+        this.fightPaneInclude.setVisible(fightPaneInclude);
     }
 
-    private void disableButtons(boolean banerBtn, boolean statsBtn, boolean inventoryBtn, boolean tavernBtn, boolean rankingBtn, boolean logoutBtn, boolean authorsBtn) {
+    public void disableButtons(boolean banerBtn, boolean statsBtn, boolean inventoryBtn, boolean tavernBtn, boolean rankingBtn, boolean logoutBtn, boolean authorsBtn) {
         this.banerBtn.setDisable(banerBtn);
         this.statsBtn.setDisable(statsBtn);
         this.inventoryBtn.setDisable(inventoryBtn);
@@ -586,7 +579,7 @@ public class Controller implements Initializable {
             @Override
             public void handle(MouseEvent e) {
                 if (imageFlag) {
-                    tavernImage.setImage(image_non_quest);
+                    innkeeperMouth.setVisible(false);
                 }
             }
         };
@@ -595,11 +588,15 @@ public class Controller implements Initializable {
             @Override
             public void handle(MouseEvent e) {
                 if (imageFlag) {
-                    tavernImage.setImage(image_speak);
+                    innkeeperMouth.setVisible(true);
                 }
             }
         };
         innkeeperBtn.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandler);
+    }
+
+    public static boolean getFlag() {
+        return imageFlag;
     }
 
     public void musicPlay(boolean play) {

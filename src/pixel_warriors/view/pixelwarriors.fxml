@@ -6,6 +6,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -38,7 +39,7 @@
                            <graphic>
                               <ImageView fitHeight="100.0" fitWidth="800.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/background/baner.gif" />
+                                    <Image url="@../images/background/baner.gif" />
                                  </image>
                                  <viewport>
                                     <Rectangle2D />
@@ -68,7 +69,7 @@
                            <graphic>
                               <ImageView fitHeight="60.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/background/top_bg.gif" />
+                                    <Image url="@../images/background/top_bg.gif" />
                                  </image>
                                  <rotationAxis>
                                     <Point3D />
@@ -99,7 +100,7 @@
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/buttons/stats.gif" />
+                                    <Image url="@../images/buttons/stats.gif" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -114,7 +115,7 @@
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/buttons/inventory.gif" />
+                                    <Image url="@../images/buttons/inventory.gif" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -129,7 +130,7 @@
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/buttons/tavern.gif" />
+                                    <Image url="@../images/buttons/tavern.gif" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -144,7 +145,7 @@
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                  <image>
-                                    <Image url="@images/buttons/rank.gif" />
+                                    <Image url="@../images/buttons/rank.gif" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -165,7 +166,7 @@
                            <graphic>
                               <ImageView fitHeight="60.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" scaleY="1.09">
                                  <image>
-                                    <Image url="@images/background/botom_bg.gif" />
+                                    <Image url="@../images/background/botom_bg.gif" />
                                  </image>
                                  <viewport>
                                     <Rectangle2D />
@@ -188,7 +189,7 @@
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/buttons/authors.gif" />
+                                    <Image url="@../images/buttons/authors.gif" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -203,7 +204,7 @@
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/buttons/logout.gif" />
+                                    <Image url="@../images/buttons/logout.gif" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -218,7 +219,7 @@
                            <graphic>
                               <ImageView fx:id="musicImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                  <image>
-                                    <Image url="@images/etc/music_on.gif" />
+                                    <Image url="@../images/etc/music_on.gif" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -242,7 +243,7 @@
                            <children>
                               <ImageView fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@images/background/castle.gif" />
+                                    <Image url="@../images/background/castle.gif" />
                                  </image>
                                  <rotationAxis>
                                     <Point3D />
@@ -250,13 +251,13 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="statsInvPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
+                        <AnchorPane fx:id="statsInvPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" visible="false">
                            <children>
                               <Label cacheShape="false" centerShape="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" scaleShape="false">
                                  <graphic>
                                     <ImageView fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/background/eq.gif" />
+                                          <Image url="@../images/background/eq.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -272,7 +273,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_1_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -287,7 +288,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_2_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -302,7 +303,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_3_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -317,7 +318,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_4_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -332,7 +333,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_5_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -347,7 +348,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_6_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -362,7 +363,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_7_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -377,7 +378,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_8_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -392,7 +393,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_9_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -407,7 +408,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_10_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -422,7 +423,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_11_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -437,7 +438,7 @@
                                        <graphic>
                                           <ImageView fx:id="slot_12_img" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <image>
-                                                <Image url="@images/etc/empty_slot.gif" />
+                                                <Image url="@../images/etc/empty_slot.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -452,25 +453,12 @@
                               </AnchorPane>
                               <AnchorPane fx:id="statsPane" layoutX="420.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="380.0">
                                  <children>
-                                    <Label layoutX="32.0" layoutY="33.0" text="Siła:" textFill="WHITE">
+                                    <Label layoutX="32.0" layoutY="3.0" text="Atak:" textFill="WHITE" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="strengthLabel" layoutX="294.0" layoutY="33.0" text="NULL" textFill="WHITE">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                       <effect>
-                                          <Glow />
-                                       </effect>
-                                    </Label>
-                                    <Label layoutX="32.0" layoutY="73.0" text="Zwinność:" textFill="WHITE">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="agilityLabel" layoutX="294.0" layoutY="73.0" text="NULL" textFill="#08ff00">
+                                    <Label fx:id="atackLabel" layoutX="294.0" layoutY="3.0" text="NULL" textFill="WHITE" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
@@ -478,25 +466,12 @@
                                           <Glow />
                                        </effect>
                                     </Label>
-                                    <Label layoutX="32.0" layoutY="113.0" text="Inteligencja:" textFill="WHITE">
+                                    <Label layoutX="32.0" layoutY="33.0" text="Siła:" textFill="WHITE" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="intligenceLabel" layoutX="294.0" layoutY="113.0" text="NULL" textFill="#eaff00">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                       <effect>
-                                          <Glow />
-                                       </effect>
-                                    </Label>
-                                    <Label layoutX="32.0" layoutY="153.0" text="Życie:" textFill="WHITE">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="hpLabel" layoutX="294.0" layoutY="153.0" text="NULL" textFill="RED">
+                                    <Label fx:id="strengthLabel" layoutX="294.0" layoutY="33.0" text="NULL" textFill="WHITE" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
@@ -504,25 +479,12 @@
                                           <Glow />
                                        </effect>
                                     </Label>
-                                    <Label layoutX="32.0" layoutY="193.0" text="Mana:" textFill="WHITE">
+                                    <Label layoutX="32.0" layoutY="73.0" text="Zwinność:" textFill="WHITE" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="manaLabel" layoutX="294.0" layoutY="193.0" text="NULL" textFill="#0055ff">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                       <effect>
-                                          <Glow />
-                                       </effect>
-                                    </Label>
-                                    <Label layoutX="32.0" layoutY="233.0" text="Energia:" textFill="WHITE">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="energyLabel" layoutX="294.0" layoutY="233.0" text="NULL" textFill="#ff00f9">
+                                    <Label fx:id="agilityLabel" layoutX="294.0" layoutY="73.0" text="NULL" textFill="#08ff00" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
@@ -530,25 +492,12 @@
                                           <Glow />
                                        </effect>
                                     </Label>
-                                    <Label layoutX="32.0" layoutY="273.0" text="Obr. Fizyczna:" textFill="WHITE">
+                                    <Label layoutX="32.0" layoutY="113.0" text="Inteligencja:" textFill="WHITE" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="defPhysicLabel" layoutX="294.0" layoutY="273.0" text="NULL" textFill="#4400ff">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                       <effect>
-                                          <Glow />
-                                       </effect>
-                                    </Label>
-                                    <Label layoutX="32.0" layoutY="313.0" text="Obr. Magiczna:" textFill="WHITE">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="defMagicLabel" layoutX="294.0" layoutY="313.0" text="NULL" textFill="#4400ff">
+                                    <Label fx:id="intligenceLabel" layoutX="294.0" layoutY="113.0" text="NULL" textFill="#eaff00" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
@@ -556,25 +505,12 @@
                                           <Glow />
                                        </effect>
                                     </Label>
-                                    <Label layoutX="32.0" layoutY="353.0" text="Krytyk:" textFill="WHITE">
+                                    <Label layoutX="32.0" layoutY="153.0" text="Życie:" textFill="WHITE" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="criticalLabel" layoutX="294.0" layoutY="355.0" text="NULL" textFill="#e40000">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                       <effect>
-                                          <Glow />
-                                       </effect>
-                                    </Label>
-                                    <Label layoutX="32.0" layoutY="393.0" prefHeight="66.0" prefWidth="198.0" text="Szansa na obrone:" textFill="WHITE" wrapText="true">
-                                       <font>
-                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="defChanceLabel" layoutX="294.0" layoutY="413.0" text="NULL" textFill="#ff9900">
+                                    <Label fx:id="hpLabel" layoutX="294.0" layoutY="153.0" text="NULL" textFill="RED" visible="false">
                                        <font>
                                           <Font name="Fixedsys Excelsior 3.01" size="30.0" />
                                        </font>
@@ -582,6 +518,86 @@
                                           <Glow />
                                        </effect>
                                     </Label>
+                                    <Label layoutX="32.0" layoutY="193.0" text="Mana:" textFill="WHITE" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="manaLabel" layoutX="294.0" layoutY="193.0" text="NULL" textFill="#0055ff" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                       <effect>
+                                          <Glow />
+                                       </effect>
+                                    </Label>
+                                    <Label layoutX="32.0" layoutY="233.0" text="Energia:" textFill="WHITE" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="energyLabel" layoutX="294.0" layoutY="233.0" text="NULL" textFill="#ff00f9" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                       <effect>
+                                          <Glow />
+                                       </effect>
+                                    </Label>
+                                    <Label layoutX="32.0" layoutY="273.0" text="Obr. Fizyczna:" textFill="WHITE" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="defPhysicLabel" layoutX="294.0" layoutY="273.0" text="NULL" textFill="#4400ff" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                       <effect>
+                                          <Glow />
+                                       </effect>
+                                    </Label>
+                                    <Label layoutX="32.0" layoutY="313.0" text="Obr. Magiczna:" textFill="WHITE" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="defMagicLabel" layoutX="294.0" layoutY="313.0" text="NULL" textFill="#4400ff" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                       <effect>
+                                          <Glow />
+                                       </effect>
+                                    </Label>
+                                    <Label layoutX="32.0" layoutY="353.0" text="Krytyk:" textFill="WHITE" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="criticalLabel" layoutX="294.0" layoutY="355.0" text="NULL" textFill="#e40000" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                       <effect>
+                                          <Glow />
+                                       </effect>
+                                    </Label>
+                                    <Label layoutX="32.0" layoutY="393.0" prefHeight="66.0" prefWidth="198.0" text="Szansa na obrone:" textFill="WHITE" visible="false" wrapText="true">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="defChanceLabel" layoutX="294.0" layoutY="413.0" text="NULL" textFill="#ff9900" visible="false">
+                                       <font>
+                                          <Font name="Fixedsys Excelsior 3.01" size="30.0" />
+                                       </font>
+                                       <effect>
+                                          <Glow />
+                                       </effect>
+                                    </Label>
+                                    <ListView fx:id="statisticNamesListView" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="250.0" scaleShape="false" stylesheets="@../css/statisticsNamesTable.css" />
+                                    <ListView fx:id="statisticVarListView" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="270.0" layoutY="20.0" prefHeight="460.0" prefWidth="90.0" scaleShape="false" stylesheets="@../css/statisticsNamesTable.css" />
                                  </children>
                               </AnchorPane>
                               <Label fx:id="expLabel" alignment="CENTER" layoutX="14.0" layoutY="437.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="408.0" text="1 / 10" textFill="WHITE">
@@ -599,7 +615,7 @@
                                  <graphic>
                                     <ImageView fitHeight="386.0" fitWidth="183.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/characters/Rycerz_nago_Gif.gif" />
+                                          <Image url="@../images/characters/Rycerz_nago_Gif.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -611,7 +627,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotHeadImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/etc/empty_slot.gif" />
+                                          <Image url="@../images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -626,7 +642,7 @@
                                  <graphic>
                                     <ImageView fx:id="headShowImage" fitHeight="152.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/etc/empty_wear.gif" />
+                                          <Image url="@../images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -635,7 +651,7 @@
                                  <graphic>
                                     <ImageView fx:id="weaponOneShowImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/etc/empty_wear.gif" />
+                                          <Image url="@../images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -644,7 +660,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotChestImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/etc/empty_slot.gif" />
+                                          <Image url="@../images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -659,7 +675,7 @@
                                  <graphic>
                                     <ImageView fx:id="shoesShowImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/etc/empty_wear.gif" />
+                                          <Image url="@../images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -668,7 +684,7 @@
                                  <graphic>
                                     <ImageView fx:id="legsShowImage" fitHeight="165.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/etc/empty_wear.gif" />
+                                          <Image url="@../images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -677,7 +693,7 @@
                                  <graphic>
                                     <ImageView fx:id="chestShowImage" fitHeight="175.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/etc/empty_wear.gif" />
+                                          <Image url="@../images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -686,7 +702,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotLegsImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/etc/empty_slot.gif" />
+                                          <Image url="@../images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -701,7 +717,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotShoesImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/etc/empty_slot.gif" />
+                                          <Image url="@../images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -716,7 +732,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotJeweleryImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/etc/empty_slot.gif" />
+                                          <Image url="@../images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -731,7 +747,7 @@
                                  <graphic>
                                     <ImageView fx:id="glovesShowImageL" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0" scaleX="1.1" scaleY="1.1">
                                        <image>
-                                          <Image url="@images/etc/empty_wear.gif" />
+                                          <Image url="@../images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -740,7 +756,7 @@
                                  <graphic>
                                     <ImageView fx:id="weaponTwoShowImage" fitHeight="175.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/etc/empty_wear.gif" />
+                                          <Image url="@../images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -749,7 +765,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotWeaponOneImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/etc/empty_slot.gif" />
+                                          <Image url="@../images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -764,7 +780,7 @@
                                  <graphic>
                                     <ImageView fx:id="glovesShowImageR" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/etc/empty_wear.gif" />
+                                          <Image url="@../images/etc/empty_wear.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -773,7 +789,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotWeaponTwoImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/etc/empty_slot.gif" />
+                                          <Image url="@../images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -788,7 +804,7 @@
                                  <graphic>
                                     <ImageView fx:id="slotGlovesImg" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@images/etc/empty_slot.gif" />
+                                          <Image url="@../images/etc/empty_slot.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -805,7 +821,7 @@
                                        <graphic>
                                           <ImageView fitHeight="130.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/etc/weaponStatistic.gif" />
+                                                <Image url="@../images/etc/weaponStatistic.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -814,7 +830,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/etc/exit.gif" />
+                                                <Image url="@../images/etc/exit.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -856,7 +872,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/etc/plusBtn.gif" />
+                                                <Image url="@../images/etc/plusBtn.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -890,7 +906,7 @@
                                        <graphic>
                                           <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/etc/armorStatistic.gif" />
+                                                <Image url="@../images/etc/armorStatistic.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -899,7 +915,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/etc/exit.gif" />
+                                                <Image url="@../images/etc/exit.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -942,7 +958,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/etc/plusBtn.gif" />
+                                                <Image url="@../images/etc/plusBtn.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -1015,7 +1031,7 @@
                                        <graphic>
                                           <ImageView fitHeight="130.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/etc/weaponStatistic.gif" />
+                                                <Image url="@../images/etc/weaponStatistic.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -1024,7 +1040,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/etc/exit.gif" />
+                                                <Image url="@../images/etc/exit.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -1067,7 +1083,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@images/etc/plusBtn.gif" />
+                                                <Image url="@../images/etc/plusBtn.gif" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -1103,7 +1119,16 @@
                                  <graphic>
                                     <ImageView fx:id="tavernImage" fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/background/tavern_quest.gif" />
+                                          <Image url="@../images/background/tavern_quest.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <Label layoutX="156.0" layoutY="180.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="8.0" prefWidth="23.0">
+                                 <graphic>
+                                    <ImageView fx:id="innkeeperMouth" fitHeight="8.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@../images/etc/innkeeperMouth.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -1183,12 +1208,12 @@
                                  <graphic>
                                     <ImageView fx:id="tavernImage1" fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/background/Ranking_tlo.gif" />
+                                          <Image url="@../images/background/Ranking_tlo.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Label>
-                              <TableView fx:id="tableRank" layoutX="25.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#rankingTableEnterKey" onMousePressed="#rankingTableMouse" opacity="0.9" prefHeight="460.0" prefWidth="337.0" stylesheets="@css/rankTableScrollHorizontalOff.css">
+                              <TableView fx:id="tableRank" layoutX="25.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#rankingTableEnterKey" onMousePressed="#rankingTableMouse" opacity="0.9" prefHeight="460.0" prefWidth="337.0" stylesheets="@../css/rankTableScrollHorizontalOff.css">
                                  <columns>
                                     <TableColumn fx:id="colNr" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" style="-fx-font-size: 15;" text="Nr." />
                                     <TableColumn fx:id="colNick" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" sortable="false" style="-fx-font-size: 15;" text="Nick" />
@@ -1262,122 +1287,8 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="fightPane" prefHeight="200.0" prefWidth="200.0" visible="false">
-                           <children>
-                              <Label>
-                                 <graphic>
-                                    <ImageView fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/background/Statystyki_tlo.gif" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Label>
-                              <Label layoutX="90.0" layoutY="92.0">
-                                 <graphic>
-                                    <ImageView fx:id="playerImgView" fitHeight="336.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/characters/Rycerz_nago_Gif.gif" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Label>
-                              <Label layoutX="550.0" layoutY="92.0" prefWidth="86.0">
-                                 <graphic>
-                                    <ImageView fx:id="enemyImgView" fitHeight="336.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/characters/Przeciwnik3_Gif.gif" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Label>
-                              <Label fx:id="weaponAnimLabel" layoutX="220.0" layoutY="200.0" visible="false">
-                                 <graphic>
-                                    <ImageView fx:id="weaponAnimImg" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/weapons/Miecz1_Pusty_Gif.gif" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Label>
-                              <Button fx:id="firstAtkBtn" layoutX="10.0" layoutY="450.0" maxHeight="40.0" maxWidth="104.0" minHeight="40.0" minWidth="104.0" mnemonicParsing="false" onAction="#fightButtons" prefHeight="40.0" prefWidth="104.0" text="Lekki Atak">
-                                 <font>
-                                    <Font name="Fixedsys Excelsior 3.01" size="14.0" />
-                                 </font>
-                                 <effect>
-                                    <SepiaTone />
-                                 </effect></Button>
-                              <Button fx:id="secondAtkBtn" layoutX="120.0" layoutY="450.0" maxHeight="40.0" maxWidth="104.0" minHeight="40.0" minWidth="104.0" mnemonicParsing="false" onAction="#fightButtons" prefHeight="40.0" prefWidth="104.0" text="Średni Atak">
-                                 <font>
-                                    <Font name="Fixedsys Excelsior 3.01" size="15.0" />
-                                 </font>
-                                 <effect>
-                                    <SepiaTone />
-                                 </effect></Button>
-                              <Button fx:id="thirdAtkBtn" layoutX="230.0" layoutY="450.0" maxHeight="40.0" maxWidth="104.0" minHeight="40.0" minWidth="104.0" mnemonicParsing="false" onAction="#fightButtons" prefHeight="40.0" prefWidth="104.0" text="Silny Atak">
-                                 <font>
-                                    <Font name="Fixedsys Excelsior 3.01" size="15.0" />
-                                 </font>
-                                 <effect>
-                                    <SepiaTone />
-                                 </effect>
-                              </Button>
-                              <Button fx:id="surrBtn" layoutX="708.0" layoutY="466.0" maxHeight="40.0" maxWidth="144.0" minHeight="24.0" minWidth="30.0" mnemonicParsing="false" onAction="#fightButtons" prefHeight="24.0" prefWidth="86.0" text="Poddaj się">
-                                 <font>
-                                    <Font name="Fixedsys Excelsior 3.01" size="13.0" />
-                                 </font>
-                                 <effect>
-                                    <SepiaTone />
-                                 </effect></Button>
-                              <ProgressBar fx:id="playerHpProgress" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="90.0" layoutY="60.0" maxHeight="36.0" maxWidth="160.0" minHeight="30.0" minWidth="160.0" prefHeight="30.0" prefWidth="160.0" progress="1.0" scaleShape="false">
-                                 <effect>
-                                    <ColorAdjust hue="0.9" />
-                                 </effect>
-                              </ProgressBar>
-                              <Label fx:id="playerHP" layoutX="130.0" layoutY="63.0" text="100/100" textFill="WHITE">
-                                 <font>
-                                    <Font name="Fixedsys Excelsior 3.01" size="21.0" />
-                                 </font>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                              </Label>
-                              <ProgressBar fx:id="enemyHpProgress" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="550.0" layoutY="60.0" maxHeight="36.0" maxWidth="200.0" minHeight="30.0" minWidth="160.0" prefHeight="30.0" prefWidth="160.0" progress="1.0" scaleShape="false">
-                                 <effect>
-                                    <ColorAdjust hue="0.9" />
-                                 </effect>
-                              </ProgressBar>
-                              <Label fx:id="enemyHP" layoutX="593.0" layoutY="63.0" text="100/100" textFill="WHITE">
-                                 <font>
-                                    <Font name="Fixedsys Excelsior 3.01" size="21.0" />
-                                 </font>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                              </Label>
-                              <ProgressBar fx:id="energyPlayerProgress" layoutX="340.0" layoutY="465.0" prefHeight="25.0" prefWidth="211.0" progress="1.0">
-                                 <effect>
-                                    <ColorAdjust brightness="0.1" hue="0.05" />
-                                 </effect>
-                              </ProgressBar>
-                              <Label fx:id="playerEnergy" layoutX="405.0" layoutY="466.0" text="100/100" textFill="WHITE">
-                                 <font>
-                                    <Font name="Fixedsys Excelsior 3.01" size="21.0" />
-                                 </font>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" />
-                                 </effect>
-                              </Label>
-                              <Label layoutX="340.0" layoutY="447.0" text="Energia:" textFill="WHITE">
-                                 <font>
-                                    <Font name="Fixedsys Excelsior 3.01" size="18.0" />
-                                 </font>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
-                              </Label>
-                           </children>
-                        </AnchorPane>
+                        <AnchorPane fx:id="fightPane" prefHeight="200.0" prefWidth="200.0" />
+                        <fx:include fx:id="fightPaneInclude" source="fightView.fxml" />
                      </children>
                   </StackPane>
                </center>

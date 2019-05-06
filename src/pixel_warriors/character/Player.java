@@ -24,10 +24,10 @@ public abstract class Player {
         statistic = ItemFromDatabase.getInstance().getStatistic();
     }
 
-    public void update(Label[] labels, ProgressBar progressBar) {
+    public void update() {
         inventory.update();
         backpack.update();
-        statistic.update(labels, progressBar);
+        statistic.update();
     }
 
     public Inventory getInventory() {

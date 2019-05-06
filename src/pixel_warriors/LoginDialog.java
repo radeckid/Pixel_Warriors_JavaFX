@@ -22,6 +22,7 @@ public class LoginDialog {
     static Stage pStage;
     static Controller primaryController;
     private Connection connection;
+    private static String loggedUser;
 
     LoginDialog() {
         connection = ConnectionDB.getInstance().getConnection();
@@ -86,9 +87,9 @@ public class LoginDialog {
         ResultSet resultSet = statement.executeQuery(sql);
 
         if (resultSet.next()) {
-            String characterName = resultSet.getString(3);
+            loggedUser = resultSet.getString(3);
             String characterLvl = resultSet.getString(4);
-            primaryController.setUserNameLabel("Zalogowano: " + characterName);
+            primaryController.setUserNameLabel(loggedUser);
             primaryController.setLvl_Indicator((characterLvl));
             primaryController.musicPlay(true);
             pStage.show();
@@ -96,5 +97,9 @@ public class LoginDialog {
             headerText = "Błędny login lub hasło!";
             makeLoginDialog();
         }
+    }
+
+    public static String getLoggedUser() {
+        return loggedUser;
     }
 }

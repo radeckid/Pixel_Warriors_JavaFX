@@ -173,7 +173,7 @@ public class ItemFromDatabase {
         try {
             Statement stmt = con.createStatement();
             stmt.executeQuery("Use Pixelwarriors;");
-            String query = "Update Select set Level=" + statistic.getLevel() + ", Gold=" + statistic.getGold() + ", Experience=" + statistic.getExp() + ", Strength=" + statistic.getStrength() + ", Intelligence=" + statistic.getInteligence() + ", Agility=" + statistic.getAgility() + ", Hp=" + statistic.getHp() + ", Mana=" + statistic.getMana() + ", Stamina=" + statistic.getStamina() + ",PhysicalDefense=" + statistic.getPhysicalDefense() + ",MagicalDefense=" + statistic.getMagicalDefense() + ", Critical=" + statistic.getCritical() + ", DefenseChance=" + statistic.getDefenseChance() + " where IDPLayer_Statistic='ADMIN12345';";
+            String query = "Update statistics set Level=" + statistic.getLevel() + ", Gold=" + statistic.getGold() + ", Experience=" + statistic.getExp() + ", Strength=" + statistic.getStrength() + ", Intelligence=" + statistic.getInteligence() + ", Agility=" + statistic.getAgility() + ", Hp=" + statistic.getHp() + ", Mana=" + statistic.getMana() + ", Stamina=" + statistic.getStamina() + ",PhysicalDefense=" + statistic.getPhysicalDefense() + ",MagicalDefense=" + statistic.getMagicalDefense() + ", Critical=" + statistic.getCritical() + ", DefenseChance=" + statistic.getDefenseChance() + " where IDPLayer_Statistic='ADMIN12345';";
             stmt.executeUpdate(query);
         } catch (SQLException ex) {
 

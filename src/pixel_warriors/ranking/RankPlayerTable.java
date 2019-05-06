@@ -16,8 +16,7 @@ public class RankPlayerTable {
     private ArrayList<String> playersData = new ArrayList<String>();
 
     public RankPlayerTable() {
-        ConnectionDB connectiondb = ConnectionDB.getInstance();
-        connection = connectiondb.getConnection();
+        connection = ConnectionDB.getInstance().getConnection();
     }
 
 

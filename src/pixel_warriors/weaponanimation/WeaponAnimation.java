@@ -1,8 +1,6 @@
 package pixel_warriors.weaponanimation;
 
-import javafx.animation.ParallelTransition;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -17,7 +15,10 @@ public class WeaponAnimation {
     private boolean isAnimated = false;
 
     public WeaponAnimation() {
-        path.getElements().add(new MoveTo(70, 40));
+    }
+
+    public WeaponAnimation(int x, int y) {
+        path.getElements().add(new MoveTo(x, y));
         CubicCurveTo curve = new CubicCurveTo();
         curve.setControlX1(125);
         curve.setControlY1(-30);
@@ -62,4 +63,22 @@ public class WeaponAnimation {
 
     }
 
+    public void enemyAtkAnim(Label enemyWeapon) {
+        setIsAnimated(true);
+        enemyWeapon.setVisible(true);
+
+        TranslateTransition transition = new TranslateTransition(Duration.millis(500), enemyWeapon);
+        transition.setFromX(0);
+        transition.setToX(-220);
+        transition.play();
+
+        transition.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                enemyWeapon.setVisible(false);
+                setIsAnimated(false);
+            }
+        });
+
+    }
 }
