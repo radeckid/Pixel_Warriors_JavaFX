@@ -177,7 +177,7 @@
                               <Point3D />
                            </rotationAxis>
                         </Label>
-                        <Label fx:id="userNameLabel" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="1.0" layoutX="140.0" prefHeight="65.0" prefWidth="524.0" scaleShape="false" text="Zalogowany: NULL">
+                        <Label fx:id="userNameLabel" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="1.0" layoutX="140.0" prefHeight="65.0" prefWidth="453.0" scaleShape="false" text="Zalogowany: NULL">
                            <font>
                               <Font name="Fixedsys Excelsior 3.01" size="24.0" />
                            </font>
@@ -215,7 +215,22 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ToggleButton fx:id="musicBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="632.0" layoutY="17.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#bottomButtons" prefHeight="32.0" prefWidth="32.0" scaleShape="false">
+                        <Button fx:id="helpBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="592.0" layoutY="16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#bottomButtons" prefHeight="32.0" prefWidth="32.0" scaleShape="false">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
+                                 <image>
+                                    <Image url="@../images/etc/helpImg.gif" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <effect>
+                              <SepiaTone level="0.25" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <ToggleButton fx:id="musicBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="632.0" layoutY="16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#bottomButtons" prefHeight="32.0" prefWidth="32.0" scaleShape="false">
                            <graphic>
                               <ImageView fx:id="musicImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                  <image>

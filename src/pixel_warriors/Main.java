@@ -13,7 +13,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("view/pixelwarriors.fxml"));
 
@@ -30,7 +29,6 @@ public class Main extends Application {
 //        loginDialog.makeLoginDialog();
         primaryStage.show();  //TODO do wyrzucenia jak logowanie włączymy
     }
-
 
     public static void main(String[] args) {
         launch(args);

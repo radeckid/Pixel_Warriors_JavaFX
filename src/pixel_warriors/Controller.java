@@ -2,7 +2,6 @@ package pixel_warriors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,9 +26,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import org.w3c.dom.html.HTMLElement;
 import pixel_warriors.character.characterlogics.ItemFromDatabase;
 import pixel_warriors.character.characterlogics.LoadImage;
 import pixel_warriors.character.characterlogics.MoveItem;
@@ -41,13 +37,11 @@ import pixel_warriors.character.staffs.slots.EmptySlotType;
 import pixel_warriors.character.staffs.slots.SlotBackpack;
 import pixel_warriors.character.staffs.slots.SlotInventory;
 import pixel_warriors.character.Warrior;
+import pixel_warriors.htmlhelp.ShowRules;
 import pixel_warriors.missions.Missions;
 import pixel_warriors.ranking.RankPlayerTable;
 import pixel_warriors.ranking.RankPlayers;
 import pixel_warriors.innkeepercharacter.InnkeeperSpeak;
-import pixel_warriors.weaponanimation.WeaponAnimation;
-
-import javax.imageio.IIOParam;
 
 public class Controller implements Initializable {
 
@@ -65,7 +59,7 @@ public class Controller implements Initializable {
 
     //bottom bar
     @FXML
-    private Button logoutBtn, authorsBtn;
+    private Button logoutBtn, authorsBtn, helpBtn;
     @FXML
     private Label userNameLabel;
     @FXML
@@ -73,6 +67,7 @@ public class Controller implements Initializable {
     @FXML
     private ImageView musicImage;
     private MediaPlayer mediaPlayer;
+    private ShowRules showRules;
 
     //stats and inv panel
     @FXML
@@ -187,6 +182,7 @@ public class Controller implements Initializable {
         Button[] missionBtns = new Button[]{missionOneBtn, missionTwoBtn, missionThreeBtn};
         Missions missions = new Missions();
         missions.getMissionsDB(missionBtns);
+
     }
 
     public void setUserNameLabel(String loggedUser) {
@@ -284,17 +280,16 @@ public class Controller implements Initializable {
             userNameLabel.setText("Zalogowano: NULL");
             lvl_Indicator.setText("NULL");
             loginDialog.makeLoginDialog();
-        }
-
-        if (event.getSource().equals(authorsBtn)) {
+        } else if (event.getSource().equals(authorsBtn)) {
             statsInvPane.setVisible(false);
             tavernPane.setVisible(false);
             rankPane.setVisible(false);
             banerPaneImage.setVisible(false);
             authorsPane.setVisible(true);
-        }
+        } else if (event.getSource().equals(helpBtn)) {
+            showRules.getInstance().showStage();
 
-        if (event.getSource().equals(musicBtn)) {
+        } else if (event.getSource().equals(musicBtn)) {
             if (musicBtn.isSelected()) {
                 musicImage.setImage(new Image(this.getClass().getResource("images/etc/music_off.gif").toString()));
                 mediaPlayer.setMute(true);
@@ -305,6 +300,7 @@ public class Controller implements Initializable {
                 innkeeperSpeak.setMute(false);
             }
         }
+
 
     }
 

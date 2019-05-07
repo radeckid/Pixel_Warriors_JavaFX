@@ -19,7 +19,7 @@ import java.util.Optional;
 public class LoginDialog {
     private Dialog<ButtonType> dialog;
     private String headerText = "Witaj wojowniku!";
-    static Stage pStage;
+    public static Stage pStage;
     static Controller primaryController;
     private Connection connection;
     private static String loggedUser;
