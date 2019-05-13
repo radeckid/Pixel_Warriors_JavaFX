@@ -1,13 +1,13 @@
 package pixel_warriors.character;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import pixel_warriors.character.Attack.Attack;
 import pixel_warriors.character.characterlogics.ItemFromDatabase;
 import pixel_warriors.character.staffs.Backpack;
 import pixel_warriors.character.staffs.Inventory;
 
 
-public abstract class Player {
+public abstract class Player implements IPlayerAttackForm
+{
     private Inventory inventory;
     private Backpack backpack;
     protected Statistic statistic;
@@ -24,10 +24,27 @@ public abstract class Player {
         statistic = ItemFromDatabase.getInstance().getStatistic();
     }
 
+    public Player(Inventory inventory, Backpack backpack, Statistic statistic) {
+        this.inventory = inventory;
+        this.backpack = backpack;
+        this.statistic = statistic;
+    }
+
+    public Player(Statistic statistic)
+    {
+        //this.inventory = new Inventory(playerCopy.getInventory().getList());
+        this.statistic = new Statistic(statistic);
+    }
+
     public void update() {
         inventory.update();
         backpack.update();
         statistic.update();
+    }
+
+    public int getAttack(Attack attack)
+    {
+        return attack.attack();
     }
 
     public Inventory getInventory() {

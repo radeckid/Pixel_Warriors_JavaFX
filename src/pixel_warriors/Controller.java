@@ -1,12 +1,11 @@
 package pixel_warriors;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -22,10 +21,10 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
+import pixel_warriors.character.Player;
+import pixel_warriors.character.Statistic;
 import pixel_warriors.character.characterlogics.ItemFromDatabase;
 import pixel_warriors.character.characterlogics.LoadImage;
 import pixel_warriors.character.characterlogics.MoveItem;
@@ -39,23 +38,27 @@ import pixel_warriors.character.staffs.slots.SlotInventory;
 import pixel_warriors.character.Warrior;
 import pixel_warriors.htmlhelp.ShowRules;
 import pixel_warriors.missions.Missions;
+import pixel_warriors.missions.Quest;
 import pixel_warriors.ranking.RankPlayerTable;
 import pixel_warriors.ranking.RankPlayers;
 import pixel_warriors.innkeepercharacter.InnkeeperSpeak;
+import pixel_warriors.weaponanimation.WeaponAnimation;
 
-public class Controller implements Initializable {
+public class Controller {
 
-    private LoginDialog loginDialog = new LoginDialog();
+    private LoginDialog loginDialog;
     private ObservableList<RankPlayers> observableList;
     private RankPlayerTable rankPlayerTable = new RankPlayerTable();
     private Warrior player;
     private ItemsShow itemsShow;
+    private Figth figth;
+    private Missions missions;
 
     //top bar
     @FXML
     private Button statsBtn, inventoryBtn, tavernBtn, rankingBtn, banerBtn;
     @FXML
-    private Label lvl_Indicator;
+    private Label lvl_Indicator, goldLabel;
 
     //bottom bar
     @FXML
@@ -78,7 +81,6 @@ public class Controller implements Initializable {
     private ListView statisticVarListView, statisticNamesListView;
     private Label[] statisticsLabel;
 
-
     @FXML
     private Button weaponOneBtn, weaponTwoBtn, jaweleryBtn, glovesBtn, headBtn, chestBtn, legsBtn, shoesBtn;
     @FXML
@@ -88,7 +90,7 @@ public class Controller implements Initializable {
 
     //stats and inv character visual
     @FXML
-    private ImageView weaponOneShowImage, weaponTwoShowImage, headShowImage, chestShowImage, legsShowImage, shoesShowImage, glovesShowImageR, glovesShowImageL;
+    ImageView weaponOneShowImage, weaponTwoShowImage, headShowImage, chestShowImage, legsShowImage, shoesShowImage, glovesShowImageR, glovesShowImageL;
 
     //weared stuff images
     @FXML
@@ -125,16 +127,28 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<RankPlayers, String> colNick;
 
-
     //panels
     @FXML
     private AnchorPane banerPaneImage, statsPane, invPane, statsInvPane, tavernPane, rankPane, authorsPane, fightPane;
 
+    //fight panel
     @FXML
-    private Parent fightPaneInclude;
+    private Button firstAtkBtn, secondAtkBtn, thirdAtkBtn, surrBtn;
+    @FXML
+    private Label weaponAnimLabel, enemyWeaponLabel;
+    @FXML
+    private ImageView weaponAnimImg, enemyWeaponImg; //TODO ustawiamy img przy rozpoczeciu misji
+    @FXML
+    private Label playerEnergy, enemyHP, playerHP;
+    @FXML
+    private ProgressBar playerHpProgress, enemyHpProgress, energyPlayerProgress;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    //Weared Stuff Fight
+    @FXML
+    private ImageView weaponOneShowImageFight, weaponTwoShowImageFight, headShowImageFight, chestShowImageFight, legsShowImageFight, shoesShowImageFight, glovesShowImageRFight, glovesShowImageLFight;
+
+    @FXML
+    public void initialize() {
         image_quest = new LoadImage("background/tavern_quest.gif", "quest_smoke", EmptySlotType.Body).getImage();
         image_non_quest = new LoadImage("background/tavern.gif", "quest_no", EmptySlotType.Body).getImage();
 
@@ -180,8 +194,13 @@ public class Controller implements Initializable {
         //Missions buttons
 
         Button[] missionBtns = new Button[]{missionOneBtn, missionTwoBtn, missionThreeBtn};
-        Missions missions = new Missions();
-        missions.getMissionsDB(missionBtns);
+        Label[] missionLabels = new Label[]{missionOneLabel, missionTwoLabel, missionThreeLabel};
+
+        missions = new Missions();
+        missions.getMissionsDB(missionBtns, missionLabels);
+
+        //Zasady gry
+        showRules = new ShowRules();
 
     }
 
@@ -276,6 +295,7 @@ public class Controller implements Initializable {
     void bottomButtons(ActionEvent event) {
         if (event.getSource().equals(logoutBtn)) {
             musicPlay(false);
+            loginDialog = new LoginDialog();
             loginDialog.pStage.close();
             userNameLabel.setText("Zalogowano: NULL");
             lvl_Indicator.setText("NULL");
@@ -287,8 +307,7 @@ public class Controller implements Initializable {
             banerPaneImage.setVisible(false);
             authorsPane.setVisible(true);
         } else if (event.getSource().equals(helpBtn)) {
-            showRules.getInstance().showStage();
-
+            showRules.showStage();
         } else if (event.getSource().equals(musicBtn)) {
             if (musicBtn.isSelected()) {
                 musicImage.setImage(new Image(this.getClass().getResource("images/etc/music_off.gif").toString()));
@@ -430,6 +449,11 @@ public class Controller implements Initializable {
 
     @FXML
     void tavernPanel(ActionEvent event) {
+        Statistic statistic = new Statistic(1, 1, 1, 5, 3, 2, 200, 15, 1, 3, 1, 1, 1, 1);
+        Statistic statistic2 = new Statistic(3, 1, 1, 15, 12, 13, 150, 90, 1, 20, 15, 12, 10, 11);
+        Player opp = new Warrior(statistic);
+        Player playerCurrent = new Warrior(player.getStatistic());
+        Quest quest;
 
         if (event.getSource().equals(innkeeperBtn)) {
             if (imageFlag) {
@@ -453,16 +477,37 @@ public class Controller implements Initializable {
             }
         } else if (event.getSource().equals(missionOneBtn)) {
             disableButtons(true, true, true, true, true, true, true);
-            setPanels(false, false, false, false, false, false, false, true, true);
-
+            setPanels(false, false, false, false, false, false, false, true);
+            quest = missions.getQuests(0);
+            figth = new Figth(playerCurrent, opp, quest.getExp(), quest.getGold(), weaponAnimLabel, enemyWeaponLabel, playerHP, playerHpProgress, playerEnergy, energyPlayerProgress, enemyHP, enemyHpProgress);
+            figth.start();
         } else if (event.getSource().equals(missionTwoBtn)) {
             disableButtons(true, true, true, true, true, true, true);
-            setPanels(false, false, false, false, false, false, false, true, true);
-
+            setPanels(false, false, false, false, false, false, false, true);
+            quest = missions.getQuests(0);
+            figth = new Figth(playerCurrent, opp, quest.getExp(), quest.getGold(), weaponAnimLabel, enemyWeaponLabel, playerHP, playerHpProgress, playerEnergy, energyPlayerProgress, enemyHP, enemyHpProgress);
+            figth.start();
         } else if (event.getSource().equals(missionThreeBtn)) {
             disableButtons(true, true, true, true, true, true, true);
-            setPanels(false, false, false, false, false, false, false, true, true);
+            setPanels(false, false, false, false, false, false, false, true);
+            quest = missions.getQuests(0);
+            figth = new Figth(playerCurrent, opp, quest.getExp(), quest.getGold(), weaponAnimLabel, enemyWeaponLabel, playerHP, playerHpProgress, playerEnergy, energyPlayerProgress, enemyHP, enemyHpProgress);
+            figth.start();
+        }
+    }
 
+    @FXML
+    void fightButtons(ActionEvent event) {
+        if (event.getSource().equals(firstAtkBtn)) {
+            figth.setLightAttack(true);
+        } else if (event.getSource().equals(secondAtkBtn)) {
+            figth.setNormalAttack(true);
+        } else if (event.getSource().equals(thirdAtkBtn)) {
+            figth.setStrongAttack(true);
+        } else if (event.getSource().equals(surrBtn)) {
+            Main.getController().disableButtons(false, false, false, false, false, false, false);
+            Main.getController().setPanels(false, false, false, false, true, false, false, false);
+            figth.getMediaPlayer().stop();
         }
     }
 
@@ -548,16 +593,28 @@ public class Controller implements Initializable {
         return true;
     }
 
-    public void setPanels(boolean banerPaneImage, boolean statsPane, boolean invPane, boolean statsInvPane, boolean tavernPane, boolean rankPane, boolean authorsPane, boolean fightPane, boolean fightPaneInclude) {
+    public void setPanels(boolean banerPaneImage, boolean statsPane, boolean invPane, boolean statsInvPane, boolean tavernPane, boolean rankPane, boolean authorsPane, boolean fightPane) {
         this.statsInvPane.setVisible(statsInvPane);
         this.statsPane.setVisible(statsPane);
         this.invPane.setVisible(invPane);
+
+        if (tavernPane) {
+            missionOneBtn.setVisible(false);
+            missionTwoBtn.setVisible(false);
+            missionThreeBtn.setVisible(false);
+            missionOneLabel.setVisible(false);
+            missionTwoLabel.setVisible(false);
+            missionThreeLabel.setVisible(false);
+            tavernImage.setImage(image_non_quest);
+            innkeeperMouth.setVisible(false);
+            imageFlag = true;
+        }
+
         this.tavernPane.setVisible(tavernPane);
         this.rankPane.setVisible(rankPane);
         this.authorsPane.setVisible(authorsPane);
         this.banerPaneImage.setVisible(banerPaneImage);
         this.fightPane.setVisible(fightPane);
-        this.fightPaneInclude.setVisible(fightPaneInclude);
     }
 
     public void disableButtons(boolean banerBtn, boolean statsBtn, boolean inventoryBtn, boolean tavernBtn, boolean rankingBtn, boolean logoutBtn, boolean authorsBtn) {
@@ -568,6 +625,12 @@ public class Controller implements Initializable {
         this.rankingBtn.setDisable(rankingBtn);
         this.logoutBtn.setDisable(logoutBtn);
         this.authorsBtn.setDisable(authorsBtn);
+    }
+
+    public void disableFightButtons(boolean firstBtn, boolean secondBtn, boolean thirdBtn) {
+        firstAtkBtn.setDisable(firstBtn);
+        secondAtkBtn.setDisable(secondBtn);
+        thirdAtkBtn.setDisable(thirdBtn);
     }
 
     private void animTavernBoy() {
@@ -601,4 +664,5 @@ public class Controller implements Initializable {
         }
         mediaPlayer.setAutoPlay(play);
     }
+
 }

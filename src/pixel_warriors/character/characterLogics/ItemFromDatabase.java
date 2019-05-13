@@ -63,6 +63,39 @@ public class ItemFromDatabase {
 
     }
 
+    public void saveExpLevelGold(int experience, int level, int gold, String ID)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            String query = "Update Statistics set Experience=" + experience + " , Level=" + level + " , Gold=" + gold + " where IDPLayer_Statistic='" + ID + "';";
+            stmt.executeUpdate(query);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setExpLevelGold(Statistic statistic, String ID)
+    {
+        try
+        {
+            Statement stmt = con.createStatement();
+            String query = "SELECT Experience, Level, Gold from Statistics where IDPLayer_Statistic='" + ID + "';";
+            ResultSet rs = stmt.executeQuery(query);
+            statistic.setExp(rs.getInt(1));
+            statistic.setLevel(rs.getInt(2));
+            statistic.setGold(rs.getInt(3));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (InterruptedException ex)
+        {
+
+        }
+    }
+
     public Item getItem(ItemType item, int idItem, String idPlayer, Statement stmt, String where) {
         try {
             if (item == ItemType.empty)

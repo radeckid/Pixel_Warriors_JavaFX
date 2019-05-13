@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TableView;
 import pixel_warriors.character.characterlogics.ItemFromDatabase;
 
 public class Statistic {
@@ -45,6 +44,27 @@ public class Statistic {
         }
     }
 
+    public Statistic(Statistic statistic) {
+        try {
+            this.setLevel(statistic.getLevel());
+            this.setGold(statistic.getGold());
+            this.setExp(statistic.getExp());
+            this.setStrength(statistic.getStrength());
+            this.setAgility(statistic.getAgility());
+            this.setInteligence(statistic.getInteligence());
+            this.setHp(statistic.getHp());
+            this.setMana(statistic.getMana());
+            this.setStamina(statistic.getStamina());
+            this.setAttack(statistic.getAttack());
+            this.setPhysicalDefense(statistic.getPhysicalDefense());
+            this.setMagicalDefense(statistic.getMagicalDefense());
+            this.setCritical(statistic.getCritical());
+            this.setDefenseChance(statistic.getDefenseChance());
+        } catch (InterruptedException ex) {
+
+        }
+    }
+
     public String toString() {
         return "Magical: " + this.magicalDefense + "\n" +
                 "Physical: " + this.physicalDefense + "\n" +
@@ -70,7 +90,7 @@ public class Statistic {
         labels[9].setText(String.valueOf(getDefenseChance()));
         labels[10].setText(String.valueOf(getAttack()));
 
-        float expToNextLvl = 75 + (getLevel() * 25);
+        float expToNextLvl = 75 + ((getLevel() * 25) * getLevel());
         labels[11].setText(getExp() + " / " + (int) expToNextLvl);
         progressBar.setProgress(getExp() / expToNextLvl);
     }
@@ -110,8 +130,14 @@ public class Statistic {
     }
 
     public void setExp(int exp) throws InterruptedException {
+        int expToNextLvl = 75 + ((getLevel() * 25) * getLevel());
         if (exp >= 0 && exp >= this.exp) {
-            this.exp = exp;
+            if (exp >= expToNextLvl) {
+                this.exp = this.exp - expToNextLvl;
+                this.setLevel(this.getLevel() + 1);
+            } else {
+                this.exp = exp;
+            }
         } else {
             throw new InterruptedException("Wrong given exp");
         }
@@ -157,12 +183,8 @@ public class Statistic {
         return hp;
     }
 
-    public void setHp(int hp) throws InterruptedException {
-        if (hp >= 0) {
-            this.hp = hp;
-        } else {
-            throw new InterruptedException("Wrong given hp");
-        }
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public int getMana() {

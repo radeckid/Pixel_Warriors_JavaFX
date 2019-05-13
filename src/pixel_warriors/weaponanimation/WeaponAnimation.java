@@ -11,71 +11,61 @@ import javafx.util.Duration;
 
 public class WeaponAnimation {
 
-    private final Path path = new Path();
     private boolean isAnimated = false;
-
-    public WeaponAnimation() {
-    }
-
-    public WeaponAnimation(int x, int y) {
-        path.getElements().add(new MoveTo(x, y));
-        CubicCurveTo curve = new CubicCurveTo();
-        curve.setControlX1(125);
-        curve.setControlY1(-30);
-        curve.setControlX2(235);
-        curve.setControlY2(-30);
-        curve.setX(290);
-        curve.setY(40);
-        path.getElements().add(curve);
-    }
+    private int duration;
 
     public boolean isAnimated() {
         return isAnimated;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 
     private void setIsAnimated(boolean isAnimated) {
         this.isAnimated = isAnimated;
     }
 
-    public void atkAnim(Label weapon) {
+    public Path getPath(int fromX, int fromY, int toX, int toY, int conX1, int conY1, int conX2, int conY2) {
+        Path path = new Path();
+        path.getElements().add(new MoveTo(fromX, fromY));
+        CubicCurveTo curve = new CubicCurveTo();
+        curve.setControlX1(conX1);  //125
+        curve.setControlY1(conY1);  //-30
+        curve.setControlX2(conX2);  //235
+        curve.setControlY2(conY2);  //-30
+        curve.setX(toX);  //290
+        curve.setY(toY);   //40
+        path.getElements().add(curve);
+
+        return path;
+    }
+
+    public void atkAnim(Label weapon, int fromAngle, int toAngle, int duration, Path path) {
         setIsAnimated(true);
-        weapon.setVisible(true);
 
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(500));
+
+        this.duration = duration;
+
+        pathTransition.setDuration(Duration.millis(duration));
         pathTransition.setPath(path);
         pathTransition.setNode(weapon);
 
         RotateTransition rotateTransition = new RotateTransition(pathTransition.getDuration(), weapon);
-        rotateTransition.setFromAngle(-50);
-        rotateTransition.setToAngle(60);
+        rotateTransition.setFromAngle(fromAngle);
+        rotateTransition.setToAngle(toAngle);
 
         ParallelTransition parallelTransition = new ParallelTransition(pathTransition, rotateTransition);
+
+        weapon.setVisible(true);
+
         parallelTransition.play();
 
         parallelTransition.onFinishedProperty().set(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 weapon.setVisible(false);
-                setIsAnimated(false);
-            }
-        });
-
-    }
-
-    public void enemyAtkAnim(Label enemyWeapon) {
-        setIsAnimated(true);
-        enemyWeapon.setVisible(true);
-
-        TranslateTransition transition = new TranslateTransition(Duration.millis(500), enemyWeapon);
-        transition.setFromX(0);
-        transition.setToX(-220);
-        transition.play();
-
-        transition.onFinishedProperty().set(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                enemyWeapon.setVisible(false);
                 setIsAnimated(false);
             }
         });

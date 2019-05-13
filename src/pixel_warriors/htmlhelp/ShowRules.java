@@ -5,31 +5,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import pixel_warriors.LoginDialog;
+import pixel_warriors.Main;
 
 import java.io.IOException;
 
 public class ShowRules {
 
     private Stage stage;
-    private static ShowRules instance;
-    private ShowRules() {
+
+    public ShowRules() {
         try {
             start();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static ShowRules getInstance() {
-        if (instance == null) {
-            synchronized (ShowRules.class) {
-                if (instance == null) {
-                    instance = new ShowRules();
-                }
-            }
-        }
-        return instance;
     }
 
     public void start() throws IOException {
@@ -38,18 +27,20 @@ public class ShowRules {
 
         stage = new Stage();
         stage.setTitle("Zasady gry");
-        stage.setScene(new Scene((Parent) loader.load()));
+        stage.setScene(new Scene((Parent) loader.load(), 800, 500));
         stage.getIcons().add(new Image("pixel_warriors/images/etc/Icona_gif.gif"));
         stage.setMinHeight(500);
         stage.setMinWidth(800);
-        if (LoginDialog.pStage.isShowing()) {
-            stage.setX(LoginDialog.pStage.getX() + 50);
-            stage.setY(LoginDialog.pStage.getY() + 50);
+        if (Main.getStage().isShowing()) {
+            stage.setX(Main.getStage().getX() + 50);
+            stage.setY(Main.getStage().getY() + 50);
         }
     }
 
     public void showStage() {
-        if (!stage.isShowing()) {
+        if (stage.isShowing()) {
+            stage.close();
+        } else if (!stage.isShowing()) {
             stage.show();
         }
     }

@@ -19,7 +19,7 @@ import java.util.Optional;
 public class LoginDialog {
     private Dialog<ButtonType> dialog;
     private String headerText = "Witaj wojowniku!";
-    public static Stage pStage;
+    static Stage pStage;
     static Controller primaryController;
     private Connection connection;
     private static String loggedUser;
@@ -77,6 +77,8 @@ public class LoginDialog {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        } else {
+            dialog.close();
         }
     }
 
