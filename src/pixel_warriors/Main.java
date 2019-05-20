@@ -37,9 +37,9 @@ public class Main extends Application {
             @Override
             public void handle(WindowEvent event) {
                 event.consume();
-                primaryStage.close();
                 controller.musicPlay(false);
-                loginDialog.makeLoginDialog();
+                ExitPrompt exitPrompt = new ExitPrompt();
+                exitPrompt.makePrompt(getStage());
             }
         });
 

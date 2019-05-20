@@ -520,6 +520,7 @@ public class Controller {
         } else if (event.getSource().equals(thirdAtkBtn)) {
             figth.setStrongAttack(true);
         } else if (event.getSource().equals(surrBtn)) {
+            //TODO zmniejszana stamina dodac
             Main.getController().disableButtons(false, false, false, false, false, false, false);
             Main.getController().setPanels(false, false, false, false, true, false, false, false);
 
