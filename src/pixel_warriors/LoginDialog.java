@@ -79,6 +79,7 @@ public class LoginDialog {
             }
         } else {
             dialog.close();
+            pStage.close();
         }
     }
 

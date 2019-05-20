@@ -1,20 +1,17 @@
 package pixel_warriors;
 
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
-import javafx.util.Duration;
 import pixel_warriors.character.Attack.FactoryAttack;
 import pixel_warriors.character.Attack.TypeAttack;
 import pixel_warriors.character.Player;
 import pixel_warriors.character.characterlogics.ItemFromDatabase;
-import pixel_warriors.weaponanimation.WeaponAnimation;
+import pixel_warriors.weaponanimation.Animation;
 
-import java.io.File;
 import java.util.Random;
 
 public class Figth extends Thread {
@@ -23,8 +20,8 @@ public class Figth extends Thread {
     private int experience;
     private int gold;
     private boolean isWin;
-    private WeaponAnimation playerAnim = new WeaponAnimation(), enemyAnimation = new WeaponAnimation();
-    private Label weaponAnimLabel, enemyWeaponLabel, playerHP, enemyHP, playerEnergy;
+    private Animation playerAnim = new Animation(), enemyAnimation = new Animation(), indicatorAnimation = new Animation();
+    private Label weaponAnimLabel, enemyWeaponLabel, playerHP, enemyHP, playerEnergy, playerDMGIndi, enemyDMGIndi;
     private ProgressBar playerHpProgress, enemyHpProgress, energyPlayerProgress;
 
     private Path lightPath = playerAnim.getPath(80, 40, 290, 40, 125, 40, 235, 40),
@@ -41,11 +38,9 @@ public class Figth extends Thread {
 
     private Random random;
 
-    private boolean flagFigth = false;
+    private MediaPlayer fightMediaplayer;
 
-    private MediaPlayer mediaPlayer;
-
-    public Figth(Player player, Player opponent, int experience, int gold, Label weaponAnimLabel, Label enemyWeaponLabel, Label playerHP, ProgressBar playerHpProgress, Label playerEnergy, ProgressBar energyPlayerProgress, Label enemyHP, ProgressBar enemyHpProgress) {
+    public Figth(Player player, Player opponent, int experience, int gold, Label weaponAnimLabel, Label enemyWeaponLabel, Label playerHP, ProgressBar playerHpProgress, Label playerEnergy, ProgressBar energyPlayerProgress, Label enemyHP, ProgressBar enemyHpProgress, MediaPlayer fightMediaplayer, Label playerDMGIndi, Label enemyDMGIndi) {
         this.player = player;
         this.opponent = opponent;
         this.experience = experience;
@@ -58,17 +53,19 @@ public class Figth extends Thread {
         this.energyPlayerProgress = energyPlayerProgress;
         this.playerHpProgress = playerHpProgress;
         this.enemyHpProgress = enemyHpProgress;
+        this.fightMediaplayer = fightMediaplayer;
+        this.playerDMGIndi = playerDMGIndi;
+        this.enemyDMGIndi = enemyDMGIndi;
 
         lightAttack = false;
         normalAttack = false;
         strongAttack = false;
         random = new Random();
-        music();
     }
 
     @Override
     public void run() {
-        mediaPlayer.play();
+        fightMediaplayer.play();
         int att = 0;
         System.out.println("Fight start");
         System.out.println("Player: " + player.getStatistic().getHp());
@@ -123,6 +120,7 @@ public class Figth extends Thread {
             try {
                 Thread.sleep(playerAnim.getDuration());
                 upadateScreen(playerCurHp, playerCurEnergy, enemyCurHp);
+                setDmgIndicator(enemyDMGIndi, att);
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -156,6 +154,7 @@ public class Figth extends Thread {
             try {
                 Thread.sleep(enemyAnimation.getDuration());
                 upadateScreen(playerCurHp, playerCurEnergy, enemyCurHp);
+                setDmgIndicator(playerDMGIndi, att);
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -174,7 +173,8 @@ public class Figth extends Thread {
 
             }
         }
-        mediaPlayer.stop();
+        fightMediaplayer.stop();
+        Main.getController().getMediaPlayer().play();
     }
 
     public synchronized void setLightAttack(boolean lightAttack) {
@@ -202,41 +202,39 @@ public class Figth extends Thread {
         return strongAttack;
     }
 
-    private void music() {
-        String path = "src/pixel_warriors/audio/fight/fightMusic.mp3";
-        Media media = new Media(new File(path).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setVolume(0.1);
-    }
-
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
+    private void setDmgIndicator(Label who, int attack) {
+        Platform.runLater(() -> {
+            if (attack <= 0) {
+                who.setTextFill(Color.RED);
+                who.setText("-" + attack);
+            } else {
+                who.setTextFill(Color.DIMGRAY);
+                who.setText("BLOK");
+            }
+            indicatorAnimation.indiDMG(who, attack);
+        });
     }
 
     private void upadateScreen(float playerCurHp, float playerCurEnergy, float enemyCurHp) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
+        Platform.runLater(() -> {
 
-                playerHP.setText((int) player.getStatistic().getHp() + "/" + (int) playerCurHp);
-                playerHpProgress.setProgress(player.getStatistic().getHp() / playerCurHp);
+            playerHP.setText((int) player.getStatistic().getHp() + "/" + (int) playerCurHp);
+            playerHpProgress.setProgress(player.getStatistic().getHp() / playerCurHp);
 
-                if (player.getStatistic().getMana() > playerCurEnergy) {
-                    playerEnergy.setText((int) playerCurEnergy + "/" + (int) playerCurEnergy);
-                    try {
-                        player.getStatistic().setMana((int)playerCurEnergy);
-                    } catch (InterruptedException e) {
-                    }
-                } else {
-                    playerEnergy.setText((int) player.getStatistic().getMana() + "/" + (int) playerCurEnergy);
+            if (player.getStatistic().getMana() > playerCurEnergy) {
+                playerEnergy.setText((int) playerCurEnergy + "/" + (int) playerCurEnergy);
+                try {
+                    player.getStatistic().setMana((int) playerCurEnergy);
+                } catch (InterruptedException e) {
                 }
-
-                energyPlayerProgress.setProgress(player.getStatistic().getMana() / playerCurEnergy);
-
-                enemyHP.setText((int) opponent.getStatistic().getHp() + "/" + (int) enemyCurHp);
-                enemyHpProgress.setProgress(opponent.getStatistic().getHp() / enemyCurHp);
+            } else {
+                playerEnergy.setText((int) player.getStatistic().getMana() + "/" + (int) playerCurEnergy);
             }
+
+            energyPlayerProgress.setProgress(player.getStatistic().getMana() / playerCurEnergy);
+
+            enemyHP.setText((int) opponent.getStatistic().getHp() + "/" + (int) enemyCurHp);
+            enemyHpProgress.setProgress(opponent.getStatistic().getHp() / enemyCurHp);
         });
     }
 }

@@ -1,11 +1,13 @@
 package pixel_warriors;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -30,6 +32,17 @@ public class Main extends Application {
         LoginDialog.primaryController = getController();
         LoginDialog.pStage = getStage();
 //        loginDialog.makeLoginDialog();
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                event.consume();
+                primaryStage.close();
+                controller.musicPlay(false);
+                loginDialog.makeLoginDialog();
+            }
+        });
+
         primaryStage.show();  //TODO do wyrzucenia jak logowanie włączymy
 
     }

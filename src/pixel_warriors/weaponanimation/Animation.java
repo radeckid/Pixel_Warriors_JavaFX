@@ -1,6 +1,9 @@
 package pixel_warriors.weaponanimation;
 
-import javafx.animation.*;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -9,7 +12,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
-public class WeaponAnimation {
+public class Animation {
 
     private boolean isAnimated = false;
     private int duration;
@@ -69,6 +72,26 @@ public class WeaponAnimation {
                 setIsAnimated(false);
             }
         });
+    }
 
+    public void indiDMG(Label who, int attack) {
+        setIsAnimated(true);
+        who.setVisible(true);
+
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(who);
+        transition.setDuration(Duration.millis(800));
+        transition.setFromY(0);
+        transition.setToY(-20);
+
+        transition.play();
+
+        transition.onFinishedProperty().setValue(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                who.setVisible(false);
+                setIsAnimated(false);
+            }
+        });
     }
 }

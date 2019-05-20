@@ -1,10 +1,9 @@
 package pixel_warriors;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,36 +12,34 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
-import java.io.File;
-import java.sql.SQLException;
-
 import pixel_warriors.character.Player;
 import pixel_warriors.character.Statistic;
+import pixel_warriors.character.Warrior;
 import pixel_warriors.character.characterlogics.ItemFromDatabase;
 import pixel_warriors.character.characterlogics.LoadImage;
 import pixel_warriors.character.characterlogics.MoveItem;
 import pixel_warriors.character.staffs.Backpack;
 import pixel_warriors.character.staffs.Inventory;
-import pixel_warriors.character.staffs.items.*;
+import pixel_warriors.character.staffs.items.ItemType;
+import pixel_warriors.character.staffs.items.MainWeapon;
+import pixel_warriors.character.staffs.items.WeaponType;
 import pixel_warriors.character.staffs.itemsshowpanel.ItemsShow;
 import pixel_warriors.character.staffs.slots.EmptySlotType;
 import pixel_warriors.character.staffs.slots.SlotBackpack;
 import pixel_warriors.character.staffs.slots.SlotInventory;
-import pixel_warriors.character.Warrior;
 import pixel_warriors.htmlhelp.ShowRules;
+import pixel_warriors.innkeepercharacter.InnkeeperSpeak;
 import pixel_warriors.missions.Missions;
 import pixel_warriors.missions.Quest;
 import pixel_warriors.ranking.RankPlayerTable;
 import pixel_warriors.ranking.RankPlayers;
-import pixel_warriors.innkeepercharacter.InnkeeperSpeak;
-import pixel_warriors.weaponanimation.WeaponAnimation;
+
+import java.io.File;
+import java.sql.SQLException;
 
 public class Controller {
 
@@ -142,10 +139,14 @@ public class Controller {
     private Label playerEnergy, enemyHP, playerHP;
     @FXML
     private ProgressBar playerHpProgress, enemyHpProgress, energyPlayerProgress;
+    private MediaPlayer fightMediaplayer;
 
     //Weared Stuff Fight
     @FXML
     private ImageView weaponOneShowImageFight, weaponTwoShowImageFight, headShowImageFight, chestShowImageFight, legsShowImageFight, shoesShowImageFight, glovesShowImageRFight, glovesShowImageLFight;
+    @FXML
+    private Label playerDMGIndi, enemyDMGIndi;
+
 
     @FXML
     public void initialize() {
@@ -167,6 +168,12 @@ public class Controller {
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setVolume(0.1);
+
+        String path2 = "src/pixel_warriors/audio/fight/fightMusic.mp3";
+        Media media2 = new Media(new File(path2).toURI().toString());
+        fightMediaplayer = new MediaPlayer(media2);
+        fightMediaplayer.setCycleCount(MediaPlayer.INDEFINITE);
+        fightMediaplayer.setVolume(0.1);
 
         //items form database (lokalizacja do zmiany)
         ImageView[] viewsBackpack = new ImageView[]{slot_1_img, slot_2_img, slot_3_img, slot_4_img, slot_5_img, slot_6_img, slot_7_img, slot_8_img, slot_9_img, slot_10_img, slot_11_img, slot_12_img};
@@ -313,10 +320,12 @@ public class Controller {
                 musicImage.setImage(new Image(this.getClass().getResource("images/etc/music_off.gif").toString()));
                 mediaPlayer.setMute(true);
                 innkeeperSpeak.setMute(true);
+                fightMediaplayer.setMute(true);
             } else {
                 musicImage.setImage(new Image(this.getClass().getResource("images/etc/music_on.gif").toString()));
                 mediaPlayer.setMute(false);
                 innkeeperSpeak.setMute(false);
+                fightMediaplayer.setMute(false);
             }
         }
 
@@ -449,9 +458,9 @@ public class Controller {
 
     @FXML
     void tavernPanel(ActionEvent event) {
-        Statistic statistic = new Statistic(1, 1, 1, 5, 3, 2, 200, 15, 1, 3, 1, 1, 1, 1);
+        Statistic statistic = new Statistic(1, 1, 1, 2, 3, 2, 150, 15, 1, 22, 1, 1, 1, 1);
         Statistic statistic2 = new Statistic(3, 1, 1, 15, 12, 13, 150, 90, 1, 20, 15, 12, 10, 11);
-        Player opp = new Warrior(statistic);
+        Player opp = new Warrior(statistic2);
         Player playerCurrent = new Warrior(player.getStatistic());
         Quest quest;
 
@@ -478,21 +487,27 @@ public class Controller {
         } else if (event.getSource().equals(missionOneBtn)) {
             disableButtons(true, true, true, true, true, true, true);
             setPanels(false, false, false, false, false, false, false, true);
+            setVisualLook();
             quest = missions.getQuests(0);
-            figth = new Figth(playerCurrent, opp, quest.getExp(), quest.getGold(), weaponAnimLabel, enemyWeaponLabel, playerHP, playerHpProgress, playerEnergy, energyPlayerProgress, enemyHP, enemyHpProgress);
+            figth = new Figth(playerCurrent, opp, quest.getExp(), quest.getGold(), weaponAnimLabel, enemyWeaponLabel, playerHP, playerHpProgress, playerEnergy, energyPlayerProgress, enemyHP, enemyHpProgress, fightMediaplayer, playerDMGIndi, enemyDMGIndi);
             figth.start();
+            mediaPlayer.stop();
         } else if (event.getSource().equals(missionTwoBtn)) {
             disableButtons(true, true, true, true, true, true, true);
             setPanels(false, false, false, false, false, false, false, true);
+            setVisualLook();
             quest = missions.getQuests(0);
-            figth = new Figth(playerCurrent, opp, quest.getExp(), quest.getGold(), weaponAnimLabel, enemyWeaponLabel, playerHP, playerHpProgress, playerEnergy, energyPlayerProgress, enemyHP, enemyHpProgress);
+            figth = new Figth(playerCurrent, opp, quest.getExp(), quest.getGold(), weaponAnimLabel, enemyWeaponLabel, playerHP, playerHpProgress, playerEnergy, energyPlayerProgress, enemyHP, enemyHpProgress, fightMediaplayer, playerDMGIndi, enemyDMGIndi);
             figth.start();
+            mediaPlayer.stop();
         } else if (event.getSource().equals(missionThreeBtn)) {
             disableButtons(true, true, true, true, true, true, true);
             setPanels(false, false, false, false, false, false, false, true);
+            setVisualLook();
             quest = missions.getQuests(0);
-            figth = new Figth(playerCurrent, opp, quest.getExp(), quest.getGold(), weaponAnimLabel, enemyWeaponLabel, playerHP, playerHpProgress, playerEnergy, energyPlayerProgress, enemyHP, enemyHpProgress);
+            figth = new Figth(playerCurrent, opp, quest.getExp(), quest.getGold(), weaponAnimLabel, enemyWeaponLabel, playerHP, playerHpProgress, playerEnergy, energyPlayerProgress, enemyHP, enemyHpProgress, fightMediaplayer, playerDMGIndi, enemyDMGIndi);
             figth.start();
+            mediaPlayer.stop();
         }
     }
 
@@ -507,7 +522,12 @@ public class Controller {
         } else if (event.getSource().equals(surrBtn)) {
             Main.getController().disableButtons(false, false, false, false, false, false, false);
             Main.getController().setPanels(false, false, false, false, true, false, false, false);
-            figth.getMediaPlayer().stop();
+
+            if (figth.isAlive()) {
+                figth.stop();
+            }
+            fightMediaplayer.stop();
+            mediaPlayer.play();
         }
     }
 
@@ -593,6 +613,19 @@ public class Controller {
         return true;
     }
 
+    private void setVisualLook() {
+        weaponOneShowImageFight.setImage(weaponOneShowImage.getImage());
+        weaponTwoShowImageFight.setImage(weaponTwoShowImage.getImage());
+        headShowImageFight.setImage(headShowImage.getImage());
+        chestShowImageFight.setImage(chestShowImage.getImage());
+        legsShowImageFight.setImage(legsShowImage.getImage());
+        shoesShowImageFight.setImage(shoesShowImage.getImage());
+        glovesShowImageRFight.setImage(glovesShowImageR.getImage());
+        glovesShowImageLFight.setImage(glovesShowImageL.getImage());
+
+        weaponAnimImg.setImage(weaponOneShowImage.getImage());
+    }
+
     public void setPanels(boolean banerPaneImage, boolean statsPane, boolean invPane, boolean statsInvPane, boolean tavernPane, boolean rankPane, boolean authorsPane, boolean fightPane) {
         this.statsInvPane.setVisible(statsInvPane);
         this.statsPane.setVisible(statsPane);
@@ -656,6 +689,10 @@ public class Controller {
 
     public static boolean getFlag() {
         return imageFlag;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 
     public void musicPlay(boolean play) {
