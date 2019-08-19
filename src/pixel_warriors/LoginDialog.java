@@ -1,6 +1,5 @@
 package pixel_warriors;
 
-import Connection.ConnectionDB;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -9,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import pixel_warriors.connectiondb.ConnectionDB;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,11 +22,10 @@ public class LoginDialog {
     static Stage pStage;
     static Controller primaryController;
     private Connection connection;
-    private ConnectionDB connectionDB;
+    private static String loggedUser;
 
     LoginDialog() {
-        connectionDB = new ConnectionDB("lab_test", "lab", "lab");
-        connection = connectionDB.getConnection();
+        connection = ConnectionDB.getInstance().getConnection();
     }
 
     public void makeLoginDialog() {
@@ -78,26 +77,32 @@ public class LoginDialog {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        } else {
+            dialog.close();
+            pStage.close();
         }
     }
 
     private void dbConntect(String user, String pass) throws SQLException {
 
-        String sql = "SELECT Login, Password, Nick, Lvl FROM loginid  WHERE login = '" + user + "' AND password = '" + pass + "'";
+        String sql = "SELECT Nick, Password, IDPLayer, statistics.Level FROM players, statistics WHERE players.IDPLayer=statistics.IDPLayer_Statistic AND Nick='" + user + "' AND Password='" + pass + "';";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
 
         if (resultSet.next()) {
-            String characterName = resultSet.getString(3);
+            loggedUser = resultSet.getString(3);
             String characterLvl = resultSet.getString(4);
-            primaryController.setUserNameLabel("Zalogowano: " + characterName);
+            primaryController.setUserNameLabel(loggedUser);
             primaryController.setLvl_Indicator((characterLvl));
             primaryController.musicPlay(true);
             pStage.show();
-            connection.close();
         } else if (resultSet.next() == false) {
             headerText = "Błędny login lub hasło!";
             makeLoginDialog();
         }
+    }
+
+    public static String getLoggedUser() {
+        return loggedUser;
     }
 }
